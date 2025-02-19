@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 1
+    },
+    "auditLog": "C:\\Users\\priya\\OneDrive\\Desktop\\palash_wellness_app\\apps\\server\\src\\logs\\.8422d001aa26db0d7fa625ff27456d736dc7d551-audit.json",
+    "files": [
+        {
+            "date": 1739732605002,
+            "name": "C:\\Users\\priya\\OneDrive\\Desktop\\palash_wellness_app\\apps\\server\\src\\logs\\info-2025-02-17.log",
+            "hash": "50d51e7450a6409db8c21e73cf8dd3249ad61c26257fab76496eda830ee049bc"
+        },
+        {
+            "date": 1739818262182,
+            "name": "C:\\Users\\priya\\OneDrive\\Desktop\\palash_wellness_app\\apps\\server\\src\\logs\\info-2025-02-18.log",
+            "hash": "4fa5ea221f770b5ad77990fbf0f72d8def4c4091ea377e4133d2b99cf95fed25"
+        }
+    ],
+    "hashType": "sha256"
+}
