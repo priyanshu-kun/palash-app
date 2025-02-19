@@ -1,14 +1,14 @@
 "use client";
-import React, { useState } from 'react'
+import React from 'react'
 import Image from "next/image"
 import HeroImage from "@/app/assets/hero.png"
-import { motion } from "framer-motion";
 import DesignElements from '../design-elements/DesignElements';
 import VideoElement from '../design-elements/VideoElement';
 
 function Hero() {
 
-  const [selectedDate, setSelectedDate] = useState<number | null>(null);
+  // const [selectedDate, setSelectedDate] = useState<number | null>(null);
+
   const unavaliableDates = [3, 7, 8, 11, 14];
   const bookings = [2, 5, 10, 13]
   return (

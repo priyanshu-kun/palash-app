@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { ArrowUpCircle, Search } from "lucide-react"
+import { ArrowUpCircle } from "lucide-react"
 import { PrimaryButton } from "@/app/components/ui/buttons/index"
 import Logo from "@/app/assets/logo.png";
 import Image from "next/image";

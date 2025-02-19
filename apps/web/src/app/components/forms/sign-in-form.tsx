@@ -5,7 +5,7 @@ import type React from "react"
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { PrimaryButton, SecondaryButton } from "@/app/components/ui/buttons/index";
+import { PrimaryButton } from "@/app/components/ui/buttons/index";
 import { Input } from "@/app/components/ui/input/input";
 import { Label } from "@/app/components/ui/label/index";
 import { LoadingSpinner } from "@/app/components/forms/loading";
@@ -47,7 +47,7 @@ export function SignInForm() {
             type="email"
             placeholder="phone or pmail"
             value={email}
-            onChange={(e: any) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>

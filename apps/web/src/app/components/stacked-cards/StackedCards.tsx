@@ -8,7 +8,7 @@ import Cardc from "@/app/assets/card_c.png";
 import Cardd from "@/app/assets/card_d.png";
 import Carde from "@/app/assets/card_e.png";
 import { PrimaryButton } from '../ui/buttons';
-import { ArrowBigRight, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 // import { Card } from '@/app/components/ui/card/Card';
 
 const StackedCards = () => {

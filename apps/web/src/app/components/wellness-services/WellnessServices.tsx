@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { ArrowRight, Leaf } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { PrimaryButton, SecondaryButton } from "../ui/buttons"
 import YogaImg from "@/app/assets/wellness-services-img.jpg";
 import Leafs from "@/app/assets/leafs.png";

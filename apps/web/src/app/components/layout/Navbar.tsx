@@ -24,7 +24,7 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const navigateToAuth = (e: any) => {
+    const navigateToAuth = () => {
         // e.e.preventDefault();
         router.push('/sign-in');
     }
@@ -82,7 +82,7 @@ const Navbar = () => {
                         <button className="p-2 rounded-full hover:bg-gray-100">
                             <ShoppingCart className="h-6 w-6 text-gray-600" />
                         </button>
-                        <SecondaryButton onClick={(e) => navigateToAuth(e)} className=" px-8  border-gray-600 font-semibold text-gray-800  hover:bg-gray-100 ">
+                        <SecondaryButton onClick={() => navigateToAuth()} className=" px-8  border-gray-600 font-semibold text-gray-800  hover:bg-gray-100 ">
                             Sign in &#8594;
                         </SecondaryButton>
                     </div>
