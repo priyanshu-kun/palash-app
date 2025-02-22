@@ -49,7 +49,7 @@ class JWTService {
                         role: 'USER' | 'ADMIN';
                     };
                     if(d.phoneOrEmail) {
-                        resolve({phoneOrEmail: d.phoneOrEmail, role: 'USER'})
+                        resolve({phoneOrEmail: d.phoneOrEmail, role: d.role})
                         return
                     }
                 }

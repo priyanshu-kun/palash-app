@@ -125,9 +125,30 @@ exports.Prisma.UserScalarFieldEnum = {
   username: 'username',
   date_of_birth: 'date_of_birth',
   role: 'role',
-  bookings: 'bookings',
   created_at: 'created_at',
   updated_at: 'updated_at'
+};
+
+exports.Prisma.BookingScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  serviceId: 'serviceId',
+  date: 'date',
+  status: 'status',
+  paymentStatus: 'paymentStatus',
+  paymentIntentId: 'paymentIntentId',
+  totalAmount: 'totalAmount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AvailabilityScalarFieldEnum = {
+  id: 'id',
+  serviceId: 'serviceId',
+  date: 'date',
+  isBookable: 'isBookable',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.ServiceScalarFieldEnum = {
@@ -169,8 +190,23 @@ exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN'
 };
 
+exports.BookingStatus = exports.$Enums.BookingStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.PaymentStatus = exports.$Enums.PaymentStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  REFUNDED: 'REFUNDED',
+  FAILED: 'FAILED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
+  Booking: 'Booking',
+  Availability: 'Availability',
   Service: 'Service',
   Review: 'Review'
 };

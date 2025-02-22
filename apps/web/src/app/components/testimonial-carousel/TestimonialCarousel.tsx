@@ -104,11 +104,11 @@ export default function TestimonialCarousel() {
                       </blockquote>
                       <div className="flex flex-col items-center gap-2">
                         <div className="h-16 w-16 overflow-hidden rounded-full border-2 border-teal-600">
-                          <Image
+                          {/* <Image
                             src={testimonial.avatar || "/placeholder.svg"}
                             alt=""
                             className="h-full w-full object-cover"
-                          />
+                          /> */}
                         </div>
                         <div className="text-center">
                           <div className="font-semibold text-white">{testimonial.author}</div>

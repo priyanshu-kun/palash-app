@@ -37,3 +37,15 @@ export interface JWTKeysConfig {
    privateKeyPassphrase: string;
    publicKeyFile: string;
 }
+
+
+export interface CreateBookingInput {
+  userId: string;
+  serviceId: string;
+  date: Date;
+}
+
+export interface ICreateInBulkAvailablityInput {
+   isBookable: Boolean
+   dates: []
+}

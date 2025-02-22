@@ -1,0 +1,1 @@
+export {default as BookingRouter} from './booking.router.js';

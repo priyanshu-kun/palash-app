@@ -3,9 +3,12 @@ import AuthController from "../../controllers/users/auth.controller.js";
 
 const router = Router();
 
-router.post("/sign-up", AuthController.signUp)
-router.post("/verify-signup-otp", AuthController.verifySignUpOTP)
-router.post("/sign-in", AuthController.signIn)
-router.post("/verify-signin-otp", AuthController.verifySignInOTP)
+const authControllerInstance = new AuthController();
+
+router.post("/sign-up", authControllerInstance.signUp)
+router.post("/verify-signup-otp", authControllerInstance.verifySignUpOTP)
+router.post("/sign-in", authControllerInstance.signIn)
+router.post("/verify-signin-otp", authControllerInstance.verifySignInOTP)
+router.post("/log-out", authControllerInstance.logOut)
 
 export default router;
