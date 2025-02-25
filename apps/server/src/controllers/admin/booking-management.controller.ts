@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { withTransaction } from "@palash/db-client";
+import { prisma, withTransaction } from "@palash/db-client";
 import { ICreateInBulkAvailablityInput } from "../../@types/interfaces.js";
 
 class BookingManagementController {
@@ -39,7 +39,27 @@ class BookingManagementController {
     }
     async updateAvailablityForSpecificDate(req: Request, res: Response, next: NextFunction): Promise<any> {
         try {
+            const { serviceId, date } = req.params;
+            const { isBookable } = req.body;
 
+            const availability = await prisma.availability.upsert({
+                where: {
+                    serviceId_date: {
+                        serviceId,
+                        date: new Date(date),
+                    },
+                },
+                update: {
+                    isBookable,
+                },
+                create: {
+                    serviceId,
+                    date: new Date(date),
+                    isBookable,
+                },
+            });
+
+            return res.json(availability);
 
         }
         catch (err) {

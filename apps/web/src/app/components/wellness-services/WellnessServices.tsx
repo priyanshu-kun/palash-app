@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react"
 import { PrimaryButton, SecondaryButton } from "../ui/buttons"
 import YogaImg from "@/app/assets/wellness-services-img.jpg";
 import Leafs from "@/app/assets/leafs.png";
+import Link from "next/link";
 
 export default function WellnessServices() {
   return (
@@ -12,7 +13,7 @@ export default function WellnessServices() {
         <h1 className="text-white text-5xl text-center mb-8">Services</h1>
 
         {/* Navigation */}
-        <nav className="flex flex-wrap justify-center gap-8 mb-12">
+        {/* <nav className="flex flex-wrap justify-center gap-8 mb-12">
           <PrimaryButton  className="bg-white text-black hover:bg-white/90">
             Yoga
           </PrimaryButton>
@@ -28,7 +29,7 @@ export default function WellnessServices() {
           <PrimaryButton className="text-white bg-transparent hover:bg-white/10">
             Live Sessions
           </PrimaryButton>
-        </nav>
+        </nav> */}
 
         {/* Main Content */}
         <div className={`relative rounded-3xl  border-2 border-white/40 backdrop-blur-sm p-8 overflow-hidden`}>
@@ -52,14 +53,14 @@ export default function WellnessServices() {
               </p>
 
               <div className="space-y-4">
-                <SecondaryButton  className="w-full justify-between border-white text-white hover:text-white text-xl py-6">
+                {/* <SecondaryButton  className="w-full justify-between border-white text-white hover:text-white text-xl py-6">
                   Group Sessions
                   <ArrowRight className="ml-2 h-6 w-6" />
                 </SecondaryButton>
                 <SecondaryButton  className="w-full justify-between border-white text-white hover:text-white text-xl py-6">
                   Crisis Helpline
                   <ArrowRight className="ml-2 h-6 w-6" />
-                </SecondaryButton>
+                </SecondaryButton> */}
               </div>
             </div>
 
@@ -82,10 +83,12 @@ export default function WellnessServices() {
                     One-on-one sessions with our expert also experienced mental health therapists.
                   </p>
                     </div>
+                    <Link href="/services">
                   <PrimaryButton className="bg-[#2F5753] mt-14 px-8 ml-4 hover:bg-[#2F5753]/90">
                     Get Started
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </PrimaryButton>
+                    </Link>
                 </div>
               </div>
 

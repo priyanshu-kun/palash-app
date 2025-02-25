@@ -6,7 +6,7 @@ const bookingInstance = new BookingController();
 
 BookingRouter.get('/fetch-bookings', bookingInstance.fetchBookings);
 BookingRouter.get('/fetch-booking/:id', bookingInstance.fetchBookingById);
-BookingRouter.get("/availability/:serviceId", bookingInstance.checkAvailableDatesForService);
+BookingRouter.get("/availability/:serviceId", bookingInstance.fetchAvailableDatesForService);
 BookingRouter.post("/create-booking", bookingInstance.createBooking);
 
 export default BookingRouter;
