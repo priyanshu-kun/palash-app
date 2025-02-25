@@ -59,7 +59,7 @@ const Navbar = () => {
                         {/* Navigation Links */}
                         <div className="hidden md:flex text-sm font-semibold items-center space-x-8">
                             <Link href="/admin-dashboard/services" className="text-gray-500  hover:text-gray-900">
-                               Admin 
+                               Services 
                             </Link>
                             <Link href="/services" className="text-gray-500 hover:text-gray-900">
                                 Wellness Programs
