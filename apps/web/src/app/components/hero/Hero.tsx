@@ -4,8 +4,11 @@ import Image from "next/image"
 import HeroImage from "@/app/assets/hero.png"
 import DesignElements from '../design-elements/DesignElements';
 import VideoElement from '../design-elements/VideoElement';
+import { useRouter } from 'next/navigation';
 
 function Hero() {
+
+  const router = useRouter();
 
   // const [selectedDate, setSelectedDate] = useState<number | null>(null);
 
@@ -44,7 +47,10 @@ function Hero() {
             ))}
           </div>
         </div>
-        <button className="w-full py-2 bg-primary_button text-white rounded-full flex items-center justify-center space-x-2 hover:bg-gray-900 transition">
+        <button onClick={(e: any) => {
+          e.preventDefault();
+          router.push('/services')
+        }} className="w-full py-2 bg-primary_button text-white rounded-full flex items-center justify-center space-x-2 hover:bg-gray-900 transition">
           <span>Book Now</span>
           <span>→</span>
         </button>

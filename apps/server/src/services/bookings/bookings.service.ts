@@ -1,5 +1,5 @@
 import { CreateBookingInput } from "../../@types/interfaces.js";
-import { withTransaction } from "@palash/db-client";
+import { withTransaction, prisma } from "@palash/db-client";
 
 class BookingService {
     async createBooking(bookingData: CreateBookingInput): Promise<any> {
@@ -35,9 +35,8 @@ class BookingService {
                     },
                 });
 
-                // 5. Process payment (dummy implementation)
+                // >> Process payment (dummy implementation)
 
-                // 6. Update booking with payment info
                 const updatedBooking = await tx.booking.update({
                     where: { id: booking.id },
                     data: {
@@ -47,7 +46,7 @@ class BookingService {
                     },
                 });
 
-                // 7. Send confirmation email
+                // >> Send confirmation email
 
                 return updatedBooking;
 
@@ -55,6 +54,57 @@ class BookingService {
         }
         catch (err: any) {
             console.log(err);
+            throw new Error(err);
+        }
+    }
+
+    async fetchBookings(serviceId: string, userId: string): Promise<any> {
+        try {
+            return await prisma.booking.findMany({
+                where: {
+                    userId,
+                    serviceId
+                }
+            });
+        }
+        catch (err: any) {
+            throw new Error(err);
+        }
+    }
+
+
+    async fetchBookingById(bookingId: string): Promise<any> {
+        try {
+            return await prisma.booking.findUnique({
+                where: {
+                    id: bookingId
+                }
+            })
+        }
+        catch (err: any) {
+            throw new Error(err);
+        }
+    }
+
+    async fetchAvailableDates(data: {serviceId: string; startDate: string; endDate: string;}): Promise<any> {
+        try {
+            const { serviceId, startDate, endDate } = data;
+
+            return await prisma.availability.findMany({
+                where: {
+                    serviceId,
+                    date: {
+                        gte: new Date(startDate as string),
+                        lte: new Date(endDate as string),
+                    },
+                },
+                orderBy: {
+                    date: 'asc',
+                },
+            });
+
+        }
+        catch (err: any) {
             throw new Error(err);
         }
     }

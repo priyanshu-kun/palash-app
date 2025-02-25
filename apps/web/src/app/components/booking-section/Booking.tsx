@@ -3,6 +3,7 @@ import Image from "next/image"
 import { Play, Lock, Heart, Users } from "lucide-react"
 import Ornament from "@/app/assets/Ornament.png";
 import { PrimaryButton, SecondaryButton } from "../ui/buttons";
+import Link from "next/link";
 
 export default function WellnessHero() {
   return (
@@ -26,8 +27,10 @@ export default function WellnessHero() {
             className="w-full object-cover aspect-[4/5]"
           />
           <div className="absolute bottom-0 left-0 py-6 px-4 flex gap-4 w-full bg-white/30">
-            <PrimaryButton className="w-[40%]">Book now</PrimaryButton>
-            <SecondaryButton className="w-[60%]">Check Availability</SecondaryButton>
+          <Link href="/services" className="w-full">
+            <PrimaryButton className="w-[40%] mx-auto block">Book now</PrimaryButton>
+          </Link>
+            {/* <SecondaryButton className="w-[60%]">Check Availability</SecondaryButton> */}
           </div>
         </div>
 
@@ -38,9 +41,9 @@ export default function WellnessHero() {
             Ayurveda not only focus on disease. But also, Ayurveda maintains that all life must be supported by energy
             in balance. When there is minimal stress and the flow of energy within a person is balanced.
           </p>
-          <PrimaryButton className="bg-white text-black px-8 hover:bg-white hover:opacity-80">
+          {/* <PrimaryButton className="bg-white text-black px-8 hover:bg-white hover:opacity-80">
             View All Bookings <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
-          </PrimaryButton>
+          </PrimaryButton> */}
 
           {/* Feature Cards */}
           <div className="grid md:grid-cols-3 gap-6 pt-8">

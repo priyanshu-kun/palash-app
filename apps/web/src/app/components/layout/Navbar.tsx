@@ -30,7 +30,7 @@ const Navbar = () => {
     }
 
     return (
-        <nav className={`fixed top-10 left-1/2  rounded-lg w-full max-w-[90%] z-10 transition-all -translate-x-1/2 duration-300 ${isScrolled ? 'bg-white/80 backdrop-blur-md shadow-sm' : 'bg-white'
+        <nav className={`fixed top-10 left-1/2 rounded-lg w-full max-w-[90%] z-10 transition-all -translate-x-1/2 duration-300 ${isScrolled ? 'bg-white/80 backdrop-blur-md shadow-md' : 'bg-gray-100'
             }`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
@@ -58,13 +58,13 @@ const Navbar = () => {
 
                         {/* Navigation Links */}
                         <div className="hidden md:flex text-sm font-semibold items-center space-x-8">
-                            <Link href="/services" className="text-gray-500  hover:text-gray-900">
-                                Services & Booking
+                            <Link href="/admin-dashboard/services" className="text-gray-500  hover:text-gray-900">
+                               Admin 
                             </Link>
-                            <Link href="/wellness" className="text-gray-500 hover:text-gray-900">
+                            <Link href="/services" className="text-gray-500 hover:text-gray-900">
                                 Wellness Programs
                             </Link>
-                            <Link href="/community" className="text-gray-500 hover:text-gray-900">
+                            <Link href="https://palash-app-forum.vercel.app/" target='__blank' className="text-gray-500 hover:text-gray-900">
                                 Community Forum
                             </Link>
                             <Link href="/about" className="text-gray-500 hover:text-gray-900">
@@ -76,12 +76,12 @@ const Navbar = () => {
 
                     {/* Right Section */}
                     <div className="flex items-center space-x-4">
-                        <button className="p-2 rounded-full hover:bg-gray-100">
+                        {/* <button className="p-2 rounded-full hover:bg-gray-100">
                             <Bell className="h-6 w-6 text-gray-600" />
                         </button>
                         <button className="p-2 rounded-full hover:bg-gray-100">
                             <ShoppingCart className="h-6 w-6 text-gray-600" />
-                        </button>
+                        </button> */}
                         <SecondaryButton onClick={() => navigateToAuth()} className=" px-8  border-gray-600 font-semibold text-gray-800  hover:bg-gray-100 ">
                             Sign in &#8594;
                         </SecondaryButton>
