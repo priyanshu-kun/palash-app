@@ -35,8 +35,6 @@ class BookingService {
                     },
                 });
 
-                // >> Process payment (dummy implementation)
-
                 const updatedBooking = await tx.booking.update({
                     where: { id: booking.id },
                     data: {

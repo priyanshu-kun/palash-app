@@ -68,6 +68,7 @@ class AdminServiceManagementController {
       const { deleteImages } = req.body;
       const uploadedImages = req.files as Express.Multer.File[];
 
+
       if (!serviceId) {
         res.status(400).json({ error: "Service ID is required" });
       }
@@ -81,17 +82,24 @@ class AdminServiceManagementController {
       const serviceFolder = path.join(__dirname, "../uploads", service.name);
       let updatedMedia = service.media;
 
-      if (deleteImages && Array.isArray(deleteImages)) {
-        for (const img of deleteImages) {
+      const parsedDeletedImages = JSON.parse(deleteImages);
+
+      if (parsedDeletedImages && Array.isArray(parsedDeletedImages)) {
+        for (const img of parsedDeletedImages) {
           const imgPath = path.join(serviceFolder, img);
           if (fs.existsSync(imgPath)) {
             fs.unlinkSync(imgPath);
           }
         }
-        updatedMedia = updatedMedia.filter((img: any) => !deleteImages.includes(img));
+        updatedMedia = updatedMedia.filter((img: any) => {
+          const splitedData = img.split('/');
+          const imgName = splitedData[splitedData.length-1];
+          return !parsedDeletedImages.includes(imgName);
+        });
+
       }
 
-      const newImages = uploadedImages.map(file => file.filename);
+      const newImages = uploadedImages.map(file => `/uploads/${service.name}/${file.filename}`);
       updatedMedia = [...updatedMedia, ...newImages].slice(0, 10);
 
       await prisma.service.update({
