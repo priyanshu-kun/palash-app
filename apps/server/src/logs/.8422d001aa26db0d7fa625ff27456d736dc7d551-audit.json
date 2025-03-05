@@ -6,14 +6,9 @@
     "auditLog": "C:\\Users\\priya\\OneDrive\\Desktop\\palash_wellness_app\\apps\\server\\src\\logs\\.8422d001aa26db0d7fa625ff27456d736dc7d551-audit.json",
     "files": [
         {
-            "date": 1740916467191,
-            "name": "C:\\Users\\priya\\OneDrive\\Desktop\\palash_wellness_app\\apps\\server\\src\\logs\\info-2025-03-02.log",
-            "hash": "141e64b322ddd8f9ba7ea3771e2625c3da3633dc4af65fdf63493be0f07e2b89"
-        },
-        {
-            "date": 1740987879544,
-            "name": "C:\\Users\\priya\\OneDrive\\Desktop\\palash_wellness_app\\apps\\server\\src\\logs\\info-2025-03-03.log",
-            "hash": "458cd4dab704821334adee06c9850c5c706d256b409000d2f718f6adf06991ae"
+            "date": 1741149709681,
+            "name": "C:\\Users\\priya\\OneDrive\\Desktop\\palash_wellness_app\\apps\\server\\src\\logs\\info-2025-03-05.log",
+            "hash": "395f3a59c93505cc9fac6e1170f258563cfde2a97750549cb35a657d2a4376d7"
         }
     ],
     "hashType": "sha256"

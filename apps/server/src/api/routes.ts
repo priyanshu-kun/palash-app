@@ -10,8 +10,8 @@ const router = Router();
 
 router.use('/admin', authMiddleware, authorizeRoles(['ADMIN']),  ManagementRouter);
 router.use('/services', ServiceListingRouter)
-router.use('/payment', authMiddleware, authorizeRoles(['ADMIN']), PaymentRouter)
-router.use('/booking', authMiddleware, authorizeRoles(['ADMIN']), BookingRouter)
-router.use('/users', authMiddleware, authorizeRoles(['ADMIN']), UserRouter);
+router.use('/payment', authMiddleware, PaymentRouter)
+router.use('/booking', authMiddleware, BookingRouter)
+router.use('/users',authMiddleware, UserRouter);
 
 export default router;

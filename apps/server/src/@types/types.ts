@@ -8,3 +8,12 @@ export type WebhookEventType =
     | 'refund.created'
     | 'refund.processed'
     | 'order.paid';
+
+
+
+export type UserData = {
+    name: string;
+    phone_or_email: string;
+    username: string;
+    dob: string;
+};
