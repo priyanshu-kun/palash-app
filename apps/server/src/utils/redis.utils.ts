@@ -3,12 +3,12 @@ import { redisClient } from "../adapters/redis.adapter.js";
 
 export async function storeSignUpOtp(data: { otp: string; name: string; username: string; phoneOrEmail: string; dob: string; }) {
     const key: string = `otp:signup:${data.phoneOrEmail}`;
-    await redisClient.setEx(key, 120, JSON.stringify(data));
+    await redisClient.setEx(key, 600, JSON.stringify(data));
 }
 
 export async function storeSignInOtp(data: {otp: string; phoneOrEmail: string;}) {
     const key: string = `otp:signin:${data.phoneOrEmail}`;
-    await redisClient.setEx(key, 120, JSON.stringify(data));
+    await redisClient.setEx(key, 600, JSON.stringify(data));
 }
 
 

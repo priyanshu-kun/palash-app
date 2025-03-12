@@ -12,6 +12,6 @@ router.use('/admin', authMiddleware, authorizeRoles(['ADMIN']),  ManagementRoute
 router.use('/services', ServiceListingRouter)
 router.use('/payment', authMiddleware, PaymentRouter)
 router.use('/booking', authMiddleware, BookingRouter)
-router.use('/users',authMiddleware, UserRouter);
+router.use('/users', UserRouter);
 
 export default router;

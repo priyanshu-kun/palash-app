@@ -34,7 +34,7 @@ class AuthServices {
 
             await storeSignUpOtp(tempUser);
 
-            // await sendMail();
+            await sendMail({phoneOrEmail, otp});
 
             return { message: "OTP sent for signin.", otp: otp };
         }
@@ -82,7 +82,8 @@ class AuthServices {
             if (!user) throw new Error("User not found. Please sign up.");
 
             const otp: string = generateOtp();
-            // await sendMail();
+
+            await sendMail({ phoneOrEmail, otp});
 
             await storeSignInOtp({otp, phoneOrEmail});
 
