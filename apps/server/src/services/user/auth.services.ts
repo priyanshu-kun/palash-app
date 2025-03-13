@@ -118,6 +118,126 @@ class AuthServices {
             throw new Error(`${err.message}`);
         }
     }
+
+    static async createNewAdmin(user: SignUpDTO) {
+        try {
+            const { name, username, phoneOrEmail, dob } = user;
+
+            const isUserExists = await prisma.user.findFirst({
+                where: { OR: [{ username }, { "phone_or_email": phoneOrEmail }] },
+            });
+
+            if (isUserExists) {
+                throw new Error("Username or Phone/Email already taken.");
+            }
+
+            const otp: string = generateOtp();
+
+            const tempUser = {
+                otp,
+                name,
+                username,
+                phoneOrEmail,
+                dob,
+                role: 'ADMIN'
+            }
+
+            await storeSignUpOtp(tempUser);
+
+            await sendMail({phoneOrEmail, otp});
+
+            return { message: "OTP sent for admin registration.", otp: otp };
+        }
+        catch (err: any) {
+            throw new Error(`${err.message}`);
+        }
+    }
+
+    static async verifyAdminSignUpOtp(data: VerifyOtpDTO) {
+        try {
+            const { phoneOrEmail, otp } = data;
+
+            const savedUser = await getOtpData(phoneOrEmail, "signup");
+            if (!savedUser) throw new Error("OTP expired");
+
+            if (savedUser.otp !== otp) throw new Error("Invalid OTP");
+
+            await deleteOtp(phoneOrEmail, "signup");
+
+            await prisma.user.create({
+                data: {
+                    phone_or_email: phoneOrEmail,
+                    name: savedUser.name,
+                    username: savedUser.username,
+                    date_of_birth: new Date(savedUser.dob),
+                    role: 'ADMIN'
+                },
+            });
+
+            const jwtServiceInstance = new JWTService();
+            const token = await jwtServiceInstance.generateToken(phoneOrEmail, 'ADMIN');
+
+            return { message: "Admin registration successful.", token };
+        }
+        catch (err: any) {
+            throw new Error(`${err.message}`);
+        }
+    }
+
+    static async adminSignIn(data: SignInDTO) {
+        try {
+            const { phoneOrEmail } = data;
+
+            const user = await prisma.user.findUnique({ 
+                where: { 
+                    phone_or_email: phoneOrEmail,
+                    role: 'ADMIN'
+                } 
+            });
+            
+            if (!user) throw new Error("Admin not found. Please register as admin.");
+
+            const otp: string = generateOtp();
+
+            await sendMail({ phoneOrEmail, otp});
+            await storeSignInOtp({otp, phoneOrEmail});
+
+            return { message: "OTP sent for admin login.", otp };
+        }
+        catch (err: any) {
+            throw new Error(`${err.message}`);
+        }
+    }
+
+    static async verifyAdminSignInOtp(data: VerifyOtpDTO) {
+        try {
+            const { phoneOrEmail, otp } = data;
+
+            const savedUser = await getOtpData(phoneOrEmail, "signin");
+            if (!savedUser) throw new Error("OTP expired");
+
+            if (savedUser.otp !== otp) throw new Error("Invalid OTP");
+
+            await deleteOtp(phoneOrEmail, "signin");
+
+            const user = await prisma.user.findUnique({ 
+                where: { 
+                    phone_or_email: phoneOrEmail,
+                    role: 'ADMIN'
+                } 
+            });
+            
+            if (!user) throw new Error("Admin not found. Please register as admin.");
+
+            const jwtServiceInstance = new JWTService();
+            const token = await jwtServiceInstance.generateToken(phoneOrEmail, 'ADMIN');
+
+            return { message: "Admin login successful.", token };
+        }
+        catch (err: any) {
+            throw new Error(`${err.message}`);
+        }
+    }
 }
 
 export default AuthServices;

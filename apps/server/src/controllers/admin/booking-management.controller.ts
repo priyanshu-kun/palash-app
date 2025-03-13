@@ -45,17 +45,17 @@ class BookingManagementController {
             const availability = await prisma.availability.upsert({
                 where: {
                     serviceId_date: {
-                        serviceId,
+                        service_id: serviceId,
                         date: new Date(date),
                     },
                 },
                 update: {
-                    isBookable,
+                    is_bookable: isBookable,
                 },
                 create: {
-                    serviceId,
+                    service_id: serviceId,
                     date: new Date(date),
-                    isBookable,
+                    is_bookable: isBookable,
                 },
             });
 

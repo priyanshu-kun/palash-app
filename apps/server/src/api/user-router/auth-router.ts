@@ -9,6 +9,7 @@ router.post("/sign-up", authControllerInstance.signUp)
 router.post("/verify-signup-otp", authControllerInstance.verifySignUpOTP)
 router.post("/sign-in", authControllerInstance.signIn)
 router.post("/verify-signin-otp", authControllerInstance.verifySignInOTP)
+router.post("/create-new-admin", authControllerInstance.createNewAdmin)
 router.post("/log-out", authControllerInstance.logOut)
 
 export default router;

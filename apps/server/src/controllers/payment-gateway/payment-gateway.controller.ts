@@ -2,63 +2,69 @@ import {Request, Response, NextFunction} from "express";
 import { ICreateCustomerParams, IVerifyPaymentParams } from "../../@types/interfaces.js";
 import PaymentGateway from "../../services/payment-gateway/payment.service.js";
 import { razorpayConfig } from "../../config/razorpay.config.js";
+import { asyncHandler } from "../../utils/asyncHandler.js";
+import { ValidationError, UnauthorizedError, NotFoundError } from "../../utils/errors.js";
 
 class PaymentGatewayController {
-    private paymentGatewayInstance;
+    private paymentGatewayInstance: PaymentGateway;
+
     constructor() {
         this.paymentGatewayInstance = new PaymentGateway(razorpayConfig);
     }
-    async verifyPayment(req: Request, res: Response, next: NextFunction): Promise<any> {
-        try {
-            const params: IVerifyPaymentParams = req.body;
-            const verifiedPayment = this.paymentGatewayInstance.verifyPaymentSignature(params); 
-            if(!verifiedPayment) {
-                return res.status(401).json({message: "UnVerified transaction"}); 
-            }
-            return res.json({message: "Verified transaction"}); 
-        }
-        catch(err: any) {
-            console.log(err);
-            return res.status(500).json(err);
-        }
-    }
 
-    async newRazorpayCustomer(req: Request, res: Response, next: NextFunction): Promise<any> {
-        try {
-            const params: ICreateCustomerParams = req.body;
-            const customer = await this.paymentGatewayInstance.createRazorpayCustomer(params); 
-            res.json({message: "New customer created!"})
+    verifyPayment = asyncHandler(async (req: Request, res: Response) => {
+        const params: IVerifyPaymentParams = req.body;
+        
+        if (!params.orderId || !params.paymentId || !params.signature) {
+            throw new ValidationError('Order ID, payment ID and signature are required');
         }
-        catch(err: any) {
-            console.log(err);
-            return res.status(500).json(err);
-        }
-    }
 
-    async fetchPaymentDetails(req: Request, res: Response, next: NextFunction): Promise<any> {
-        try {
-            const {paymentId} = req.body;
-            const details = await this.paymentGatewayInstance.getPaymentDetails(paymentId); 
-            res.json(details)
+        const verifiedPayment = this.paymentGatewayInstance.verifyPaymentSignature(params);
+        
+        if (!verifiedPayment) {
+            throw new UnauthorizedError('Payment verification failed');
         }
-        catch(err: any) {
-            console.log(err);
-            return res.status(500).json(err);
-        }
-    }
 
+        return res.json({ message: "Verified transaction" });
+    });
 
-    async processRefund(req: Request, res: Response, next: NextFunction): Promise<any> {
-        try {
-            const {paymentId, amount}: {paymentId: string; amount: string} = req.body;
-            await this.paymentGatewayInstance.processRefund(paymentId, amount); 
-            res.json({message: "Refund Issued"})
+    newRazorpayCustomer = asyncHandler(async (req: Request, res: Response) => {
+        const params: ICreateCustomerParams = req.body;
+        
+        if (!params.name || !params.email_or_phone) {
+            throw new ValidationError('Name and email/phone are required');
         }
-        catch(err: any) {
-            console.log(err);
-            return res.status(500).json(err);
+
+        const customer = await this.paymentGatewayInstance.createRazorpayCustomer(params);
+        return res.json({ message: "New customer created!", customer });
+    });
+
+    fetchPaymentDetails = asyncHandler(async (req: Request, res: Response) => {
+        const { paymentId } = req.body;
+        
+        if (!paymentId) {
+            throw new ValidationError('Payment ID is required');
         }
-    }
+
+        const details = await this.paymentGatewayInstance.getPaymentDetails(paymentId);
+        
+        if (!details) {
+            throw new NotFoundError(`Payment details not found for ID ${paymentId}`);
+        }
+
+        return res.json(details);
+    });
+
+    processRefund = asyncHandler(async (req: Request, res: Response) => {
+        const { paymentId, amount }: { paymentId: string; amount: string } = req.body;
+        
+        if (!paymentId || !amount) {
+            throw new ValidationError('Payment ID and amount are required');
+        }
+
+        await this.paymentGatewayInstance.processRefund(paymentId, amount);
+        return res.json({ message: "Refund Issued" });
+    });
 }
 
 export default  PaymentGatewayController;

@@ -16,7 +16,7 @@ class BookingService {
                 const availability = await tx.availability.findUnique({
                     where: {
                         serviceId_date: {
-                            serviceId: serviceId,
+                            service_id: serviceId,
                             date: new Date(date),
                         },
                     },
@@ -28,19 +28,19 @@ class BookingService {
 
                 const booking = await tx.booking.create({
                     data: {
-                        userId: userId,
-                        serviceId: serviceId,
+                        user_id: userId,
+                        service_id: serviceId,
                         date: new Date(date),
-                        totalAmount: service.price,
+                        total_amount: service.price,
                     },
                 });
 
                 const updatedBooking = await tx.booking.update({
                     where: { id: booking.id },
                     data: {
-                        paymentStatus: true ? 'PAID' : 'FAILED',
+                        payment_status: true ? 'PAID' : 'FAILED',
                         status: true ? 'CONFIRMED' : 'PENDING',
-                        paymentIntentId: 'paymentResult.paymentIntentId',
+                        payment_intentId: 'paymentResult.paymentIntentId',
                     },
                 });
 
@@ -60,8 +60,8 @@ class BookingService {
         try {
             return await prisma.booking.findMany({
                 where: {
-                    userId,
-                    serviceId
+                    user_id: userId,
+                    service_id: serviceId
                 }
             });
         }
@@ -90,7 +90,7 @@ class BookingService {
 
             return await prisma.availability.findMany({
                 where: {
-                    serviceId,
+                    service_id: serviceId,
                     date: {
                         gte: new Date(startDate as string),
                         lte: new Date(endDate as string),

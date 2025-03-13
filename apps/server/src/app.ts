@@ -1,4 +1,4 @@
-import express, {Express, Request, Response} from "express";
+import express, {Express, Request, Response, NextFunction} from "express";
 import cors from "cors";
 import morgan from "morgan";
 import helmet from "helmet";
@@ -8,14 +8,20 @@ import Logger from "./config/logger.config.js";
 import router from "./api/routes.js";
 import { checkDatabaseConnection } from "@palash/db-client";
 import "./adapters/redis.adapter.js";
+import { errorHandler, setupUnhandledErrorHandlers } from "./middlewares/errorHandler.js";
+import { NotFoundError } from "./utils/errors.js";
 
+// Setup unhandled error handlers
+setupUnhandledErrorHandlers();
+
+// Database connection check
 checkDatabaseConnection();
 
 const app: Express = express();
 const loggerInstance = new Logger();
 const logger: winston.Logger | undefined = loggerInstance.getLogger();
 
-
+// Pre-route middlewares
 app.use(cors());
 app.use(helmet());
 app.use(morgan('dev'));
@@ -24,12 +30,19 @@ app.use("/uploads", express.static("uploads"));
 app.use(express.urlencoded({ extended: true }));
 dotenv.config();
 
-
-// init Router
+// Routes
 app.use('/api/v1', router);
 
 app.get('/health', (req: Request, res: Response) => {
    res.status(200).json({ status: 'OK' });
 });
+
+// Handle 404 errors
+app.use('*', (req: Request, res: Response, next: NextFunction) => {
+  next(new NotFoundError(`Cannot find ${req.originalUrl} on this server`));
+});
+
+// Global error handling middleware
+app.use(errorHandler);
 
 export default app;

@@ -46,9 +46,9 @@ class AdminServiceManagementController {
         if (workingDays.includes(dt.getDay())) {
           await prisma.availability.create({
             data: {
-              serviceId: service.id,
+              service_id: service.id,
               date: new Date(dt),
-              isBookable: true,
+              is_bookable: true,
             },
           });
         }

@@ -1,54 +1,75 @@
 import { Request, Response, NextFunction } from "express";
 import { CreateBookingInput } from "../../@types/interfaces.js";
 import BookingService from "../../services/bookings/bookings.service.js";
-
+import { asyncHandler } from "../../utils/asyncHandler.js";
+import { ValidationError, NotFoundError } from "../../utils/errors.js";
 
 class BookingController {
-    async createBooking(req: Request, res: Response, next: NextFunction): Promise<any> {
-        try {
-            const bookingServiceInstance = new BookingService();
-            const result = await bookingServiceInstance.createBooking(req.body);
-            return res.status(201).json(result);
-        }
-        catch (err) {
-            console.log(err);
-            return res.status(500).json(err);
-        }
+    private bookingServiceInstance: BookingService;
+
+    constructor() {
+        this.bookingServiceInstance = new BookingService();
     }
-    async fetchBookings(req: Request, res: Response, next: NextFunction): Promise<any> {
-        try {
-            const { userId, serviceId } = req.params;
-            const bookingServiceInstance = new BookingService();
-            const bookings = await bookingServiceInstance.fetchBookings(userId, serviceId);
-            return res.status(201).json(bookings);
+
+    createBooking = asyncHandler(async (req: Request, res: Response) => {
+        const bookingData: CreateBookingInput = req.body;
+        
+        if (!bookingData.userId || !bookingData.serviceId || !bookingData.date) {
+            throw new ValidationError('User ID, service ID and date are required');
         }
-        catch (err) {
-            return res.status(500).json(err);
+
+        const result = await this.bookingServiceInstance.createBooking(bookingData);
+        return res.status(201).json(result);
+    });
+
+    fetchBookings = asyncHandler(async (req: Request, res: Response) => {
+        const { userId, serviceId } = req.params;
+        
+        if (!userId || !serviceId) {
+            throw new ValidationError('User ID and service ID are required');
         }
-    }
-    async fetchBookingById(req: Request, res: Response, next: NextFunction): Promise<any> {
-        try {
-            const { bookingId } = req.params;
-            const bookingServiceInstance = new BookingService();
-            const booking = await bookingServiceInstance.fetchBookingById(bookingId);
-            return res.status(201).json(booking);
+
+        const bookings = await this.bookingServiceInstance.fetchBookings(userId, serviceId);
+        
+        if (!bookings || bookings.length === 0) {
+            throw new NotFoundError('No bookings found for this user and service');
         }
-        catch (err) {
-            return res.status(500).json(err);
+
+        return res.json(bookings);
+    });
+
+    fetchBookingById = asyncHandler(async (req: Request, res: Response) => {
+        const { bookingId } = req.params;
+        
+        if (!bookingId) {
+            throw new ValidationError('Booking ID is required');
         }
-    }
-    async fetchAvailableDatesForService(req: Request, res: Response, next: NextFunction): Promise<any> {
-        try {
-            const { serviceId } = req.params;
-            let { startDate, endDate }: {startDate: string; endDate: string;} = req.body;
-            const bookingServiceInstance = new BookingService();
-            const dates = await bookingServiceInstance.fetchAvailableDates({serviceId, startDate, endDate});
-            return res.status(201).json(dates);
+
+        const booking = await this.bookingServiceInstance.fetchBookingById(bookingId);
+        
+        if (!booking) {
+            throw new NotFoundError(`Booking with ID ${bookingId} not found`);
         }
-        catch (err) {
-            return res.status(500).json(err);
+
+        return res.json(booking);
+    });
+
+    fetchAvailableDatesForService = asyncHandler(async (req: Request, res: Response) => {
+        const { serviceId } = req.params;
+        const { startDate, endDate }: {startDate: string; endDate: string;} = req.body;
+        
+        if (!serviceId || !startDate || !endDate) {
+            throw new ValidationError('Service ID, start date and end date are required');
         }
-    }
+
+        const dates = await this.bookingServiceInstance.fetchAvailableDates({
+            serviceId,
+            startDate,
+            endDate
+        });
+
+        return res.json(dates);
+    });
 }
 
 export default BookingController;

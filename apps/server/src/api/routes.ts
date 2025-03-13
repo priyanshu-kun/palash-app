@@ -5,13 +5,15 @@ import UserRouter from "./user-router/index.js";
 import { BookingRouter } from "./booking-router/index.js";
 import { authMiddleware, authorizeRoles } from "../middlewares/auth.middleware.js";
 import { PaymentRouter } from "./payment-router/index.js";
+import { ReviewRouter } from "./review-router/index.js";
 
 const router = Router();
 
 router.use('/admin', authMiddleware, authorizeRoles(['ADMIN']),  ManagementRouter);
-router.use('/services', ServiceListingRouter)
-router.use('/payment', authMiddleware, PaymentRouter)
-router.use('/booking', authMiddleware, BookingRouter)
+router.use('/services', ServiceListingRouter);
+router.use('/payment', authMiddleware, PaymentRouter);
+router.use('/booking', authMiddleware, BookingRouter);
 router.use('/users', UserRouter);
+router.use('/reviews', ReviewRouter);
 
 export default router;

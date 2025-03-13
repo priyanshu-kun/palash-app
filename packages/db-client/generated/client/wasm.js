@@ -17,12 +17,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.3.1
- * Query Engine version: acc0b9dd43eb689cbd20c9470515d719db10d0b0
+ * Prisma Client JS version: 6.4.1
+ * Query Engine version: a9055b89e58b4b5bfb59600785423b1db3d0e75d
  */
 Prisma.prismaVersion = {
-  client: "6.3.1",
-  engine: "acc0b9dd43eb689cbd20c9470515d719db10d0b0"
+  client: "6.4.1",
+  engine: "a9055b89e58b4b5bfb59600785423b1db3d0e75d"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -131,24 +131,24 @@ exports.Prisma.UserScalarFieldEnum = {
 
 exports.Prisma.BookingScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
-  serviceId: 'serviceId',
+  user_id: 'user_id',
+  service_id: 'service_id',
   date: 'date',
   status: 'status',
-  paymentStatus: 'paymentStatus',
-  paymentIntentId: 'paymentIntentId',
-  totalAmount: 'totalAmount',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  payment_status: 'payment_status',
+  payment_intent_id: 'payment_intent_id',
+  total_amount: 'total_amount',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.AvailabilityScalarFieldEnum = {
   id: 'id',
-  serviceId: 'serviceId',
+  service_id: 'service_id',
   date: 'date',
-  isBookable: 'isBookable',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  is_bookable: 'is_bookable',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.ServiceScalarFieldEnum = {
@@ -165,8 +165,9 @@ exports.Prisma.ReviewScalarFieldEnum = {
   id: 'id',
   rating: 'rating',
   comment: 'comment',
-  userId: 'userId',
-  productId: 'productId',
+  user_id: 'user_id',
+  service_id: 'service_id',
+  booking_id: 'booking_id',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };

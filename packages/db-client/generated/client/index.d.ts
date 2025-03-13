@@ -315,8 +315,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.3.1
-   * Query Engine version: acc0b9dd43eb689cbd20c9470515d719db10d0b0
+   * Prisma Client JS version: 6.4.1
+   * Query Engine version: a9055b89e58b4b5bfb59600785423b1db3d0e75d
    */
   export type PrismaVersion = {
     client: string
@@ -2525,99 +2525,99 @@ export namespace Prisma {
   }
 
   export type BookingAvgAggregateOutputType = {
-    totalAmount: Decimal | null
+    total_amount: Decimal | null
   }
 
   export type BookingSumAggregateOutputType = {
-    totalAmount: Decimal | null
+    total_amount: Decimal | null
   }
 
   export type BookingMinAggregateOutputType = {
     id: string | null
-    userId: string | null
-    serviceId: string | null
+    user_id: string | null
+    service_id: string | null
     date: Date | null
     status: $Enums.BookingStatus | null
-    paymentStatus: $Enums.PaymentStatus | null
-    paymentIntentId: string | null
-    totalAmount: Decimal | null
-    createdAt: Date | null
-    updatedAt: Date | null
+    payment_status: $Enums.PaymentStatus | null
+    payment_intent_id: string | null
+    total_amount: Decimal | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type BookingMaxAggregateOutputType = {
     id: string | null
-    userId: string | null
-    serviceId: string | null
+    user_id: string | null
+    service_id: string | null
     date: Date | null
     status: $Enums.BookingStatus | null
-    paymentStatus: $Enums.PaymentStatus | null
-    paymentIntentId: string | null
-    totalAmount: Decimal | null
-    createdAt: Date | null
-    updatedAt: Date | null
+    payment_status: $Enums.PaymentStatus | null
+    payment_intent_id: string | null
+    total_amount: Decimal | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type BookingCountAggregateOutputType = {
     id: number
-    userId: number
-    serviceId: number
+    user_id: number
+    service_id: number
     date: number
     status: number
-    paymentStatus: number
-    paymentIntentId: number
-    totalAmount: number
-    createdAt: number
-    updatedAt: number
+    payment_status: number
+    payment_intent_id: number
+    total_amount: number
+    created_at: number
+    updated_at: number
     _all: number
   }
 
 
   export type BookingAvgAggregateInputType = {
-    totalAmount?: true
+    total_amount?: true
   }
 
   export type BookingSumAggregateInputType = {
-    totalAmount?: true
+    total_amount?: true
   }
 
   export type BookingMinAggregateInputType = {
     id?: true
-    userId?: true
-    serviceId?: true
+    user_id?: true
+    service_id?: true
     date?: true
     status?: true
-    paymentStatus?: true
-    paymentIntentId?: true
-    totalAmount?: true
-    createdAt?: true
-    updatedAt?: true
+    payment_status?: true
+    payment_intent_id?: true
+    total_amount?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type BookingMaxAggregateInputType = {
     id?: true
-    userId?: true
-    serviceId?: true
+    user_id?: true
+    service_id?: true
     date?: true
     status?: true
-    paymentStatus?: true
-    paymentIntentId?: true
-    totalAmount?: true
-    createdAt?: true
-    updatedAt?: true
+    payment_status?: true
+    payment_intent_id?: true
+    total_amount?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type BookingCountAggregateInputType = {
     id?: true
-    userId?: true
-    serviceId?: true
+    user_id?: true
+    service_id?: true
     date?: true
     status?: true
-    paymentStatus?: true
-    paymentIntentId?: true
-    totalAmount?: true
-    createdAt?: true
-    updatedAt?: true
+    payment_status?: true
+    payment_intent_id?: true
+    total_amount?: true
+    created_at?: true
+    updated_at?: true
     _all?: true
   }
 
@@ -2709,15 +2709,15 @@ export namespace Prisma {
 
   export type BookingGroupByOutputType = {
     id: string
-    userId: string
-    serviceId: string
+    user_id: string
+    service_id: string
     date: Date
     status: $Enums.BookingStatus
-    paymentStatus: $Enums.PaymentStatus
-    paymentIntentId: string | null
-    totalAmount: Decimal
-    createdAt: Date
-    updatedAt: Date
+    payment_status: $Enums.PaymentStatus
+    payment_intent_id: string | null
+    total_amount: Decimal
+    created_at: Date
+    updated_at: Date
     _count: BookingCountAggregateOutputType | null
     _avg: BookingAvgAggregateOutputType | null
     _sum: BookingSumAggregateOutputType | null
@@ -2741,66 +2741,68 @@ export namespace Prisma {
 
   export type BookingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    userId?: boolean
-    serviceId?: boolean
+    user_id?: boolean
+    service_id?: boolean
     date?: boolean
     status?: boolean
-    paymentStatus?: boolean
-    paymentIntentId?: boolean
-    totalAmount?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
+    payment_status?: boolean
+    payment_intent_id?: boolean
+    total_amount?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
+    review?: boolean | Booking$reviewArgs<ExtArgs>
   }, ExtArgs["result"]["booking"]>
 
   export type BookingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    userId?: boolean
-    serviceId?: boolean
+    user_id?: boolean
+    service_id?: boolean
     date?: boolean
     status?: boolean
-    paymentStatus?: boolean
-    paymentIntentId?: boolean
-    totalAmount?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
+    payment_status?: boolean
+    payment_intent_id?: boolean
+    total_amount?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["booking"]>
 
   export type BookingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    userId?: boolean
-    serviceId?: boolean
+    user_id?: boolean
+    service_id?: boolean
     date?: boolean
     status?: boolean
-    paymentStatus?: boolean
-    paymentIntentId?: boolean
-    totalAmount?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
+    payment_status?: boolean
+    payment_intent_id?: boolean
+    total_amount?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["booking"]>
 
   export type BookingSelectScalar = {
     id?: boolean
-    userId?: boolean
-    serviceId?: boolean
+    user_id?: boolean
+    service_id?: boolean
     date?: boolean
     status?: boolean
-    paymentStatus?: boolean
-    paymentIntentId?: boolean
-    totalAmount?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
+    payment_status?: boolean
+    payment_intent_id?: boolean
+    total_amount?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }
 
-  export type BookingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "serviceId" | "date" | "status" | "paymentStatus" | "paymentIntentId" | "totalAmount" | "createdAt" | "updatedAt", ExtArgs["result"]["booking"]>
+  export type BookingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "service_id" | "date" | "status" | "payment_status" | "payment_intent_id" | "total_amount" | "created_at" | "updated_at", ExtArgs["result"]["booking"]>
   export type BookingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
+    review?: boolean | Booking$reviewArgs<ExtArgs>
   }
   export type BookingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2816,18 +2818,19 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
       service: Prisma.$ServicePayload<ExtArgs>
+      review: Prisma.$ReviewPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      userId: string
-      serviceId: string
+      user_id: string
+      service_id: string
       date: Date
       status: $Enums.BookingStatus
-      paymentStatus: $Enums.PaymentStatus
-      paymentIntentId: string | null
-      totalAmount: Prisma.Decimal
-      createdAt: Date
-      updatedAt: Date
+      payment_status: $Enums.PaymentStatus
+      payment_intent_id: string | null
+      total_amount: Prisma.Decimal
+      created_at: Date
+      updated_at: Date
     }, ExtArgs["result"]["booking"]>
     composites: {}
   }
@@ -3224,6 +3227,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
     service<T extends ServiceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ServiceDefaultArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    review<T extends Booking$reviewArgs<ExtArgs> = {}>(args?: Subset<T, Booking$reviewArgs<ExtArgs>>): Prisma__ReviewClient<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3254,15 +3258,15 @@ export namespace Prisma {
    */ 
   interface BookingFieldRefs {
     readonly id: FieldRef<"Booking", 'String'>
-    readonly userId: FieldRef<"Booking", 'String'>
-    readonly serviceId: FieldRef<"Booking", 'String'>
+    readonly user_id: FieldRef<"Booking", 'String'>
+    readonly service_id: FieldRef<"Booking", 'String'>
     readonly date: FieldRef<"Booking", 'DateTime'>
     readonly status: FieldRef<"Booking", 'BookingStatus'>
-    readonly paymentStatus: FieldRef<"Booking", 'PaymentStatus'>
-    readonly paymentIntentId: FieldRef<"Booking", 'String'>
-    readonly totalAmount: FieldRef<"Booking", 'Decimal'>
-    readonly createdAt: FieldRef<"Booking", 'DateTime'>
-    readonly updatedAt: FieldRef<"Booking", 'DateTime'>
+    readonly payment_status: FieldRef<"Booking", 'PaymentStatus'>
+    readonly payment_intent_id: FieldRef<"Booking", 'String'>
+    readonly total_amount: FieldRef<"Booking", 'Decimal'>
+    readonly created_at: FieldRef<"Booking", 'DateTime'>
+    readonly updated_at: FieldRef<"Booking", 'DateTime'>
   }
     
 
@@ -3659,6 +3663,25 @@ export namespace Prisma {
   }
 
   /**
+   * Booking.review
+   */
+  export type Booking$reviewArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    where?: ReviewWhereInput
+  }
+
+  /**
    * Booking without action
    */
   export type BookingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3689,58 +3712,58 @@ export namespace Prisma {
 
   export type AvailabilityMinAggregateOutputType = {
     id: string | null
-    serviceId: string | null
+    service_id: string | null
     date: Date | null
-    isBookable: boolean | null
-    createdAt: Date | null
-    updatedAt: Date | null
+    is_bookable: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type AvailabilityMaxAggregateOutputType = {
     id: string | null
-    serviceId: string | null
+    service_id: string | null
     date: Date | null
-    isBookable: boolean | null
-    createdAt: Date | null
-    updatedAt: Date | null
+    is_bookable: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type AvailabilityCountAggregateOutputType = {
     id: number
-    serviceId: number
+    service_id: number
     date: number
-    isBookable: number
-    createdAt: number
-    updatedAt: number
+    is_bookable: number
+    created_at: number
+    updated_at: number
     _all: number
   }
 
 
   export type AvailabilityMinAggregateInputType = {
     id?: true
-    serviceId?: true
+    service_id?: true
     date?: true
-    isBookable?: true
-    createdAt?: true
-    updatedAt?: true
+    is_bookable?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type AvailabilityMaxAggregateInputType = {
     id?: true
-    serviceId?: true
+    service_id?: true
     date?: true
-    isBookable?: true
-    createdAt?: true
-    updatedAt?: true
+    is_bookable?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type AvailabilityCountAggregateInputType = {
     id?: true
-    serviceId?: true
+    service_id?: true
     date?: true
-    isBookable?: true
-    createdAt?: true
-    updatedAt?: true
+    is_bookable?: true
+    created_at?: true
+    updated_at?: true
     _all?: true
   }
 
@@ -3818,11 +3841,11 @@ export namespace Prisma {
 
   export type AvailabilityGroupByOutputType = {
     id: string
-    serviceId: string
+    service_id: string
     date: Date
-    isBookable: boolean
-    createdAt: Date
-    updatedAt: Date
+    is_bookable: boolean
+    created_at: Date
+    updated_at: Date
     _count: AvailabilityCountAggregateOutputType | null
     _min: AvailabilityMinAggregateOutputType | null
     _max: AvailabilityMaxAggregateOutputType | null
@@ -3844,44 +3867,44 @@ export namespace Prisma {
 
   export type AvailabilitySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    serviceId?: boolean
+    service_id?: boolean
     date?: boolean
-    isBookable?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
+    is_bookable?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     service?: boolean | ServiceDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["availability"]>
 
   export type AvailabilitySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    serviceId?: boolean
+    service_id?: boolean
     date?: boolean
-    isBookable?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
+    is_bookable?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     service?: boolean | ServiceDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["availability"]>
 
   export type AvailabilitySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    serviceId?: boolean
+    service_id?: boolean
     date?: boolean
-    isBookable?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
+    is_bookable?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     service?: boolean | ServiceDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["availability"]>
 
   export type AvailabilitySelectScalar = {
     id?: boolean
-    serviceId?: boolean
+    service_id?: boolean
     date?: boolean
-    isBookable?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
+    is_bookable?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }
 
-  export type AvailabilityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "serviceId" | "date" | "isBookable" | "createdAt" | "updatedAt", ExtArgs["result"]["availability"]>
+  export type AvailabilityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "service_id" | "date" | "is_bookable" | "created_at" | "updated_at", ExtArgs["result"]["availability"]>
   export type AvailabilityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     service?: boolean | ServiceDefaultArgs<ExtArgs>
   }
@@ -3899,11 +3922,11 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      serviceId: string
+      service_id: string
       date: Date
-      isBookable: boolean
-      createdAt: Date
-      updatedAt: Date
+      is_bookable: boolean
+      created_at: Date
+      updated_at: Date
     }, ExtArgs["result"]["availability"]>
     composites: {}
   }
@@ -4329,11 +4352,11 @@ export namespace Prisma {
    */ 
   interface AvailabilityFieldRefs {
     readonly id: FieldRef<"Availability", 'String'>
-    readonly serviceId: FieldRef<"Availability", 'String'>
+    readonly service_id: FieldRef<"Availability", 'String'>
     readonly date: FieldRef<"Availability", 'DateTime'>
-    readonly isBookable: FieldRef<"Availability", 'Boolean'>
-    readonly createdAt: FieldRef<"Availability", 'DateTime'>
-    readonly updatedAt: FieldRef<"Availability", 'DateTime'>
+    readonly is_bookable: FieldRef<"Availability", 'Boolean'>
+    readonly created_at: FieldRef<"Availability", 'DateTime'>
+    readonly updated_at: FieldRef<"Availability", 'DateTime'>
   }
     
 
@@ -5954,8 +5977,9 @@ export namespace Prisma {
     id: string | null
     rating: number | null
     comment: string | null
-    userId: string | null
-    productId: string | null
+    user_id: string | null
+    service_id: string | null
+    booking_id: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -5964,8 +5988,9 @@ export namespace Prisma {
     id: string | null
     rating: number | null
     comment: string | null
-    userId: string | null
-    productId: string | null
+    user_id: string | null
+    service_id: string | null
+    booking_id: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -5974,8 +5999,9 @@ export namespace Prisma {
     id: number
     rating: number
     comment: number
-    userId: number
-    productId: number
+    user_id: number
+    service_id: number
+    booking_id: number
     created_at: number
     updated_at: number
     _all: number
@@ -5994,8 +6020,9 @@ export namespace Prisma {
     id?: true
     rating?: true
     comment?: true
-    userId?: true
-    productId?: true
+    user_id?: true
+    service_id?: true
+    booking_id?: true
     created_at?: true
     updated_at?: true
   }
@@ -6004,8 +6031,9 @@ export namespace Prisma {
     id?: true
     rating?: true
     comment?: true
-    userId?: true
-    productId?: true
+    user_id?: true
+    service_id?: true
+    booking_id?: true
     created_at?: true
     updated_at?: true
   }
@@ -6014,8 +6042,9 @@ export namespace Prisma {
     id?: true
     rating?: true
     comment?: true
-    userId?: true
-    productId?: true
+    user_id?: true
+    service_id?: true
+    booking_id?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -6110,9 +6139,10 @@ export namespace Prisma {
   export type ReviewGroupByOutputType = {
     id: string
     rating: number
-    comment: string | null
-    userId: string
-    productId: string
+    comment: string
+    user_id: string
+    service_id: string
+    booking_id: string | null
     created_at: Date
     updated_at: Date
     _count: ReviewCountAggregateOutputType | null
@@ -6140,74 +6170,86 @@ export namespace Prisma {
     id?: boolean
     rating?: boolean
     comment?: boolean
-    userId?: boolean
-    productId?: boolean
+    user_id?: boolean
+    service_id?: boolean
+    booking_id?: boolean
     created_at?: boolean
     updated_at?: boolean
-    user?: boolean | Review$userArgs<ExtArgs>
-    service?: boolean | Review$serviceArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    service?: boolean | ServiceDefaultArgs<ExtArgs>
+    booking?: boolean | Review$bookingArgs<ExtArgs>
   }, ExtArgs["result"]["review"]>
 
   export type ReviewSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     rating?: boolean
     comment?: boolean
-    userId?: boolean
-    productId?: boolean
+    user_id?: boolean
+    service_id?: boolean
+    booking_id?: boolean
     created_at?: boolean
     updated_at?: boolean
-    user?: boolean | Review$userArgs<ExtArgs>
-    service?: boolean | Review$serviceArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    service?: boolean | ServiceDefaultArgs<ExtArgs>
+    booking?: boolean | Review$bookingArgs<ExtArgs>
   }, ExtArgs["result"]["review"]>
 
   export type ReviewSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     rating?: boolean
     comment?: boolean
-    userId?: boolean
-    productId?: boolean
+    user_id?: boolean
+    service_id?: boolean
+    booking_id?: boolean
     created_at?: boolean
     updated_at?: boolean
-    user?: boolean | Review$userArgs<ExtArgs>
-    service?: boolean | Review$serviceArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    service?: boolean | ServiceDefaultArgs<ExtArgs>
+    booking?: boolean | Review$bookingArgs<ExtArgs>
   }, ExtArgs["result"]["review"]>
 
   export type ReviewSelectScalar = {
     id?: boolean
     rating?: boolean
     comment?: boolean
-    userId?: boolean
-    productId?: boolean
+    user_id?: boolean
+    service_id?: boolean
+    booking_id?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type ReviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "rating" | "comment" | "userId" | "productId" | "created_at" | "updated_at", ExtArgs["result"]["review"]>
+  export type ReviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "rating" | "comment" | "user_id" | "service_id" | "booking_id" | "created_at" | "updated_at", ExtArgs["result"]["review"]>
   export type ReviewInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | Review$userArgs<ExtArgs>
-    service?: boolean | Review$serviceArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    service?: boolean | ServiceDefaultArgs<ExtArgs>
+    booking?: boolean | Review$bookingArgs<ExtArgs>
   }
   export type ReviewIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | Review$userArgs<ExtArgs>
-    service?: boolean | Review$serviceArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    service?: boolean | ServiceDefaultArgs<ExtArgs>
+    booking?: boolean | Review$bookingArgs<ExtArgs>
   }
   export type ReviewIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | Review$userArgs<ExtArgs>
-    service?: boolean | Review$serviceArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    service?: boolean | ServiceDefaultArgs<ExtArgs>
+    booking?: boolean | Review$bookingArgs<ExtArgs>
   }
 
   export type $ReviewPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Review"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs> | null
-      service: Prisma.$ServicePayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs>
+      service: Prisma.$ServicePayload<ExtArgs>
+      booking: Prisma.$BookingPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       rating: number
-      comment: string | null
-      userId: string
-      productId: string
+      comment: string
+      user_id: string
+      service_id: string
+      booking_id: string | null
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["review"]>
@@ -6604,8 +6646,9 @@ export namespace Prisma {
    */
   export interface Prisma__ReviewClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends Review$userArgs<ExtArgs> = {}>(args?: Subset<T, Review$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
-    service<T extends Review$serviceArgs<ExtArgs> = {}>(args?: Subset<T, Review$serviceArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    service<T extends ServiceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ServiceDefaultArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    booking<T extends Review$bookingArgs<ExtArgs> = {}>(args?: Subset<T, Review$bookingArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6638,8 +6681,9 @@ export namespace Prisma {
     readonly id: FieldRef<"Review", 'String'>
     readonly rating: FieldRef<"Review", 'Int'>
     readonly comment: FieldRef<"Review", 'String'>
-    readonly userId: FieldRef<"Review", 'String'>
-    readonly productId: FieldRef<"Review", 'String'>
+    readonly user_id: FieldRef<"Review", 'String'>
+    readonly service_id: FieldRef<"Review", 'String'>
+    readonly booking_id: FieldRef<"Review", 'String'>
     readonly created_at: FieldRef<"Review", 'DateTime'>
     readonly updated_at: FieldRef<"Review", 'DateTime'>
   }
@@ -7038,41 +7082,22 @@ export namespace Prisma {
   }
 
   /**
-   * Review.user
+   * Review.booking
    */
-  export type Review$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Review$bookingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the User
+     * Select specific fields to fetch from the Booking
      */
-    select?: UserSelect<ExtArgs> | null
+    select?: BookingSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the User
+     * Omit specific fields from the Booking
      */
-    omit?: UserOmit<ExtArgs> | null
+    omit?: BookingOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
-  }
-
-  /**
-   * Review.service
-   */
-  export type Review$serviceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Service
-     */
-    select?: ServiceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Service
-     */
-    omit?: ServiceOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ServiceInclude<ExtArgs> | null
-    where?: ServiceWhereInput
+    include?: BookingInclude<ExtArgs> | null
+    where?: BookingWhereInput
   }
 
   /**
@@ -7125,15 +7150,15 @@ export namespace Prisma {
 
   export const BookingScalarFieldEnum: {
     id: 'id',
-    userId: 'userId',
-    serviceId: 'serviceId',
+    user_id: 'user_id',
+    service_id: 'service_id',
     date: 'date',
     status: 'status',
-    paymentStatus: 'paymentStatus',
-    paymentIntentId: 'paymentIntentId',
-    totalAmount: 'totalAmount',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    payment_status: 'payment_status',
+    payment_intent_id: 'payment_intent_id',
+    total_amount: 'total_amount',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
   };
 
   export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
@@ -7141,11 +7166,11 @@ export namespace Prisma {
 
   export const AvailabilityScalarFieldEnum: {
     id: 'id',
-    serviceId: 'serviceId',
+    service_id: 'service_id',
     date: 'date',
-    isBookable: 'isBookable',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    is_bookable: 'is_bookable',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
   };
 
   export type AvailabilityScalarFieldEnum = (typeof AvailabilityScalarFieldEnum)[keyof typeof AvailabilityScalarFieldEnum]
@@ -7168,8 +7193,9 @@ export namespace Prisma {
     id: 'id',
     rating: 'rating',
     comment: 'comment',
-    userId: 'userId',
-    productId: 'productId',
+    user_id: 'user_id',
+    service_id: 'service_id',
+    booking_id: 'booking_id',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -7411,64 +7437,67 @@ export namespace Prisma {
     OR?: BookingWhereInput[]
     NOT?: BookingWhereInput | BookingWhereInput[]
     id?: StringFilter<"Booking"> | string
-    userId?: StringFilter<"Booking"> | string
-    serviceId?: StringFilter<"Booking"> | string
+    user_id?: StringFilter<"Booking"> | string
+    service_id?: StringFilter<"Booking"> | string
     date?: DateTimeFilter<"Booking"> | Date | string
     status?: EnumBookingStatusFilter<"Booking"> | $Enums.BookingStatus
-    paymentStatus?: EnumPaymentStatusFilter<"Booking"> | $Enums.PaymentStatus
-    paymentIntentId?: StringNullableFilter<"Booking"> | string | null
-    totalAmount?: DecimalFilter<"Booking"> | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFilter<"Booking"> | Date | string
-    updatedAt?: DateTimeFilter<"Booking"> | Date | string
+    payment_status?: EnumPaymentStatusFilter<"Booking"> | $Enums.PaymentStatus
+    payment_intent_id?: StringNullableFilter<"Booking"> | string | null
+    total_amount?: DecimalFilter<"Booking"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFilter<"Booking"> | Date | string
+    updated_at?: DateTimeFilter<"Booking"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
+    review?: XOR<ReviewNullableScalarRelationFilter, ReviewWhereInput> | null
   }
 
   export type BookingOrderByWithRelationInput = {
     id?: SortOrder
-    userId?: SortOrder
-    serviceId?: SortOrder
+    user_id?: SortOrder
+    service_id?: SortOrder
     date?: SortOrder
     status?: SortOrder
-    paymentStatus?: SortOrder
-    paymentIntentId?: SortOrderInput | SortOrder
-    totalAmount?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    payment_status?: SortOrder
+    payment_intent_id?: SortOrderInput | SortOrder
+    total_amount?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     user?: UserOrderByWithRelationInput
     service?: ServiceOrderByWithRelationInput
+    review?: ReviewOrderByWithRelationInput
   }
 
   export type BookingWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    serviceId_date?: BookingServiceIdDateCompoundUniqueInput
+    service_id_date?: BookingService_idDateCompoundUniqueInput
     AND?: BookingWhereInput | BookingWhereInput[]
     OR?: BookingWhereInput[]
     NOT?: BookingWhereInput | BookingWhereInput[]
-    userId?: StringFilter<"Booking"> | string
-    serviceId?: StringFilter<"Booking"> | string
+    user_id?: StringFilter<"Booking"> | string
+    service_id?: StringFilter<"Booking"> | string
     date?: DateTimeFilter<"Booking"> | Date | string
     status?: EnumBookingStatusFilter<"Booking"> | $Enums.BookingStatus
-    paymentStatus?: EnumPaymentStatusFilter<"Booking"> | $Enums.PaymentStatus
-    paymentIntentId?: StringNullableFilter<"Booking"> | string | null
-    totalAmount?: DecimalFilter<"Booking"> | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFilter<"Booking"> | Date | string
-    updatedAt?: DateTimeFilter<"Booking"> | Date | string
+    payment_status?: EnumPaymentStatusFilter<"Booking"> | $Enums.PaymentStatus
+    payment_intent_id?: StringNullableFilter<"Booking"> | string | null
+    total_amount?: DecimalFilter<"Booking"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFilter<"Booking"> | Date | string
+    updated_at?: DateTimeFilter<"Booking"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
-  }, "id" | "serviceId_date">
+    review?: XOR<ReviewNullableScalarRelationFilter, ReviewWhereInput> | null
+  }, "id" | "service_id_date">
 
   export type BookingOrderByWithAggregationInput = {
     id?: SortOrder
-    userId?: SortOrder
-    serviceId?: SortOrder
+    user_id?: SortOrder
+    service_id?: SortOrder
     date?: SortOrder
     status?: SortOrder
-    paymentStatus?: SortOrder
-    paymentIntentId?: SortOrderInput | SortOrder
-    totalAmount?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    payment_status?: SortOrder
+    payment_intent_id?: SortOrderInput | SortOrder
+    total_amount?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     _count?: BookingCountOrderByAggregateInput
     _avg?: BookingAvgOrderByAggregateInput
     _max?: BookingMaxOrderByAggregateInput
@@ -7481,15 +7510,15 @@ export namespace Prisma {
     OR?: BookingScalarWhereWithAggregatesInput[]
     NOT?: BookingScalarWhereWithAggregatesInput | BookingScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Booking"> | string
-    userId?: StringWithAggregatesFilter<"Booking"> | string
-    serviceId?: StringWithAggregatesFilter<"Booking"> | string
+    user_id?: StringWithAggregatesFilter<"Booking"> | string
+    service_id?: StringWithAggregatesFilter<"Booking"> | string
     date?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
     status?: EnumBookingStatusWithAggregatesFilter<"Booking"> | $Enums.BookingStatus
-    paymentStatus?: EnumPaymentStatusWithAggregatesFilter<"Booking"> | $Enums.PaymentStatus
-    paymentIntentId?: StringNullableWithAggregatesFilter<"Booking"> | string | null
-    totalAmount?: DecimalWithAggregatesFilter<"Booking"> | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
+    payment_status?: EnumPaymentStatusWithAggregatesFilter<"Booking"> | $Enums.PaymentStatus
+    payment_intent_id?: StringNullableWithAggregatesFilter<"Booking"> | string | null
+    total_amount?: DecimalWithAggregatesFilter<"Booking"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
   }
 
   export type AvailabilityWhereInput = {
@@ -7497,45 +7526,45 @@ export namespace Prisma {
     OR?: AvailabilityWhereInput[]
     NOT?: AvailabilityWhereInput | AvailabilityWhereInput[]
     id?: StringFilter<"Availability"> | string
-    serviceId?: StringFilter<"Availability"> | string
+    service_id?: StringFilter<"Availability"> | string
     date?: DateTimeFilter<"Availability"> | Date | string
-    isBookable?: BoolFilter<"Availability"> | boolean
-    createdAt?: DateTimeFilter<"Availability"> | Date | string
-    updatedAt?: DateTimeFilter<"Availability"> | Date | string
+    is_bookable?: BoolFilter<"Availability"> | boolean
+    created_at?: DateTimeFilter<"Availability"> | Date | string
+    updated_at?: DateTimeFilter<"Availability"> | Date | string
     service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
   }
 
   export type AvailabilityOrderByWithRelationInput = {
     id?: SortOrder
-    serviceId?: SortOrder
+    service_id?: SortOrder
     date?: SortOrder
-    isBookable?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    is_bookable?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     service?: ServiceOrderByWithRelationInput
   }
 
   export type AvailabilityWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    serviceId_date?: AvailabilityServiceIdDateCompoundUniqueInput
+    service_id_date?: AvailabilityService_idDateCompoundUniqueInput
     AND?: AvailabilityWhereInput | AvailabilityWhereInput[]
     OR?: AvailabilityWhereInput[]
     NOT?: AvailabilityWhereInput | AvailabilityWhereInput[]
-    serviceId?: StringFilter<"Availability"> | string
+    service_id?: StringFilter<"Availability"> | string
     date?: DateTimeFilter<"Availability"> | Date | string
-    isBookable?: BoolFilter<"Availability"> | boolean
-    createdAt?: DateTimeFilter<"Availability"> | Date | string
-    updatedAt?: DateTimeFilter<"Availability"> | Date | string
+    is_bookable?: BoolFilter<"Availability"> | boolean
+    created_at?: DateTimeFilter<"Availability"> | Date | string
+    updated_at?: DateTimeFilter<"Availability"> | Date | string
     service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
-  }, "id" | "serviceId_date">
+  }, "id" | "service_id_date">
 
   export type AvailabilityOrderByWithAggregationInput = {
     id?: SortOrder
-    serviceId?: SortOrder
+    service_id?: SortOrder
     date?: SortOrder
-    isBookable?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    is_bookable?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     _count?: AvailabilityCountOrderByAggregateInput
     _max?: AvailabilityMaxOrderByAggregateInput
     _min?: AvailabilityMinOrderByAggregateInput
@@ -7546,11 +7575,11 @@ export namespace Prisma {
     OR?: AvailabilityScalarWhereWithAggregatesInput[]
     NOT?: AvailabilityScalarWhereWithAggregatesInput | AvailabilityScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Availability"> | string
-    serviceId?: StringWithAggregatesFilter<"Availability"> | string
+    service_id?: StringWithAggregatesFilter<"Availability"> | string
     date?: DateTimeWithAggregatesFilter<"Availability"> | Date | string
-    isBookable?: BoolWithAggregatesFilter<"Availability"> | boolean
-    createdAt?: DateTimeWithAggregatesFilter<"Availability"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Availability"> | Date | string
+    is_bookable?: BoolWithAggregatesFilter<"Availability"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"Availability"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Availability"> | Date | string
   }
 
   export type ServiceWhereInput = {
@@ -7632,48 +7661,56 @@ export namespace Prisma {
     NOT?: ReviewWhereInput | ReviewWhereInput[]
     id?: StringFilter<"Review"> | string
     rating?: IntFilter<"Review"> | number
-    comment?: StringNullableFilter<"Review"> | string | null
-    userId?: StringFilter<"Review"> | string
-    productId?: StringFilter<"Review"> | string
+    comment?: StringFilter<"Review"> | string
+    user_id?: StringFilter<"Review"> | string
+    service_id?: StringFilter<"Review"> | string
+    booking_id?: StringNullableFilter<"Review"> | string | null
     created_at?: DateTimeFilter<"Review"> | Date | string
     updated_at?: DateTimeFilter<"Review"> | Date | string
-    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    service?: XOR<ServiceNullableScalarRelationFilter, ServiceWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
+    booking?: XOR<BookingNullableScalarRelationFilter, BookingWhereInput> | null
   }
 
   export type ReviewOrderByWithRelationInput = {
     id?: SortOrder
     rating?: SortOrder
-    comment?: SortOrderInput | SortOrder
-    userId?: SortOrder
-    productId?: SortOrder
+    comment?: SortOrder
+    user_id?: SortOrder
+    service_id?: SortOrder
+    booking_id?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     user?: UserOrderByWithRelationInput
     service?: ServiceOrderByWithRelationInput
+    booking?: BookingOrderByWithRelationInput
   }
 
   export type ReviewWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    booking_id?: string
+    user_id_service_id?: ReviewUser_idService_idCompoundUniqueInput
     AND?: ReviewWhereInput | ReviewWhereInput[]
     OR?: ReviewWhereInput[]
     NOT?: ReviewWhereInput | ReviewWhereInput[]
     rating?: IntFilter<"Review"> | number
-    comment?: StringNullableFilter<"Review"> | string | null
-    userId?: StringFilter<"Review"> | string
-    productId?: StringFilter<"Review"> | string
+    comment?: StringFilter<"Review"> | string
+    user_id?: StringFilter<"Review"> | string
+    service_id?: StringFilter<"Review"> | string
     created_at?: DateTimeFilter<"Review"> | Date | string
     updated_at?: DateTimeFilter<"Review"> | Date | string
-    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    service?: XOR<ServiceNullableScalarRelationFilter, ServiceWhereInput> | null
-  }, "id">
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
+    booking?: XOR<BookingNullableScalarRelationFilter, BookingWhereInput> | null
+  }, "id" | "booking_id" | "user_id_service_id">
 
   export type ReviewOrderByWithAggregationInput = {
     id?: SortOrder
     rating?: SortOrder
-    comment?: SortOrderInput | SortOrder
-    userId?: SortOrder
-    productId?: SortOrder
+    comment?: SortOrder
+    user_id?: SortOrder
+    service_id?: SortOrder
+    booking_id?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: ReviewCountOrderByAggregateInput
@@ -7689,9 +7726,10 @@ export namespace Prisma {
     NOT?: ReviewScalarWhereWithAggregatesInput | ReviewScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Review"> | string
     rating?: IntWithAggregatesFilter<"Review"> | number
-    comment?: StringNullableWithAggregatesFilter<"Review"> | string | null
-    userId?: StringWithAggregatesFilter<"Review"> | string
-    productId?: StringWithAggregatesFilter<"Review"> | string
+    comment?: StringWithAggregatesFilter<"Review"> | string
+    user_id?: StringWithAggregatesFilter<"Review"> | string
+    service_id?: StringWithAggregatesFilter<"Review"> | string
+    booking_id?: StringNullableWithAggregatesFilter<"Review"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Review"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Review"> | Date | string
   }
@@ -7792,151 +7830,155 @@ export namespace Prisma {
     id?: string
     date: Date | string
     status?: $Enums.BookingStatus
-    paymentStatus?: $Enums.PaymentStatus
-    paymentIntentId?: string | null
-    totalAmount: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    payment_status?: $Enums.PaymentStatus
+    payment_intent_id?: string | null
+    total_amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
     user: UserCreateNestedOneWithoutBookingsInput
     service: ServiceCreateNestedOneWithoutBookingsInput
+    review?: ReviewCreateNestedOneWithoutBookingInput
   }
 
   export type BookingUncheckedCreateInput = {
     id?: string
-    userId: string
-    serviceId: string
+    user_id: string
+    service_id: string
     date: Date | string
     status?: $Enums.BookingStatus
-    paymentStatus?: $Enums.PaymentStatus
-    paymentIntentId?: string | null
-    totalAmount: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    payment_status?: $Enums.PaymentStatus
+    payment_intent_id?: string | null
+    total_amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
+    review?: ReviewUncheckedCreateNestedOneWithoutBookingInput
   }
 
   export type BookingUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-    paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-    paymentIntentId?: NullableStringFieldUpdateOperationsInput | string | null
-    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    payment_intent_id?: NullableStringFieldUpdateOperationsInput | string | null
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutBookingsNestedInput
     service?: ServiceUpdateOneRequiredWithoutBookingsNestedInput
+    review?: ReviewUpdateOneWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    serviceId?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    service_id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-    paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-    paymentIntentId?: NullableStringFieldUpdateOperationsInput | string | null
-    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    payment_intent_id?: NullableStringFieldUpdateOperationsInput | string | null
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    review?: ReviewUncheckedUpdateOneWithoutBookingNestedInput
   }
 
   export type BookingCreateManyInput = {
     id?: string
-    userId: string
-    serviceId: string
+    user_id: string
+    service_id: string
     date: Date | string
     status?: $Enums.BookingStatus
-    paymentStatus?: $Enums.PaymentStatus
-    paymentIntentId?: string | null
-    totalAmount: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    payment_status?: $Enums.PaymentStatus
+    payment_intent_id?: string | null
+    total_amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type BookingUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-    paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-    paymentIntentId?: NullableStringFieldUpdateOperationsInput | string | null
-    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    payment_intent_id?: NullableStringFieldUpdateOperationsInput | string | null
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BookingUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    serviceId?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    service_id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-    paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-    paymentIntentId?: NullableStringFieldUpdateOperationsInput | string | null
-    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    payment_intent_id?: NullableStringFieldUpdateOperationsInput | string | null
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AvailabilityCreateInput = {
     id?: string
     date: Date | string
-    isBookable?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    is_bookable?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
     service: ServiceCreateNestedOneWithoutAvailabilityInput
   }
 
   export type AvailabilityUncheckedCreateInput = {
     id?: string
-    serviceId: string
+    service_id: string
     date: Date | string
-    isBookable?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    is_bookable?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type AvailabilityUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    isBookable?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_bookable?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     service?: ServiceUpdateOneRequiredWithoutAvailabilityNestedInput
   }
 
   export type AvailabilityUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    serviceId?: StringFieldUpdateOperationsInput | string
+    service_id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    isBookable?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_bookable?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AvailabilityCreateManyInput = {
     id?: string
-    serviceId: string
+    service_id: string
     date: Date | string
-    isBookable?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    is_bookable?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type AvailabilityUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    isBookable?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_bookable?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AvailabilityUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    serviceId?: StringFieldUpdateOperationsInput | string
+    service_id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    isBookable?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_bookable?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ServiceCreateInput = {
@@ -8024,19 +8066,21 @@ export namespace Prisma {
   export type ReviewCreateInput = {
     id?: string
     rating: number
-    comment?: string | null
+    comment: string
     created_at?: Date | string
     updated_at?: Date | string
-    user?: UserCreateNestedOneWithoutReviewsInput
-    service?: ServiceCreateNestedOneWithoutReviewsInput
+    user: UserCreateNestedOneWithoutReviewsInput
+    service: ServiceCreateNestedOneWithoutReviewsInput
+    booking?: BookingCreateNestedOneWithoutReviewInput
   }
 
   export type ReviewUncheckedCreateInput = {
     id?: string
     rating: number
-    comment?: string | null
-    userId: string
-    productId: string
+    comment: string
+    user_id: string
+    service_id: string
+    booking_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -8044,19 +8088,21 @@ export namespace Prisma {
   export type ReviewUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     rating?: IntFieldUpdateOperationsInput | number
-    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    comment?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneWithoutReviewsNestedInput
-    service?: ServiceUpdateOneWithoutReviewsNestedInput
+    user?: UserUpdateOneRequiredWithoutReviewsNestedInput
+    service?: ServiceUpdateOneRequiredWithoutReviewsNestedInput
+    booking?: BookingUpdateOneWithoutReviewNestedInput
   }
 
   export type ReviewUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     rating?: IntFieldUpdateOperationsInput | number
-    comment?: NullableStringFieldUpdateOperationsInput | string | null
-    userId?: StringFieldUpdateOperationsInput | string
-    productId?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    service_id?: StringFieldUpdateOperationsInput | string
+    booking_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8064,9 +8110,10 @@ export namespace Prisma {
   export type ReviewCreateManyInput = {
     id?: string
     rating: number
-    comment?: string | null
-    userId: string
-    productId: string
+    comment: string
+    user_id: string
+    service_id: string
+    booking_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -8074,7 +8121,7 @@ export namespace Prisma {
   export type ReviewUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     rating?: IntFieldUpdateOperationsInput | number
-    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    comment?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8082,9 +8129,10 @@ export namespace Prisma {
   export type ReviewUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     rating?: IntFieldUpdateOperationsInput | number
-    comment?: NullableStringFieldUpdateOperationsInput | string | null
-    userId?: StringFieldUpdateOperationsInput | string
-    productId?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    service_id?: StringFieldUpdateOperationsInput | string
+    booking_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8293,56 +8341,61 @@ export namespace Prisma {
     isNot?: ServiceWhereInput
   }
 
-  export type BookingServiceIdDateCompoundUniqueInput = {
-    serviceId: string
+  export type ReviewNullableScalarRelationFilter = {
+    is?: ReviewWhereInput | null
+    isNot?: ReviewWhereInput | null
+  }
+
+  export type BookingService_idDateCompoundUniqueInput = {
+    service_id: string
     date: Date | string
   }
 
   export type BookingCountOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
-    serviceId?: SortOrder
+    user_id?: SortOrder
+    service_id?: SortOrder
     date?: SortOrder
     status?: SortOrder
-    paymentStatus?: SortOrder
-    paymentIntentId?: SortOrder
-    totalAmount?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    payment_status?: SortOrder
+    payment_intent_id?: SortOrder
+    total_amount?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type BookingAvgOrderByAggregateInput = {
-    totalAmount?: SortOrder
+    total_amount?: SortOrder
   }
 
   export type BookingMaxOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
-    serviceId?: SortOrder
+    user_id?: SortOrder
+    service_id?: SortOrder
     date?: SortOrder
     status?: SortOrder
-    paymentStatus?: SortOrder
-    paymentIntentId?: SortOrder
-    totalAmount?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    payment_status?: SortOrder
+    payment_intent_id?: SortOrder
+    total_amount?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type BookingMinOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
-    serviceId?: SortOrder
+    user_id?: SortOrder
+    service_id?: SortOrder
     date?: SortOrder
     status?: SortOrder
-    paymentStatus?: SortOrder
-    paymentIntentId?: SortOrder
-    totalAmount?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    payment_status?: SortOrder
+    payment_intent_id?: SortOrder
+    total_amount?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type BookingSumOrderByAggregateInput = {
-    totalAmount?: SortOrder
+    total_amount?: SortOrder
   }
 
   export type EnumBookingStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -8386,36 +8439,36 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type AvailabilityServiceIdDateCompoundUniqueInput = {
-    serviceId: string
+  export type AvailabilityService_idDateCompoundUniqueInput = {
+    service_id: string
     date: Date | string
   }
 
   export type AvailabilityCountOrderByAggregateInput = {
     id?: SortOrder
-    serviceId?: SortOrder
+    service_id?: SortOrder
     date?: SortOrder
-    isBookable?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    is_bookable?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type AvailabilityMaxOrderByAggregateInput = {
     id?: SortOrder
-    serviceId?: SortOrder
+    service_id?: SortOrder
     date?: SortOrder
-    isBookable?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    is_bookable?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type AvailabilityMinOrderByAggregateInput = {
     id?: SortOrder
-    serviceId?: SortOrder
+    service_id?: SortOrder
     date?: SortOrder
-    isBookable?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    is_bookable?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -8491,22 +8544,23 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type UserNullableScalarRelationFilter = {
-    is?: UserWhereInput | null
-    isNot?: UserWhereInput | null
+  export type BookingNullableScalarRelationFilter = {
+    is?: BookingWhereInput | null
+    isNot?: BookingWhereInput | null
   }
 
-  export type ServiceNullableScalarRelationFilter = {
-    is?: ServiceWhereInput | null
-    isNot?: ServiceWhereInput | null
+  export type ReviewUser_idService_idCompoundUniqueInput = {
+    user_id: string
+    service_id: string
   }
 
   export type ReviewCountOrderByAggregateInput = {
     id?: SortOrder
     rating?: SortOrder
     comment?: SortOrder
-    userId?: SortOrder
-    productId?: SortOrder
+    user_id?: SortOrder
+    service_id?: SortOrder
+    booking_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -8519,8 +8573,9 @@ export namespace Prisma {
     id?: SortOrder
     rating?: SortOrder
     comment?: SortOrder
-    userId?: SortOrder
-    productId?: SortOrder
+    user_id?: SortOrder
+    service_id?: SortOrder
+    booking_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -8529,8 +8584,9 @@ export namespace Prisma {
     id?: SortOrder
     rating?: SortOrder
     comment?: SortOrder
-    userId?: SortOrder
-    productId?: SortOrder
+    user_id?: SortOrder
+    service_id?: SortOrder
+    booking_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -8667,6 +8723,18 @@ export namespace Prisma {
     connect?: ServiceWhereUniqueInput
   }
 
+  export type ReviewCreateNestedOneWithoutBookingInput = {
+    create?: XOR<ReviewCreateWithoutBookingInput, ReviewUncheckedCreateWithoutBookingInput>
+    connectOrCreate?: ReviewCreateOrConnectWithoutBookingInput
+    connect?: ReviewWhereUniqueInput
+  }
+
+  export type ReviewUncheckedCreateNestedOneWithoutBookingInput = {
+    create?: XOR<ReviewCreateWithoutBookingInput, ReviewUncheckedCreateWithoutBookingInput>
+    connectOrCreate?: ReviewCreateOrConnectWithoutBookingInput
+    connect?: ReviewWhereUniqueInput
+  }
+
   export type EnumBookingStatusFieldUpdateOperationsInput = {
     set?: $Enums.BookingStatus
   }
@@ -8697,6 +8765,26 @@ export namespace Prisma {
     upsert?: ServiceUpsertWithoutBookingsInput
     connect?: ServiceWhereUniqueInput
     update?: XOR<XOR<ServiceUpdateToOneWithWhereWithoutBookingsInput, ServiceUpdateWithoutBookingsInput>, ServiceUncheckedUpdateWithoutBookingsInput>
+  }
+
+  export type ReviewUpdateOneWithoutBookingNestedInput = {
+    create?: XOR<ReviewCreateWithoutBookingInput, ReviewUncheckedCreateWithoutBookingInput>
+    connectOrCreate?: ReviewCreateOrConnectWithoutBookingInput
+    upsert?: ReviewUpsertWithoutBookingInput
+    disconnect?: ReviewWhereInput | boolean
+    delete?: ReviewWhereInput | boolean
+    connect?: ReviewWhereUniqueInput
+    update?: XOR<XOR<ReviewUpdateToOneWithWhereWithoutBookingInput, ReviewUpdateWithoutBookingInput>, ReviewUncheckedUpdateWithoutBookingInput>
+  }
+
+  export type ReviewUncheckedUpdateOneWithoutBookingNestedInput = {
+    create?: XOR<ReviewCreateWithoutBookingInput, ReviewUncheckedCreateWithoutBookingInput>
+    connectOrCreate?: ReviewCreateOrConnectWithoutBookingInput
+    upsert?: ReviewUpsertWithoutBookingInput
+    disconnect?: ReviewWhereInput | boolean
+    delete?: ReviewWhereInput | boolean
+    connect?: ReviewWhereUniqueInput
+    update?: XOR<XOR<ReviewUpdateToOneWithWhereWithoutBookingInput, ReviewUpdateWithoutBookingInput>, ReviewUncheckedUpdateWithoutBookingInput>
   }
 
   export type ServiceCreateNestedOneWithoutAvailabilityInput = {
@@ -8864,6 +8952,12 @@ export namespace Prisma {
     connect?: ServiceWhereUniqueInput
   }
 
+  export type BookingCreateNestedOneWithoutReviewInput = {
+    create?: XOR<BookingCreateWithoutReviewInput, BookingUncheckedCreateWithoutReviewInput>
+    connectOrCreate?: BookingCreateOrConnectWithoutReviewInput
+    connect?: BookingWhereUniqueInput
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -8872,24 +8966,30 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type UserUpdateOneWithoutReviewsNestedInput = {
+  export type UserUpdateOneRequiredWithoutReviewsNestedInput = {
     create?: XOR<UserCreateWithoutReviewsInput, UserUncheckedCreateWithoutReviewsInput>
     connectOrCreate?: UserCreateOrConnectWithoutReviewsInput
     upsert?: UserUpsertWithoutReviewsInput
-    disconnect?: UserWhereInput | boolean
-    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReviewsInput, UserUpdateWithoutReviewsInput>, UserUncheckedUpdateWithoutReviewsInput>
   }
 
-  export type ServiceUpdateOneWithoutReviewsNestedInput = {
+  export type ServiceUpdateOneRequiredWithoutReviewsNestedInput = {
     create?: XOR<ServiceCreateWithoutReviewsInput, ServiceUncheckedCreateWithoutReviewsInput>
     connectOrCreate?: ServiceCreateOrConnectWithoutReviewsInput
     upsert?: ServiceUpsertWithoutReviewsInput
-    disconnect?: ServiceWhereInput | boolean
-    delete?: ServiceWhereInput | boolean
     connect?: ServiceWhereUniqueInput
     update?: XOR<XOR<ServiceUpdateToOneWithWhereWithoutReviewsInput, ServiceUpdateWithoutReviewsInput>, ServiceUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type BookingUpdateOneWithoutReviewNestedInput = {
+    create?: XOR<BookingCreateWithoutReviewInput, BookingUncheckedCreateWithoutReviewInput>
+    connectOrCreate?: BookingCreateOrConnectWithoutReviewInput
+    upsert?: BookingUpsertWithoutReviewInput
+    disconnect?: BookingWhereInput | boolean
+    delete?: BookingWhereInput | boolean
+    connect?: BookingWhereUniqueInput
+    update?: XOR<XOR<BookingUpdateToOneWithWhereWithoutReviewInput, BookingUpdateWithoutReviewInput>, BookingUncheckedUpdateWithoutReviewInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -9122,17 +9222,19 @@ export namespace Prisma {
   export type ReviewCreateWithoutUserInput = {
     id?: string
     rating: number
-    comment?: string | null
+    comment: string
     created_at?: Date | string
     updated_at?: Date | string
-    service?: ServiceCreateNestedOneWithoutReviewsInput
+    service: ServiceCreateNestedOneWithoutReviewsInput
+    booking?: BookingCreateNestedOneWithoutReviewInput
   }
 
   export type ReviewUncheckedCreateWithoutUserInput = {
     id?: string
     rating: number
-    comment?: string | null
-    productId: string
+    comment: string
+    service_id: string
+    booking_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -9151,24 +9253,26 @@ export namespace Prisma {
     id?: string
     date: Date | string
     status?: $Enums.BookingStatus
-    paymentStatus?: $Enums.PaymentStatus
-    paymentIntentId?: string | null
-    totalAmount: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    payment_status?: $Enums.PaymentStatus
+    payment_intent_id?: string | null
+    total_amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
     service: ServiceCreateNestedOneWithoutBookingsInput
+    review?: ReviewCreateNestedOneWithoutBookingInput
   }
 
   export type BookingUncheckedCreateWithoutUserInput = {
     id?: string
-    serviceId: string
+    service_id: string
     date: Date | string
     status?: $Enums.BookingStatus
-    paymentStatus?: $Enums.PaymentStatus
-    paymentIntentId?: string | null
-    totalAmount: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    payment_status?: $Enums.PaymentStatus
+    payment_intent_id?: string | null
+    total_amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
+    review?: ReviewUncheckedCreateNestedOneWithoutBookingInput
   }
 
   export type BookingCreateOrConnectWithoutUserInput = {
@@ -9203,9 +9307,10 @@ export namespace Prisma {
     NOT?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
     id?: StringFilter<"Review"> | string
     rating?: IntFilter<"Review"> | number
-    comment?: StringNullableFilter<"Review"> | string | null
-    userId?: StringFilter<"Review"> | string
-    productId?: StringFilter<"Review"> | string
+    comment?: StringFilter<"Review"> | string
+    user_id?: StringFilter<"Review"> | string
+    service_id?: StringFilter<"Review"> | string
+    booking_id?: StringNullableFilter<"Review"> | string | null
     created_at?: DateTimeFilter<"Review"> | Date | string
     updated_at?: DateTimeFilter<"Review"> | Date | string
   }
@@ -9231,15 +9336,15 @@ export namespace Prisma {
     OR?: BookingScalarWhereInput[]
     NOT?: BookingScalarWhereInput | BookingScalarWhereInput[]
     id?: StringFilter<"Booking"> | string
-    userId?: StringFilter<"Booking"> | string
-    serviceId?: StringFilter<"Booking"> | string
+    user_id?: StringFilter<"Booking"> | string
+    service_id?: StringFilter<"Booking"> | string
     date?: DateTimeFilter<"Booking"> | Date | string
     status?: EnumBookingStatusFilter<"Booking"> | $Enums.BookingStatus
-    paymentStatus?: EnumPaymentStatusFilter<"Booking"> | $Enums.PaymentStatus
-    paymentIntentId?: StringNullableFilter<"Booking"> | string | null
-    totalAmount?: DecimalFilter<"Booking"> | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFilter<"Booking"> | Date | string
-    updatedAt?: DateTimeFilter<"Booking"> | Date | string
+    payment_status?: EnumPaymentStatusFilter<"Booking"> | $Enums.PaymentStatus
+    payment_intent_id?: StringNullableFilter<"Booking"> | string | null
+    total_amount?: DecimalFilter<"Booking"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFilter<"Booking"> | Date | string
+    updated_at?: DateTimeFilter<"Booking"> | Date | string
   }
 
   export type UserCreateWithoutBookingsInput = {
@@ -9300,6 +9405,31 @@ export namespace Prisma {
   export type ServiceCreateOrConnectWithoutBookingsInput = {
     where: ServiceWhereUniqueInput
     create: XOR<ServiceCreateWithoutBookingsInput, ServiceUncheckedCreateWithoutBookingsInput>
+  }
+
+  export type ReviewCreateWithoutBookingInput = {
+    id?: string
+    rating: number
+    comment: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    user: UserCreateNestedOneWithoutReviewsInput
+    service: ServiceCreateNestedOneWithoutReviewsInput
+  }
+
+  export type ReviewUncheckedCreateWithoutBookingInput = {
+    id?: string
+    rating: number
+    comment: string
+    user_id: string
+    service_id: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ReviewCreateOrConnectWithoutBookingInput = {
+    where: ReviewWhereUniqueInput
+    create: XOR<ReviewCreateWithoutBookingInput, ReviewUncheckedCreateWithoutBookingInput>
   }
 
   export type UserUpsertWithoutBookingsInput = {
@@ -9374,6 +9504,37 @@ export namespace Prisma {
     availability?: AvailabilityUncheckedUpdateManyWithoutServiceNestedInput
   }
 
+  export type ReviewUpsertWithoutBookingInput = {
+    update: XOR<ReviewUpdateWithoutBookingInput, ReviewUncheckedUpdateWithoutBookingInput>
+    create: XOR<ReviewCreateWithoutBookingInput, ReviewUncheckedCreateWithoutBookingInput>
+    where?: ReviewWhereInput
+  }
+
+  export type ReviewUpdateToOneWithWhereWithoutBookingInput = {
+    where?: ReviewWhereInput
+    data: XOR<ReviewUpdateWithoutBookingInput, ReviewUncheckedUpdateWithoutBookingInput>
+  }
+
+  export type ReviewUpdateWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutReviewsNestedInput
+    service?: ServiceUpdateOneRequiredWithoutReviewsNestedInput
+  }
+
+  export type ReviewUncheckedUpdateWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    service_id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ServiceCreateWithoutAvailabilityInput = {
     id?: string
     name: string
@@ -9441,17 +9602,19 @@ export namespace Prisma {
   export type ReviewCreateWithoutServiceInput = {
     id?: string
     rating: number
-    comment?: string | null
+    comment: string
     created_at?: Date | string
     updated_at?: Date | string
-    user?: UserCreateNestedOneWithoutReviewsInput
+    user: UserCreateNestedOneWithoutReviewsInput
+    booking?: BookingCreateNestedOneWithoutReviewInput
   }
 
   export type ReviewUncheckedCreateWithoutServiceInput = {
     id?: string
     rating: number
-    comment?: string | null
-    userId: string
+    comment: string
+    user_id: string
+    booking_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -9469,17 +9632,17 @@ export namespace Prisma {
   export type AvailabilityCreateWithoutServiceInput = {
     id?: string
     date: Date | string
-    isBookable?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    is_bookable?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type AvailabilityUncheckedCreateWithoutServiceInput = {
     id?: string
     date: Date | string
-    isBookable?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    is_bookable?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type AvailabilityCreateOrConnectWithoutServiceInput = {
@@ -9496,24 +9659,26 @@ export namespace Prisma {
     id?: string
     date: Date | string
     status?: $Enums.BookingStatus
-    paymentStatus?: $Enums.PaymentStatus
-    paymentIntentId?: string | null
-    totalAmount: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    payment_status?: $Enums.PaymentStatus
+    payment_intent_id?: string | null
+    total_amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
     user: UserCreateNestedOneWithoutBookingsInput
+    review?: ReviewCreateNestedOneWithoutBookingInput
   }
 
   export type BookingUncheckedCreateWithoutServiceInput = {
     id?: string
-    userId: string
+    user_id: string
     date: Date | string
     status?: $Enums.BookingStatus
-    paymentStatus?: $Enums.PaymentStatus
-    paymentIntentId?: string | null
-    totalAmount: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    payment_status?: $Enums.PaymentStatus
+    payment_intent_id?: string | null
+    total_amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
+    review?: ReviewUncheckedCreateNestedOneWithoutBookingInput
   }
 
   export type BookingCreateOrConnectWithoutServiceInput = {
@@ -9563,11 +9728,11 @@ export namespace Prisma {
     OR?: AvailabilityScalarWhereInput[]
     NOT?: AvailabilityScalarWhereInput | AvailabilityScalarWhereInput[]
     id?: StringFilter<"Availability"> | string
-    serviceId?: StringFilter<"Availability"> | string
+    service_id?: StringFilter<"Availability"> | string
     date?: DateTimeFilter<"Availability"> | Date | string
-    isBookable?: BoolFilter<"Availability"> | boolean
-    createdAt?: DateTimeFilter<"Availability"> | Date | string
-    updatedAt?: DateTimeFilter<"Availability"> | Date | string
+    is_bookable?: BoolFilter<"Availability"> | boolean
+    created_at?: DateTimeFilter<"Availability"> | Date | string
+    updated_at?: DateTimeFilter<"Availability"> | Date | string
   }
 
   export type BookingUpsertWithWhereUniqueWithoutServiceInput = {
@@ -9646,6 +9811,37 @@ export namespace Prisma {
     create: XOR<ServiceCreateWithoutReviewsInput, ServiceUncheckedCreateWithoutReviewsInput>
   }
 
+  export type BookingCreateWithoutReviewInput = {
+    id?: string
+    date: Date | string
+    status?: $Enums.BookingStatus
+    payment_status?: $Enums.PaymentStatus
+    payment_intent_id?: string | null
+    total_amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
+    user: UserCreateNestedOneWithoutBookingsInput
+    service: ServiceCreateNestedOneWithoutBookingsInput
+  }
+
+  export type BookingUncheckedCreateWithoutReviewInput = {
+    id?: string
+    user_id: string
+    service_id: string
+    date: Date | string
+    status?: $Enums.BookingStatus
+    payment_status?: $Enums.PaymentStatus
+    payment_intent_id?: string | null
+    total_amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type BookingCreateOrConnectWithoutReviewInput = {
+    where: BookingWhereUniqueInput
+    create: XOR<BookingCreateWithoutReviewInput, BookingUncheckedCreateWithoutReviewInput>
+  }
+
   export type UserUpsertWithoutReviewsInput = {
     update: XOR<UserUpdateWithoutReviewsInput, UserUncheckedUpdateWithoutReviewsInput>
     create: XOR<UserCreateWithoutReviewsInput, UserUncheckedCreateWithoutReviewsInput>
@@ -9718,41 +9914,81 @@ export namespace Prisma {
     bookings?: BookingUncheckedUpdateManyWithoutServiceNestedInput
   }
 
+  export type BookingUpsertWithoutReviewInput = {
+    update: XOR<BookingUpdateWithoutReviewInput, BookingUncheckedUpdateWithoutReviewInput>
+    create: XOR<BookingCreateWithoutReviewInput, BookingUncheckedCreateWithoutReviewInput>
+    where?: BookingWhereInput
+  }
+
+  export type BookingUpdateToOneWithWhereWithoutReviewInput = {
+    where?: BookingWhereInput
+    data: XOR<BookingUpdateWithoutReviewInput, BookingUncheckedUpdateWithoutReviewInput>
+  }
+
+  export type BookingUpdateWithoutReviewInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    payment_status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    payment_intent_id?: NullableStringFieldUpdateOperationsInput | string | null
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutBookingsNestedInput
+    service?: ServiceUpdateOneRequiredWithoutBookingsNestedInput
+  }
+
+  export type BookingUncheckedUpdateWithoutReviewInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    service_id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    payment_status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    payment_intent_id?: NullableStringFieldUpdateOperationsInput | string | null
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ReviewCreateManyUserInput = {
     id?: string
     rating: number
-    comment?: string | null
-    productId: string
+    comment: string
+    service_id: string
+    booking_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
 
   export type BookingCreateManyUserInput = {
     id?: string
-    serviceId: string
+    service_id: string
     date: Date | string
     status?: $Enums.BookingStatus
-    paymentStatus?: $Enums.PaymentStatus
-    paymentIntentId?: string | null
-    totalAmount: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    payment_status?: $Enums.PaymentStatus
+    payment_intent_id?: string | null
+    total_amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type ReviewUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     rating?: IntFieldUpdateOperationsInput | number
-    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    comment?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    service?: ServiceUpdateOneWithoutReviewsNestedInput
+    service?: ServiceUpdateOneRequiredWithoutReviewsNestedInput
+    booking?: BookingUpdateOneWithoutReviewNestedInput
   }
 
   export type ReviewUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     rating?: IntFieldUpdateOperationsInput | number
-    comment?: NullableStringFieldUpdateOperationsInput | string | null
-    productId?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    service_id?: StringFieldUpdateOperationsInput | string
+    booking_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9760,8 +9996,9 @@ export namespace Prisma {
   export type ReviewUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     rating?: IntFieldUpdateOperationsInput | number
-    comment?: NullableStringFieldUpdateOperationsInput | string | null
-    productId?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    service_id?: StringFieldUpdateOperationsInput | string
+    booking_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9770,43 +10007,46 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-    paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-    paymentIntentId?: NullableStringFieldUpdateOperationsInput | string | null
-    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    payment_intent_id?: NullableStringFieldUpdateOperationsInput | string | null
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     service?: ServiceUpdateOneRequiredWithoutBookingsNestedInput
+    review?: ReviewUpdateOneWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    serviceId?: StringFieldUpdateOperationsInput | string
+    service_id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-    paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-    paymentIntentId?: NullableStringFieldUpdateOperationsInput | string | null
-    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    payment_intent_id?: NullableStringFieldUpdateOperationsInput | string | null
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    review?: ReviewUncheckedUpdateOneWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    serviceId?: StringFieldUpdateOperationsInput | string
+    service_id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-    paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-    paymentIntentId?: NullableStringFieldUpdateOperationsInput | string | null
-    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    payment_intent_id?: NullableStringFieldUpdateOperationsInput | string | null
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ReviewCreateManyServiceInput = {
     id?: string
     rating: number
-    comment?: string | null
-    userId: string
+    comment: string
+    user_id: string
+    booking_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -9814,37 +10054,39 @@ export namespace Prisma {
   export type AvailabilityCreateManyServiceInput = {
     id?: string
     date: Date | string
-    isBookable?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    is_bookable?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type BookingCreateManyServiceInput = {
     id?: string
-    userId: string
+    user_id: string
     date: Date | string
     status?: $Enums.BookingStatus
-    paymentStatus?: $Enums.PaymentStatus
-    paymentIntentId?: string | null
-    totalAmount: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    payment_status?: $Enums.PaymentStatus
+    payment_intent_id?: string | null
+    total_amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type ReviewUpdateWithoutServiceInput = {
     id?: StringFieldUpdateOperationsInput | string
     rating?: IntFieldUpdateOperationsInput | number
-    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    comment?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneWithoutReviewsNestedInput
+    user?: UserUpdateOneRequiredWithoutReviewsNestedInput
+    booking?: BookingUpdateOneWithoutReviewNestedInput
   }
 
   export type ReviewUncheckedUpdateWithoutServiceInput = {
     id?: StringFieldUpdateOperationsInput | string
     rating?: IntFieldUpdateOperationsInput | number
-    comment?: NullableStringFieldUpdateOperationsInput | string | null
-    userId?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    booking_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9852,8 +10094,9 @@ export namespace Prisma {
   export type ReviewUncheckedUpdateManyWithoutServiceInput = {
     id?: StringFieldUpdateOperationsInput | string
     rating?: IntFieldUpdateOperationsInput | number
-    comment?: NullableStringFieldUpdateOperationsInput | string | null
-    userId?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    booking_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9861,61 +10104,63 @@ export namespace Prisma {
   export type AvailabilityUpdateWithoutServiceInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    isBookable?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_bookable?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AvailabilityUncheckedUpdateWithoutServiceInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    isBookable?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_bookable?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AvailabilityUncheckedUpdateManyWithoutServiceInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    isBookable?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_bookable?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BookingUpdateWithoutServiceInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-    paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-    paymentIntentId?: NullableStringFieldUpdateOperationsInput | string | null
-    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    payment_intent_id?: NullableStringFieldUpdateOperationsInput | string | null
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutBookingsNestedInput
+    review?: ReviewUpdateOneWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateWithoutServiceInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-    paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-    paymentIntentId?: NullableStringFieldUpdateOperationsInput | string | null
-    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    payment_intent_id?: NullableStringFieldUpdateOperationsInput | string | null
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    review?: ReviewUncheckedUpdateOneWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateManyWithoutServiceInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-    paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-    paymentIntentId?: NullableStringFieldUpdateOperationsInput | string | null
-    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    payment_intent_id?: NullableStringFieldUpdateOperationsInput | string | null
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
