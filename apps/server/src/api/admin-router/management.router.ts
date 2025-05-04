@@ -15,5 +15,6 @@ ManagementRouter.delete('/services/delete-service', AdminServiceManagementContro
 ManagementRouter.post('/bookings/availability/bulk/:serviceId', bookingManagementControllerInstance.createAvailablityDatesInBulk);
 ManagementRouter.put('/bookings/availability/:serviceId/:date', bookingManagementControllerInstance.updateAvailablityForSpecificDate);
 ManagementRouter.delete('/users/delete-user/:userId', userManagementControllerInstance.deleteUser);
+ManagementRouter.get('/users/fetch-users', userManagementControllerInstance.fetchUsers);
 
 export default ManagementRouter;

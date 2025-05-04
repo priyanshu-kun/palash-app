@@ -5,7 +5,7 @@ const router = Router();
 
 const profileRouterControllerInstance = new UserProfileController();
 
-router.get("/me/:userId", profileRouterControllerInstance.fetchProfile)
-router.put("/update-profile/:userId", profileRouterControllerInstance.updateProfile)
+router.get("/me", profileRouterControllerInstance.fetchProfile)
+router.put("/update-profile", profileRouterControllerInstance.updateProfile)
 
 export default router;

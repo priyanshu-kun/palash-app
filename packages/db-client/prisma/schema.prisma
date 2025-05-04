@@ -25,6 +25,10 @@ model User {
   role Role @default(USER)
   reviews Review[]
   bookings Booking[]
+  payments Payment[]
+  refresh_tokens RefreshToken[]
+  notifications         Notification[]
+  created_notifications Notification[] @relation("NotificationCreator")
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
@@ -36,11 +40,14 @@ model Booking {
   service_id       String
   service          Service          @relation(fields: [service_id], references: [id])
   date             DateTime         @db.Date
+  time_slot        String
+  invoice_id       String?
+  payments         Payment[]
+  invoice          Invoice?
   status           BookingStatus    @default(PENDING)
   payment_status   PaymentStatus    @default(PENDING)
   payment_intent_id String?
   total_amount     Decimal          @db.Decimal(10, 2)
-  review           Review?
   created_at       DateTime         @default(now())
   updated_at       DateTime         @updatedAt
 
@@ -61,14 +68,44 @@ enum PaymentStatus {
   FAILED
 }
 
+enum TimeSlotStatus {
+  AVAILABLE
+  BOOKED
+  BLOCKED
+}
+
+
+model Invoice {
+  id String @id @default(uuid())
+  booking_id String @unique
+  booking Booking @relation(fields: [booking_id], references: [id])
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}   
+
+model TimeSlot {
+  id              String         @id @default(uuid())
+  availability_id String
+  availability    Availability   @relation(fields: [availability_id], references: [id], onDelete: Cascade)
+  start_time      DateTime       @db.Time
+  end_time        DateTime       @db.Time
+  status          TimeSlotStatus @default(AVAILABLE)
+  created_at      DateTime       @default(now())
+  updated_at      DateTime       @updatedAt
+
+  @@unique([availability_id, start_time, end_time])
+  @@index([availability_id])
+}
+
 model Availability {
-  id         String    @id @default(uuid())
+  id          String      @id @default(uuid())
   service_id  String
-  service    Service   @relation(fields: [service_id], references: [id])
-  date       DateTime  @db.Date
-  is_bookable Boolean   @default(true)
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
+  service     Service     @relation(fields: [service_id], references: [id])
+  date        DateTime    @db.Date
+  is_bookable Boolean     @default(true)
+  time_slots  TimeSlot[]
+  created_at  DateTime    @default(now())
+  updated_at  DateTime    @updatedAt
 
   @@unique([service_id, date])
 }
@@ -76,15 +113,62 @@ model Availability {
 model Service {
   id String @id @default(uuid())
   name String
-  media String[]
   description String
+  shortDescription String?
+  media String[]
+  category String
+  tags String[]
   price Decimal
+  currency String?
+  average_rating Float?
+  total_reviews Int?
+  pricingType PricingType @default(FIXED)
+  discountPrice String?
+  duration Int
+  sessionType SessionType @default(GROUP)
+  maxParticipants Int?
+  difficultyLevel DiffcultyType @default(BEGINNER)
+  prerequisites String[]
+  equipmentRequired String[]
+  benefitsAndOutcomes String[]
+  instructorId String?
+  instructorName String?
+  instructorBio String?
+  cancellationPolicy String?
+  featured Boolean
+  isActive Boolean @default(true)
+  isOnline Boolean
+  isRecurring Boolean?
+  location Json?
+  virtualMeetingDetails Json?
   reviews Review[]
   availability Availability[]
   bookings Booking[]
+  payments Payment[]
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
+
+enum DiffcultyType {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCE
+  ALL_LEVELS
+}
+
+enum PricingType {
+  FIXED
+  HOURLY
+  PACKAGE
+}
+
+
+enum SessionType {
+  GROUP
+  PRIVATE
+  SELF_GUIDED
+}
+
 
 model Review {
   id          String    @id @default(uuid())
@@ -95,7 +179,6 @@ model Review {
   booking_id  String?   @unique
   user        User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
   service     Service   @relation(fields: [service_id], references: [id], onDelete: Cascade)
-  booking     Booking?  @relation(fields: [booking_id], references: [id], onDelete: SetNull)
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
 
@@ -105,7 +188,78 @@ model Review {
   @@unique([user_id, service_id])
 }
 
+model RefreshToken {
+  id         String   @id @default(uuid())
+  token      String   @unique
+  user_id    String
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  is_revoked Boolean  @default(false)
+  expires_at DateTime
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([user_id])
+  @@index([token])
+}
+
 enum Role {
   USER
   ADMIN
+}
+
+enum NotificationType {
+  BOOKING_CREATED
+  BOOKING_CONFIRMED
+  BOOKING_CANCELLED
+  PAYMENT_SUCCESS
+  PAYMENT_FAILED
+  REVIEW_CREATED
+  SERVICE_UPDATED
+  SERVICE_CREATED
+  ADMIN_ANNOUNCEMENT
+  SYSTEM_NOTIFICATION
+}
+
+enum NotificationStatus {
+  UNREAD
+  READ
+  ARCHIVED
+}
+
+model Notification {
+  id              String            @id @default(uuid())
+  user_id         String
+  user            User              @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  type            NotificationType
+  title           String
+  message         String            @db.Text
+  status          NotificationStatus @default(UNREAD)
+  data            Json?             // For storing additional data like bookingId, serviceId, etc.
+  created_by      String?           // ID of user/admin who created the notification
+  created_by_user User?             @relation("NotificationCreator", fields: [created_by], references: [id], onDelete: SetNull)
+  created_at      DateTime          @default(now())
+  updated_at      DateTime          @updatedAt
+
+  @@index([user_id])
+  @@index([status])
+  @@index([created_at])
+}
+
+
+model Payment {
+  id String @id @default(uuid())
+  booking_id String?
+  service_id String
+  user_id String  
+  email String
+  order_id String
+  payment_id String
+  signature String
+  date DateTime @db.Date
+  time_slot String
+  user User @relation(fields: [user_id], references: [id])
+  service Service @relation(fields: [service_id], references: [id])
+  booking Booking? @relation(fields: [booking_id], references: [id]) 
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }

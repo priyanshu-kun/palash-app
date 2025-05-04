@@ -1,7 +1,7 @@
 "use client";
 import React from 'react'
 import Image from "next/image"
-import HeroImage from "@/app/assets/hero.png"
+import HeroImage from "@/app/assets/hero.jpg"
 import DesignElements from '../design-elements/DesignElements';
 import VideoElement from '../design-elements/VideoElement';
 import { useRouter } from 'next/navigation';
@@ -15,12 +15,12 @@ function Hero() {
   const unavaliableDates = [3, 7, 8, 11, 14];
   const bookings = [2, 5, 10, 13]
   return (
-    <header className='w-[96%] mx-auto relative  h-[90vh] rounded-lg '>
-      <Image src={HeroImage} className='absolute w-full h-full' alt="cover image" />
+    <header className='w-[96%] mx-auto relative  h-[90vh] bg-white rounded-2xl overflow-hidden '>
+      <Image src={HeroImage} className='absolute w-full bg-cover' alt="cover image" />
       <DesignElements text='Healthy Body' className='absolute bottom-[36%] left-[40%]' />
       <DesignElements text='Healthy Mind' className='absolute bottom-[36%] left-[15%]' />
       <VideoElement className='absolute top-[20%] left-[3%]' />
-      <div className='absolute  h-40  bottom-6 left-0 text-white flex flex-col justify-between text-[65px] ml-6 font-bold'>
+      <div className='absolute  h-40  bottom-6 left-0 text-white  flex flex-col justify-between text-[65px] ml-6 font-bold'>
         <span>A Journey to</span>
         <span>Mental Wellness</span>
       </div>

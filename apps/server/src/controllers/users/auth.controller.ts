@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { SignInDTO, SignUpDTO, VerifyOtpDTO } from "../../@types/interfaces.js";
+import { RefreshTokenDTO, SignInDTO, SignUpDTO, VerifyOtpDTO } from "../../@types/interfaces.js";
 import AuthServices from "../../services/user/auth.services.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import { ValidationError, UnauthorizedError } from "../../utils/errors.js";
@@ -7,7 +7,6 @@ import { ValidationError, UnauthorizedError } from "../../utils/errors.js";
 class AuthController {
     signUp = asyncHandler(async (req: Request, res: Response) => {
         const user: SignUpDTO = req.body;
-        
         if (!user.name || !user.username || !user.phoneOrEmail || !user.dob) {
             throw new ValidationError('Name, username, phone/email and date of birth are required');
         }
@@ -20,7 +19,6 @@ class AuthController {
 
     verifySignUpOTP = asyncHandler(async (req: Request, res: Response) => {
         const user: VerifyOtpDTO = req.body;
-        
         if (!user.otp || !user.phoneOrEmail) {
             throw new ValidationError('OTP and phone/email are required');
         }
@@ -39,6 +37,20 @@ class AuthController {
         }
         
         const result = await AuthServices.signIn(user);
+        res.json({
+            message: result
+        });
+    });
+
+
+    refreshToken = asyncHandler(async (req: Request, res: Response) => {
+        const token: RefreshTokenDTO = req.body;
+        
+        if (!token.refreshToken) {
+            throw new ValidationError('Token not found');
+        }
+        
+        const result = await AuthServices.refreshToken(token);
         res.json({
             message: result
         });

@@ -8,5 +8,7 @@ dotenv.config();
 export const jwtKeysConfig: JWTKeysConfig = {
    privateKeyFile: join(__dirname, process.env.PRIVATE_KEY_FILE as string),
    privateKeyPassphrase: process.env.PRIVATE_KEY_PASSPHRASE as string,
-   publicKeyFile: join(__dirname, process.env.PUBLIC_KEY_FILE as string)
+   publicKeyFile: join(__dirname, process.env.PUBLIC_KEY_FILE as string),
+   accessTokenExpiry: '15m' as string,
+   refreshTokenExpiry: '14d' as string 
 }

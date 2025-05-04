@@ -6,14 +6,15 @@ const router = Router();
 const reviewController = new ReviewController();
 
 // Public routes - Anyone can view reviews
-router.get('/public/service/:serviceId', reviewController.getServiceReviews);
-router.get('/public/:reviewId', reviewController.getReviewById);
+router.get('/service/:serviceId', reviewController.getServiceReviews);
+router.get('/review/:reviewId', reviewController.getReviewById);
 
+
+router.use(authMiddleware);
 // Protected routes - Require authentication
-router.use('/protected', authMiddleware);
-router.post('/protected', reviewController.createReview);
-router.get('/protected/user/me', reviewController.getUserReviews);
-router.patch('/protected/:reviewId', reviewController.updateReview);
-router.delete('/protected/:reviewId', reviewController.deleteReview);
+router.post('/create-review', reviewController.createReview);
+router.get('/user/me', reviewController.getUserReviews);
+router.patch('/:reviewId', reviewController.updateReview);
+router.delete('/:reviewId', reviewController.deleteReview);
 
 export const ReviewRouter = router; 

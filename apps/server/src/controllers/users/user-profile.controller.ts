@@ -7,12 +7,8 @@ const userProfileServicesInstance = new ProfileServices();
 
 class UserProfileController {
     async fetchProfile(req: Request, res: Response, next: NextFunction): Promise<any> {
-        const userId = req.params.userId;
         try {
-            if (!userId) {
-                return res.status(500).json({ message: "Invalid user Id" });
-            }
-            const profile = await userProfileServicesInstance.fetchProfile(userId);
+            const profile = await userProfileServicesInstance.fetchProfile(req.user);
             if(!profile) {
                 return res.status(404).json({ message: "User not found" });
             }
@@ -23,12 +19,9 @@ class UserProfileController {
         }
     }
     async updateProfile(req: Request, res: Response, next: NextFunction): Promise<any> {
-        const userId = req.params.userId;
         const userData: Partial<UserData> = req.body;
         try {
-            if (!userId) {
-                return res.status(500).json({ message: "Invalid user Id" });
-            }
+            const userId = req.user?.userId;
             const isUser = await prisma.user.findUnique({where: {id: userId}});
 
             if(!isUser) {

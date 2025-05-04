@@ -1,134 +1,72 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/app/components/ui/card/Card"
-import { PrimaryButton as Button } from "@/app/components/ui/buttons/index"
+import { PrimaryButton as Button, SecondaryButton } from "@/app/components/ui/buttons/index"
 import Link from "next/link"
-import { Edit, Trash2, Plus, Clock } from "lucide-react"
-
+import { Edit, Trash2, Plus, Clock, Star } from "lucide-react"
+import { Badge } from "@/app/components/badge/badge"
+import { toast } from "../../ui/toast/use-toast"
+import { fetchServices, Service, ServicesResponse, deleteService as delService} from "@/app/api/services"
+import Image from "next/image"
+import { formatTime } from "@/app/utils/format-time"
+import { Dialog, DialogDescription, DialogTitle, DialogHeader, DialogContent, DialogFooter } from "../../ui/dialog/Dialog"
 // Define the Service interface
-interface Service {
-  id: string
-  name: string
-  price: number
-  description: string
-  images: string[]
-  duration?: string
-  createdAt: string
-}
 
 export function ServiceList() {
-  const [services, setServices] = useState<Service[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const [services, setServices] = useState<ServicesResponse | null>(null)
+  const [isServiceLoading, setIsServiceLoading] = useState(true)
+  const [serviceError, setServiceError] = useState("")
+  const [deleteService, setDeleteService] = useState(false);
+  const [deleteServiceId, setDeleteServiceId] = useState("");
+  const [imageError, setImageError] = useState(false)
 
-  // Fetch services (using dummy data for now)
   useEffect(() => {
-    const fetchServices = async () => {
-      setIsLoading(true)
-      
+    const fetchS = async () => {
       try {
-        // In a real app, this would be a fetch request
-        // const response = await fetch('/api/services')
-        // const data = await response.json()
-        
-        // Simulating API delay
-        await new Promise(resolve => setTimeout(resolve, 800))
-        
-        // Dummy wellness services data with Pexels images
-        const dummyServices: Service[] = [
-          {
-            id: "1",
-            name: "Yoga for Beginners",
-            price: 45,
-            duration: "60 min",
-            description: "A gentle introduction to basic yoga poses and breathing techniques, perfect for newcomers seeking balance and flexibility.",
-            images: [
-              "https://images.pexels.com/photos/3822864/pexels-photo-3822864.jpeg?auto=compress&cs=tinysrgb&w=600",
-              "https://images.pexels.com/photos/4056723/pexels-photo-4056723.jpeg?auto=compress&cs=tinysrgb&w=600"
-            ],
-            createdAt: "2025-02-15T10:30:00Z"
-          },
-          {
-            id: "2",
-            name: "Guided Meditation",
-            price: 35,
-            duration: "45 min",
-            description: "Calm your mind and reduce stress with our guided meditation sessions, designed to help you find inner peace and mental clarity.",
-            images: [
-              "https://images.pexels.com/photos/3759657/pexels-photo-3759657.jpeg?auto=compress&cs=tinysrgb&w=600"
-            ],
-            createdAt: "2025-02-10T14:20:00Z"
-          },
-          {
-            id: "3",
-            name: "Deep Tissue Massage",
-            price: 85,
-            duration: "90 min",
-            description: "Relieve chronic muscle tension with this therapeutic massage that focuses on the deepest layers of muscle tissue, tendons, and fascia.",
-            images: [
-              "https://images.pexels.com/photos/3865548/pexels-photo-3865548.jpeg?auto=compress&cs=tinysrgb&w=600",
-              "https://images.pexels.com/photos/5240677/pexels-photo-5240677.jpeg?auto=compress&cs=tinysrgb&w=600",
-              "https://images.pexels.com/photos/6663358/pexels-photo-6663358.jpeg?auto=compress&cs=tinysrgb&w=600"
-            ],
-            createdAt: "2025-02-05T09:15:00Z"
-          },
-          {
-            id: "4",
-            name: "Sound Bath Healing",
-            price: 55,
-            duration: "60 min",
-            description: "Experience deep relaxation through resonant sounds of crystal bowls and gongs, helping to reduce anxiety and promote wellness.",
-            images: [
-              "https://images.pexels.com/photos/8964915/pexels-photo-8964915.jpeg?auto=compress&cs=tinysrgb&w=600"
-            ],
-            createdAt: "2025-01-28T16:45:00Z"
-          },
-          {
-            id: "5",
-            name: "Pilates Core Strengthening",
-            price: 50,
-            duration: "55 min",
-            description: "Build core stability, improve posture, and enhance body awareness through controlled movements and breathing techniques.",
-            images: [
-              "https://images.pexels.com/photos/4057840/pexels-photo-4057840.jpeg?auto=compress&cs=tinysrgb&w=600",
-              "https://images.pexels.com/photos/6111616/pexels-photo-6111616.jpeg?auto=compress&cs=tinysrgb&w=600"
-            ],
-            createdAt: "2025-02-01T11:20:00Z"
-          },
-          {
-            id: "6",
-            name: "Ayurvedic Consultation",
-            price: 120,
-            duration: "75 min",
-            description: "Personalized wellness assessment based on ancient Ayurvedic principles, with customized recommendations for diet, lifestyle, and herbs.",
-            images: [
-              "https://images.pexels.com/photos/3735810/pexels-photo-3735810.jpeg?auto=compress&cs=tinysrgb&w=600"
-            ],
-            createdAt: "2025-01-15T10:00:00Z"
-          }
-        ]
-        
-        setServices(dummyServices)
-      } catch (err) {
-        setError("Failed to fetch wellness services. Please try again later.")
-        console.error("Error fetching services:", err)
+        const serviceData = await fetchServices();
+        toast({
+          title: "Info",
+          description: "Services fetched successfully"
+        })
+        setServices(serviceData);
+      } catch (error) {
+        // If error occurs, user is likely not logged in
+        setServiceError("Unable to load services. Please check your internet connection")
+        console.log("User not authenticated");
       } finally {
-        setIsLoading(false)
+        setIsServiceLoading(false);
       }
-    }
-    
-    fetchServices()
-  }, [])
+    };
+
+    fetchS();
+  }, []);
+
 
   // Function to delete a service (would connect to API in a real app)
   const handleDelete = async (id: string) => {
-    if (window.confirm("Are you sure you want to delete this service?")) {
-      // In a real app, this would be a DELETE request
-      // await fetch(`/api/services/${id}`, { method: 'DELETE' })
-      
-      // Optimistically update UI
-      setServices(services.filter(service => service.id !== id))
+    try {
+      const response = await delService(id);
+      if(response.message){
+        toast({
+          title: "Success",
+          description: "Service deleted successfully"
+        })
+      setDeleteService(false);
+      setDeleteServiceId("");
+        window.location.reload();
+      }else{
+        toast({
+          title: "Error",
+          description: "Service deletion failed"
+        })  
+      }
+    } catch (error) {
+      console.error("Error deleting service:", error);
+      toast({
+        title: "Error",
+        description: "Service deletion failed"
+      })
     }
   }
 
@@ -141,7 +79,7 @@ export function ServiceList() {
   }
 
   // Format date
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString: any) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric', 
       month: 'long', 
@@ -149,9 +87,17 @@ export function ServiceList() {
     })
   }
 
+
+const getImageUrl = (service: Service) => {
+  return services?.createResponse.services[0].media && services?.createResponse.services[0].media.length > 0
+    ? `http://localhost:8080${services?.createResponse.services[0].media[0]}`
+    : "/placeholder.svg?height=400&width=600"
+}
+
+
   return (
     <div className="space-y-6">
-      {isLoading ? (
+      {isServiceLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[1, 2, 3].map(i => (
             <Card key={i} className="opacity-70">
@@ -164,10 +110,10 @@ export function ServiceList() {
             </Card>
           ))}
         </div>
-      ) : error ? (
+      ) : serviceError ? (
         <Card>
           <CardContent className="p-6 text-center">
-            <p className="text-red-500">{error}</p>
+            <p className="text-red-500">{serviceError}</p>
             <Button 
               className="mt-4"
               onClick={() => window.location.reload()}
@@ -176,85 +122,116 @@ export function ServiceList() {
             </Button>
           </CardContent>
         </Card>
-      ) : services.length === 0 ? (
+      ) : services?.createResponse.services.length === 0 ? (
         <Card>
           <CardContent className="p-6 text-center">
             <p className="text-gray-500 mb-4">No wellness services found. Create your first service to get started.</p>
-            <Link href="/services/new" passHref>
+            {/* <Link href="/services/new" passHref>
               <Button className="flex items-center gap-2">
                 <Plus size={16} />
                 <span>Add Service</span>
               </Button>
-            </Link>
+            </Link> */}
           </CardContent>
         </Card>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map(service => (
-            <Card key={service.id} className="overflow-hidden flex flex-col h-full hover:shadow-lg transition-shadow duration-300">
+          {services?.createResponse.services.map(service => {
+return (
+<Card key={service.id} className="overflow-hidden flex flex-col h-full hover:shadow-lg transition-shadow duration-300">
               {/* Image Gallery (showing only first image for simplicity) */}
-              {service.images.length > 0 && (
-                <div className="relative h-52 bg-gray-100">
-                  <img 
-                    src={service.images[0]} 
-                    alt={service.name} 
-                    className="w-full h-full object-cover"
-                  />
-                  {service.images.length > 1 && (
-                    <span className="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded-full">
-                      +{service.images.length - 1} more
-                    </span>
-                  )}
-                </div>
+               <div className="relative w-full h-56 overflow-hidden">
+          {service.media && service.media.length > 0 ? (
+            <>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#012b2b]/30 to-transparent z-10" />
+              <Image
+                src={`http://localhost:8080${service.media[0]}`}
+                alt={service.name}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                onError={() => setImageError(true)}
+              />
+              <Badge className="absolute top-4 right-4 z-20 bg-white/90 text-[#012b2b] hover:bg-white/80">
+                {service.category}
+              </Badge>
+              {service.featured && (
+                <Badge className="absolute bg-yellow-200 text-black top-4 flex items-center justify-center gap-2 left-4 z-20">
+                  <Star className="w-3 h-3" />
+                  <span className="text-xs">Featured</span>
+                </Badge>
               )}
+            </>
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-[#012b2b]/10 to-[#517d64]/10 flex items-center justify-center">
+              <span className="text-[#012b2b]/60">Image not available</span>
+            </div>
+          )}
+        </div>
               
               <CardHeader className="pb-2">
                 <div className="flex justify-between items-start">
                   <CardTitle className="text-xl">{service.name}</CardTitle>
-                  <span className="font-bold text-green-600">{formatPrice(service.price)}</span>
+                  <span className="font-bold text-green-600">{service.currency} {service.price}</span>
                 </div>
                 {service.duration && (
-                  <div className="flex items-center text-gray-500 mt-1 text-sm">
+                  <Badge variant="default" className="max-w-fit" >
                     <Clock size={14} className="mr-1" />
-                    <span>{service.duration}</span>
-                  </div>
+                    <span>{formatTime(service.duration)}</span>
+                  </Badge>
                 )}
               </CardHeader>
               
               <CardContent className="pb-2 flex-grow">
                 <p className="text-gray-600 text-sm line-clamp-3">{service.description}</p>
-                <p className="text-gray-400 text-xs mt-2">Added on {formatDate(service.createdAt)}</p>
+                <p className="text-gray-400 text-xs mt-2">Added on {formatDate(service.created_at)}</p>
               </CardContent>
               
               <CardFooter className="flex justify-between pt-2 mt-auto">
-                <Link 
-                  href={`/services/${service.id}`} 
-                  className="text-blue-500 hover:text-blue-700 text-sm"
-                >
-                  View Details
-                </Link>
-                {/* <div className="flex gap-2">
-                  <Link href={`/services/${service.id}/edit`} passHref>
+                <div className="flex gap-2 w-full">
+                  <Link href={`/services/${service.id}/edit`} passHref className="w-1/2 pointer-events-none">
                     <Button 
-                      className="p-2 h-8 w-8 flex items-center justify-center"
+                      className="p-2 h-10 w-full pointer-events-none flex items-center justify-center"
                       aria-label={`Edit ${service.name}`}
+                      disabled={true}
                     >
-                      <Edit size={16} />
+                      <Edit size={16} /> Edit
                     </Button>
                   </Link>
                   <Button 
-                    className="p-2 h-8 w-8 flex items-center justify-center bg-red-500 hover:bg-red-600"
-                    onClick={() => handleDelete(service.id)}
+                    className="p-2 h-10 w-1/2 flex items-center justify-center bg-destructive hover:bg-red-600"
+                    onClick={() => {
+setDeleteService(true)
+setDeleteServiceId(service.id)
+                    }}
                     aria-label={`Delete ${service.name}`}
                   >
-                    <Trash2 size={16} />
+                    <Trash2 size={16} /> Delete
                   </Button>
-                </div> */}
+                </div>
               </CardFooter>
             </Card>
-          ))}
+)
+})}
         </div>
       )}
+
+<Dialog
+        open={deleteService}
+        onOpenChange={setDeleteService}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete Service</DialogTitle>
+          </DialogHeader>
+          <DialogDescription>
+            Are you sure you want to delete this service?
+          </DialogDescription>
+          <DialogFooter>
+            <SecondaryButton onClick={() => setDeleteService(false)}>Cancel</SecondaryButton>
+            <Button onClick={() => handleDelete(deleteServiceId as string)} className="bg-red-600 hover:bg-red-700">Delete</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

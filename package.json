@@ -24,9 +24,17 @@
     "packages/*"
   ],
   "dependencies": {
+    "@types/pdfkit": "^0.13.9",
+    "@types/ws": "^8.18.0",
     "bcryptjs": "^3.0.0",
+    "date-fns": "^4.1.0",
     "jsonwebtoken": "^9.0.2",
+    "pdfkit": "^0.17.0",
+    "react-hook-form": "^7.56.0",
+    "react-icons": "^5.5.0",
     "server": "^1.0.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "uuid": "^11.1.0",
+    "ws": "^8.18.1"
   }
 }

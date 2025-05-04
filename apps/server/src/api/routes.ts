@@ -6,6 +6,7 @@ import { BookingRouter } from "./booking-router/index.js";
 import { authMiddleware, authorizeRoles } from "../middlewares/auth.middleware.js";
 import { PaymentRouter } from "./payment-router/index.js";
 import { ReviewRouter } from "./review-router/index.js";
+import NotificationRouter from "./notifications-router/notification.routes.js"; 
 
 const router = Router();
 
@@ -15,5 +16,6 @@ router.use('/payment', authMiddleware, PaymentRouter);
 router.use('/booking', authMiddleware, BookingRouter);
 router.use('/users', UserRouter);
 router.use('/reviews', ReviewRouter);
+router.use('/notifications', authMiddleware, NotificationRouter);
 
 export default router;

@@ -1,48 +1,22 @@
-import React from 'react';
+import * as React from "react"
 
-type TextAreaProps = {
-  label?: string;
-  placeholder?: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  error?: string;
-  id?: string;
-  name?: string;
-  required?: boolean;
-  rows?: number;
-};
+import { cn } from "@/lib/utils"
 
-export const TextArea: React.FC<TextAreaProps> = ({
-  label,
-  placeholder,
-  value,
-  onChange,
-  error,
-  id,
-  name,
-  required = false,
-  rows = 4,
-}) => {
+const Textarea = React.forwardRef<
+  HTMLTextAreaElement,
+  React.ComponentProps<"textarea">
+>(({ className, ...props }, ref) => {
   return (
-    <div className="mb-4">
-      {label && (
-        <label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-1">
-          {label} {required && <span className="text-red-500">*</span>}
-        </label>
+    <textarea
+      className={cn(
+        "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+        className
       )}
-      <textarea
-        id={id}
-        name={name}
-        rows={rows}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        className={`px-3 py-2 border ${
-          error ? 'border-red-500' : 'border-gray-300'
-        } rounded-md shadow-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-500`}
-        required={required}
-      />
-      {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
-    </div>
-  );
-};
+      ref={ref}
+      {...props}
+    />
+  )
+})
+Textarea.displayName = "Textarea"
+
+export { Textarea }

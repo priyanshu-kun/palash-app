@@ -6,13 +6,74 @@ export interface Review {
   date: string
 }
 
+export interface BookingData {
+  userId: string;
+  serviceId: string;
+  date: string;
+  timeSlot: string;
+  paymentId: string;
+  email: string;
+}
+
 export interface Service {
   id: string
   name: string
   description: string
-  price: number
-  image: string
-  reviews: Review[]
+  shortDescription?: string
+  media: string[]
+  category: string
+  tags: string[]
+  price: string
+  currency?: string | null
+  pricingType: 'FIXED' | 'HOURLY' | 'PACKAGE'
+  discountPrice?: string | null
+  duration: number
+  sessionType: 'PRIVATE' | 'GROUP' | 'SELF_GUIDED'
+  maxParticipants?: number | null
+  difficultyLevel: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED'
+  prerequisites: string[]
+  equipmentRequired: string[]
+  benefitsAndOutcomes: string[]
+  instructorId?: string | null
+  instructorName?: string | null
+  instructorBio?: string | null
+  cancellationPolicy?: string | null
+  featured: boolean
+  isActive: boolean
+  isOnline: boolean
+  isRecurring?: boolean | null
+  location?: {
+    city?: string
+    state?: string
+    address?: string
+    country?: string
+    postalCode?: string
+    coordinates?: {
+      latitude: number
+      longitude: number
+    }
+  } | null
+  virtualMeetingDetails?: {
+    joinLink?: string
+    password?: string
+    platform: string
+  } | null
+  created_at: string
+  updated_at: string
+}
+
+export interface ServicesResponse {
+  message: string
+  createResponse: {
+    pagination: {
+      currentPage: number
+      totalPages: number
+      totalServices: number
+      hasNextPage: boolean
+      hasPrevPage: boolean
+    }
+    services: Service[]
+  }
 }
 
 export interface AvailableDate {

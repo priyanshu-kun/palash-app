@@ -134,10 +134,29 @@ exports.Prisma.BookingScalarFieldEnum = {
   user_id: 'user_id',
   service_id: 'service_id',
   date: 'date',
+  time_slot: 'time_slot',
+  invoice_id: 'invoice_id',
   status: 'status',
   payment_status: 'payment_status',
   payment_intent_id: 'payment_intent_id',
   total_amount: 'total_amount',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.InvoiceScalarFieldEnum = {
+  id: 'id',
+  booking_id: 'booking_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.TimeSlotScalarFieldEnum = {
+  id: 'id',
+  availability_id: 'availability_id',
+  start_time: 'start_time',
+  end_time: 'end_time',
+  status: 'status',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -154,9 +173,34 @@ exports.Prisma.AvailabilityScalarFieldEnum = {
 exports.Prisma.ServiceScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  media: 'media',
   description: 'description',
+  shortDescription: 'shortDescription',
+  media: 'media',
+  category: 'category',
+  tags: 'tags',
   price: 'price',
+  currency: 'currency',
+  average_rating: 'average_rating',
+  total_reviews: 'total_reviews',
+  pricingType: 'pricingType',
+  discountPrice: 'discountPrice',
+  duration: 'duration',
+  sessionType: 'sessionType',
+  maxParticipants: 'maxParticipants',
+  difficultyLevel: 'difficultyLevel',
+  prerequisites: 'prerequisites',
+  equipmentRequired: 'equipmentRequired',
+  benefitsAndOutcomes: 'benefitsAndOutcomes',
+  instructorId: 'instructorId',
+  instructorName: 'instructorName',
+  instructorBio: 'instructorBio',
+  cancellationPolicy: 'cancellationPolicy',
+  featured: 'featured',
+  isActive: 'isActive',
+  isOnline: 'isOnline',
+  isRecurring: 'isRecurring',
+  location: 'location',
+  virtualMeetingDetails: 'virtualMeetingDetails',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -172,9 +216,52 @@ exports.Prisma.ReviewScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.RefreshTokenScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  user_id: 'user_id',
+  is_revoked: 'is_revoked',
+  expires_at: 'expires_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  type: 'type',
+  title: 'title',
+  message: 'message',
+  status: 'status',
+  data: 'data',
+  created_by: 'created_by',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.PaymentScalarFieldEnum = {
+  id: 'id',
+  booking_id: 'booking_id',
+  service_id: 'service_id',
+  user_id: 'user_id',
+  email: 'email',
+  order_id: 'order_id',
+  payment_id: 'payment_id',
+  signature: 'signature',
+  date: 'date',
+  time_slot: 'time_slot',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -185,6 +272,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.Role = exports.$Enums.Role = {
   USER: 'USER',
@@ -204,12 +297,61 @@ exports.PaymentStatus = exports.$Enums.PaymentStatus = {
   FAILED: 'FAILED'
 };
 
+exports.TimeSlotStatus = exports.$Enums.TimeSlotStatus = {
+  AVAILABLE: 'AVAILABLE',
+  BOOKED: 'BOOKED',
+  BLOCKED: 'BLOCKED'
+};
+
+exports.PricingType = exports.$Enums.PricingType = {
+  FIXED: 'FIXED',
+  HOURLY: 'HOURLY',
+  PACKAGE: 'PACKAGE'
+};
+
+exports.SessionType = exports.$Enums.SessionType = {
+  GROUP: 'GROUP',
+  PRIVATE: 'PRIVATE',
+  SELF_GUIDED: 'SELF_GUIDED'
+};
+
+exports.DiffcultyType = exports.$Enums.DiffcultyType = {
+  BEGINNER: 'BEGINNER',
+  INTERMEDIATE: 'INTERMEDIATE',
+  ADVANCE: 'ADVANCE',
+  ALL_LEVELS: 'ALL_LEVELS'
+};
+
+exports.NotificationType = exports.$Enums.NotificationType = {
+  BOOKING_CREATED: 'BOOKING_CREATED',
+  BOOKING_CONFIRMED: 'BOOKING_CONFIRMED',
+  BOOKING_CANCELLED: 'BOOKING_CANCELLED',
+  PAYMENT_SUCCESS: 'PAYMENT_SUCCESS',
+  PAYMENT_FAILED: 'PAYMENT_FAILED',
+  REVIEW_CREATED: 'REVIEW_CREATED',
+  SERVICE_UPDATED: 'SERVICE_UPDATED',
+  SERVICE_CREATED: 'SERVICE_CREATED',
+  ADMIN_ANNOUNCEMENT: 'ADMIN_ANNOUNCEMENT',
+  SYSTEM_NOTIFICATION: 'SYSTEM_NOTIFICATION'
+};
+
+exports.NotificationStatus = exports.$Enums.NotificationStatus = {
+  UNREAD: 'UNREAD',
+  READ: 'READ',
+  ARCHIVED: 'ARCHIVED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Booking: 'Booking',
+  Invoice: 'Invoice',
+  TimeSlot: 'TimeSlot',
   Availability: 'Availability',
   Service: 'Service',
-  Review: 'Review'
+  Review: 'Review',
+  RefreshToken: 'RefreshToken',
+  Notification: 'Notification',
+  Payment: 'Payment'
 };
 
 /**

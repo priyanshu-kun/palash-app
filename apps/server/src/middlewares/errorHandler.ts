@@ -54,14 +54,6 @@ export const errorHandler = (
     errorResponse.message = 'Your token has expired. Please log in again.';
   }
 
-  // Log error
-  logger?.error({
-    message: err.message,
-    stack: err.stack,
-    statusCode,
-    path: req.path,
-    method: req.method,
-  });
 
   // Send response
   res.status(statusCode).json(errorResponse);

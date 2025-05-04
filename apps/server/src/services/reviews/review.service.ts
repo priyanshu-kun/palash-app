@@ -36,6 +36,18 @@ class ReviewService {
                 throw new NotFoundError('User not found');
             }
 
+            // Check if user has already reviewed this service
+            const existingReview = await prisma.review.findFirst({
+                where: {
+                    user_id: data.userId,
+                    service_id: data.serviceId
+                }
+            });
+
+            if (existingReview) {
+                throw new ValidationError('User has already reviewed this service');
+            }
+
             // If bookingId is provided, verify it exists and belongs to the user
             if (data.bookingId) {
                 const booking = await prisma.booking.findFirst({
@@ -71,7 +83,7 @@ class ReviewService {
 
             await prisma.service.update({
                 where: { id: data.serviceId },
-                data: { average_rating: averageRating }
+                data: { average_rating: averageRating, total_reviews: serviceReviews.length }
             });
 
             return review;
@@ -126,7 +138,7 @@ class ReviewService {
     async getServiceReviews(serviceId: string, {
         page = 1,
         limit = 10,
-        sortBy = 'createdAt',
+        sortBy = 'created_at',
         order = 'desc'
     } = {}) {
         try {
@@ -182,7 +194,7 @@ class ReviewService {
                         }
                     }
                 },
-                orderBy: { createdAt: 'desc' }
+                orderBy: { created_at: 'desc' }
             });
 
             return reviews;
@@ -229,14 +241,14 @@ class ReviewService {
             // If rating was updated, update service average rating
             if (data.rating) {
                 const serviceReviews = await prisma.review.findMany({
-                    where: { service_id: existingReview.serviceId }
+                    where: { service_id: existingReview.service_id }
                 });
 
                 const averageRating = serviceReviews.reduce((acc: number, review: { rating: number }) => acc + review.rating, 0) / serviceReviews.length;
 
                 await prisma.service.update({
-                    where: { id: existingReview.serviceId },
-                    data: { average_rating: averageRating }
+                    where: { id: existingReview.service_id },
+                    data: { average_rating: averageRating, total_reviews: serviceReviews.length }
                 });
             }
 
@@ -254,7 +266,6 @@ class ReviewService {
      */
     async deleteReview(reviewId: string, userId: string) {
         try {
-            // Check if review exists and belongs to user
             const review = await prisma.review.findFirst({
                 where: {
                     id: reviewId,
@@ -280,8 +291,8 @@ class ReviewService {
                 const averageRating = serviceReviews.reduce((acc: number, review: { rating: number }) => acc + review.rating, 0) / serviceReviews.length;
 
                 await prisma.service.update({
-                    where: { id: review.serviceId },
-                    data: { average_rating: averageRating }
+                    where: { id: review.service_id },
+                    data: { average_rating: averageRating, total_reviews: serviceReviews.length }
                 });
             }
 

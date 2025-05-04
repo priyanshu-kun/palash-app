@@ -1,12 +1,13 @@
 import { Request, Response, NextFunction } from "express"
 import fs from "fs";
 import path from "path";
-import { prisma } from "@palash/db-client";
+import { NotificationType, prisma } from "@palash/db-client";
 import { RequestBody_Create, RequestBody_Update } from "../../@types/interfaces.js";
 import Logger from "../../config/logger.config.js";
 import { __dirname } from "../../utils/__dirname-handler.js";
 import winston from "winston";
 import { deleteServicesRedisKeys } from "../../utils/delete-all-redis-keys.js";
+import NotificationService from "../../services/notification/notification.service.js";
 
 
 const loggerInstance = new Logger();
@@ -16,10 +17,34 @@ const logger: winston.Logger | undefined = loggerInstance.getLogger();
 class AdminServiceManagementController {
   static async createService(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-      const { name, description, price }: RequestBody_Create = req.body;
+      const {
+        name,
+        description,
+        shortDescription,
+        price,
+        category,
+        featured,
+        currency,
+        tags = [],
+        duration,
+        sessionType = 'GROUP',
+        maxParticipants,
+        difficultyLevel = 'BEGINNER',
+        prerequisites = [],
+        equipmentRequired = [],
+        benefitsAndOutcomes = [],
+        instructorName,
+        instructorBio,
+        cancellationPolicy,
+        isActive = true,
+        isOnline = false,
+        location,
+        virtualMeetingDetails,
+        pricingType = 'FIXED'
+      }: RequestBody_Create = req.body;
 
-      if (!name || !description || !price) {
-        res.status(400).json({ message: "Invalid request data" });
+      if (!name || !description || !price || !category || !featured || !duration) {
+        res.status(400).json({ message: "Missing required fields" });
         return;
       }
 
@@ -30,9 +55,43 @@ class AdminServiceManagementController {
       const service = await prisma.service.create({
         data: {
           name,
-          media,
           description,
+          shortDescription,
+          media,
+          category,
+          tags,
+          currency,
           price: parseFloat(price).toFixed(4),
+          pricingType,
+          duration: Number(duration),
+          sessionType,
+          maxParticipants: Number(maxParticipants),
+          difficultyLevel,
+          prerequisites,
+          equipmentRequired,
+          benefitsAndOutcomes,
+          instructorName,
+          instructorBio,
+          cancellationPolicy,
+          featured: (featured as unknown as string) === 'true',
+          isActive: (isActive as unknown as string) === 'true',
+          isOnline: (isOnline as unknown as string) === 'true',
+          location: typeof location === 'string' ? (() => {
+            try {
+              return JSON.parse(location);
+            } catch (e) {
+              console.log('Invalid location JSON:', location);
+              return null;
+            }
+          })() : location,
+          virtualMeetingDetails: typeof virtualMeetingDetails === 'string' ? (() => {
+            try {
+              return JSON.parse(virtualMeetingDetails);
+            } catch (e) {
+              console.log('Invalid virtualMeetingDetails JSON:', virtualMeetingDetails);
+              return null;
+            }
+          })() : virtualMeetingDetails,
         },
       });
 
@@ -40,23 +99,61 @@ class AdminServiceManagementController {
       const endDate = new Date();
       endDate.setMonth(endDate.getMonth() + 3);
 
-      const workingDays = [1, 2, 3, 4, 5];
+      const workingDays = [1, 2, 3, 4, 5]; // Monday to Friday
+      const timeSlots = [
+        { startTime: '09:00', endTime: '10:00' },
+        { startTime: '10:00', endTime: '11:00' },
+        { startTime: '11:00', endTime: '12:00' },
+        { startTime: '13:00', endTime: '14:00' }, // After lunch break
+        { startTime: '14:00', endTime: '15:00' },
+        { startTime: '15:00', endTime: '16:00' }
+      ];
 
       for (let dt = new Date(startDate); dt <= endDate; dt.setDate(dt.getDate() + 1)) {
         if (workingDays.includes(dt.getDay())) {
-          await prisma.availability.create({
+          // Create availability for the day
+          const availability = await prisma.availability.create({
             data: {
               service_id: service.id,
               date: new Date(dt),
               is_bookable: true,
             },
           });
+
+          // Create time slots for this day
+          await Promise.all(timeSlots.map(async slot => {
+            const [startHour, startMinute] = slot.startTime.split(':');
+            const [endHour, endMinute] = slot.endTime.split(':');
+            
+            const startTime = new Date(dt);
+            startTime.setHours(parseInt(startHour) + 5, parseInt(startMinute) + 30, 0);
+            
+            const endTime = new Date(dt);
+            endTime.setHours(parseInt(endHour) + 5, parseInt(endMinute) + 30, 0);
+
+            return prisma.timeSlot.create({
+              data: {
+                availability_id: availability.id,
+                start_time: startTime,
+                end_time: endTime,
+                status: 'AVAILABLE'
+              }
+            });
+          }));
         }
       }
 
+      await NotificationService.getInstance().createNotification({
+        userId: req.user?.userId,
+        type: NotificationType.SERVICE_CREATED,
+        title: "Service Created",
+        message: "A new service has been created",
+        data: { serviceId: service.id }
+      });
+
       res.status(201).json({
         message: "Service created successfully",
-        content: { name, description, media, price },
+        service
       });
     } catch (err) {
       next(err);
@@ -107,6 +204,14 @@ class AdminServiceManagementController {
         data: { media: updatedMedia },
       });
 
+      await NotificationService.getInstance().createNotification({
+        userId: req.user?.userId,
+        type: NotificationType.SERVICE_UPDATED,
+        title: "Service Updated",
+        message: "The service has been updated",
+        data: { serviceId: serviceId }
+      });
+
       await deleteServicesRedisKeys();
 
       res.status(200).json({ message: "Images updated successfully", media: updatedMedia });
@@ -119,7 +224,30 @@ class AdminServiceManagementController {
   static async updateServiceData(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
       const { serviceId } = req.params;
-      const { name, description, price } = req.body;
+      const {
+        name,
+        description,
+        shortDescription,
+        price,
+        category,
+        featured,
+        tags,
+        duration,
+        sessionType,
+        maxParticipants,
+        difficultyLevel,
+        prerequisites,
+        equipmentRequired,
+        benefitsAndOutcomes,
+        instructorName,
+        instructorBio,
+        cancellationPolicy,
+        isActive,
+        isOnline,
+        location,
+        virtualMeetingDetails,
+        pricingType
+      }: RequestBody_Update = req.body;
 
       if (!serviceId) {
         res.status(400).json({ error: "Service ID is required" });
@@ -145,9 +273,53 @@ class AdminServiceManagementController {
 
       const updatedService = await prisma.service.update({
         where: { id: serviceId },
-        data: { name, description, price },
+        data: {
+          name,
+          description,
+          shortDescription,
+          category,
+          tags,
+          price: price ? parseFloat(price).toFixed(4) : undefined,
+          pricingType,
+          duration: Number(duration),
+          sessionType,
+          maxParticipants,
+          difficultyLevel,
+          prerequisites,
+          equipmentRequired,
+          benefitsAndOutcomes,
+          instructorName,
+          instructorBio,
+          cancellationPolicy,
+          featured: Boolean(featured),
+          isActive: Boolean(isActive),
+          isOnline: Boolean(isOnline),
+          location: typeof location === 'string' ? (() => {
+            try {
+              return JSON.parse(location);
+            } catch (e) {
+              console.log('Invalid location JSON:', location);
+              return null;
+            }
+          })() : location,
+          virtualMeetingDetails: typeof virtualMeetingDetails === 'string' ? (() => {
+            try {
+              return JSON.parse(virtualMeetingDetails);
+            } catch (e) {
+              console.log('Invalid virtualMeetingDetails JSON:', virtualMeetingDetails);
+              return null;
+            }
+          })() : virtualMeetingDetails
+        },
       });
 
+      await NotificationService.getInstance().createNotification({
+        userId: req.user?.userId,
+        type: NotificationType.SERVICE_UPDATED,
+        title: "Service Updated",
+        message: "The service has been updated",
+        data: { serviceId: serviceId }
+      });
 
       await deleteServicesRedisKeys();
 
@@ -175,19 +347,51 @@ class AdminServiceManagementController {
         return;
       }
 
-      const imagePath = path.join(__dirname, "../uploads", service?.name);
+      // Delete in correct order respecting foreign key constraints
+      try {
+        // First delete all time slots
+        await prisma.timeSlot.deleteMany({
+          where: {
+            availability: {
+              service_id: serviceId
+            }
+          }
+        });
 
-      fs.rmSync(imagePath, { recursive: true });
+        await prisma.booking.deleteMany({
+          where: {
+            service_id: serviceId
+          }
+        })
 
-      await prisma.service.delete({
-        where: { id: serviceId }
-      });
+        await prisma.payment.deleteMany({
+          where: {
+            service_id: serviceId
+          }
+        })
 
-      await deleteServicesRedisKeys();
+        // Then delete availabilities
+        await prisma.availability.deleteMany({
+          where: { service_id: serviceId }
+        });
 
-      res.json({ message: "Service and related images deleted successfully" });
-      return;
+        // Delete reviews
+        await prisma.review.deleteMany({
+          where: { service_id: serviceId }
+        });
 
+        // Finally delete the service
+        await prisma.service.delete({
+          where: { id: serviceId }
+        });
+
+        await deleteServicesRedisKeys();
+
+        res.json({ message: "Service and related data deleted successfully" });
+      } catch (error) {
+        logger?.error("Error in cascade deletion:", error);
+        throw error;
+      }
     } catch (err) {
       console.error("Error deleting service:", err);
       res.status(500).json({ error: "Internal Server Error" });

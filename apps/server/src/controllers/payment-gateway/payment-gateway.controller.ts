@@ -1,5 +1,5 @@
 import {Request, Response, NextFunction} from "express";
-import { ICreateCustomerParams, IVerifyPaymentParams } from "../../@types/interfaces.js";
+import { ICreateCustomerParams, IVerifyPaymentParams, IOrderParams, CreateBookingInput } from "../../@types/interfaces.js";
 import PaymentGateway from "../../services/payment-gateway/payment.service.js";
 import { razorpayConfig } from "../../config/razorpay.config.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
@@ -11,6 +11,17 @@ class PaymentGatewayController {
     constructor() {
         this.paymentGatewayInstance = new PaymentGateway(razorpayConfig);
     }
+
+    createOrder = asyncHandler(async (req: Request, res: Response) => {
+        const params: IOrderParams = req.body;
+        
+        if (!params.userId || !params.serviceId) {
+            throw new ValidationError('Send, User ID, Service ID are required');
+        }
+        const order = await this.paymentGatewayInstance.createOrder(params);
+        return res.json(order);
+    }); 
+    
 
     verifyPayment = asyncHandler(async (req: Request, res: Response) => {
         const params: IVerifyPaymentParams = req.body;

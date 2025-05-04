@@ -2,14 +2,23 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Search, Bell, ShoppingCart } from 'lucide-react';
-import {SecondaryButton} from "@/app/components/ui/buttons/index";
-import { useRouter } from 'next/navigation'
+import { Search, Bell, ShoppingCart, User, LogOut, ExternalLink } from 'lucide-react';
+import {PrimaryButton, SecondaryButton} from "@/app/components/ui/buttons/index";
+import { useRouter, usePathname } from 'next/navigation'
+import type { UserProfile } from '@/app/api/user';
+import { clearTokens } from '@/app/utils/save-token';
+import Logo from "@/app/assets/logo-light.png";
+import Image from 'next/image';
 
-const Navbar = () => {
+interface NavbarProps {
+    user: UserProfile | null;
+    isLoading: boolean;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ user, isLoading }) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const router = useRouter();
-
+    const pathname = usePathname();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -30,44 +39,55 @@ const Navbar = () => {
     }
 
     return (
-        <nav className={`fixed top-10 left-1/2 rounded-lg w-full max-w-[90%] z-10 transition-all -translate-x-1/2 duration-300 ${isScrolled ? 'bg-white/80 backdrop-blur-md shadow-md' : 'bg-gray-100'
+        <nav className={`fixed top-10 left-1/2 rounded-2xl w-full max-w-[90%]  z-50 transition-all -translate-x-1/2 duration-300 ${isScrolled ? 'bg-white/70 backdrop-blur-md shadow-md' : 'bg-gray-200'
             }`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
                     <div className="flex-shrink-0">
                         <Link href="/" className="text-xl font-bold">
-                            PALASH
+                            <Image
+                                src={Logo}
+                                alt="PALASH"
+                                className="object-contain w-[100px]"
+                                />
                         </Link>
                     </div>
 
                     <div className='flex items-center justify-center  '>
                         {/* Search Bar */}
-                        <div className="hidden md:block flex-1 max-w-md mx-8">
-                            <div className="relative">
-                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <Search className="h-5 w-5 text-gray-800" />
-                                </div>
-                                <input
-                                    type="text"
-                                    className="block w-full pl-10 pr-3 py-2 border  border-gray-600 rounded-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-800 placeholder:font-semibold text-sm   focus:border-transparent max-w-[160px]"
-                                    placeholder="Search"
-                                />
-                            </div>
-                        </div>
 
                         {/* Navigation Links */}
                         <div className="hidden md:flex text-sm font-semibold items-center space-x-8">
-                            <Link href="/admin-dashboard/services" className="text-gray-500  hover:text-gray-900">
-                               Services 
-                            </Link>
-                            <Link href="/services" className="text-gray-500 hover:text-gray-900">
+                            {
+                                user?.role === 'ADMIN' && (
+                                    <Link 
+                                        href="/admin-dashboard/services" 
+                                        className={`text-gray-500 hover:text-gray-900 ${pathname.startsWith('/admin-dashboard') ? 'text-gray-900 font-bold border-b-2 border-[#012b2b] underline' : ''}`}
+                                    >
+                                        Admin 
+                                    </Link>
+                                )
+                            }
+                            <Link 
+                                href="/services" 
+                                className={`text-gray-500 hover:text-gray-900 ${pathname === '/services' ? 'text-gray-900 font-bold border-b-2 border-[#012b2b] underline' : ''}`}
+                            >
                                 Wellness Programs
                             </Link>
-                            <Link href="https://palash-app-forum.vercel.app/" target='__blank' className="text-gray-500 hover:text-gray-900">
-                                Community Forum
+                            
+                            <Link 
+                                href="https://palash-app-forum.vercel.app/" 
+                                target='__blank' 
+                                className="text-gray-500 flex items-center gap-2 hover:text-gray-900"
+                            >
+                               <span>Community Forum</span>
+                                <ExternalLink size={16} />
                             </Link>
-                            <Link href="/about" className="text-gray-500 hover:text-gray-900">
+                            <Link 
+                                href="/about" 
+                                className={`text-gray-500 hover:text-gray-900 ${pathname === '/about' ? 'text-gray-900 font-bold border-b-2 border-[#012b2b] underline' : ''}`}
+                            >
                                 About
                             </Link>
                         </div>
@@ -76,15 +96,22 @@ const Navbar = () => {
 
                     {/* Right Section */}
                     <div className="flex items-center space-x-4">
-                        {/* <button className="p-2 rounded-full hover:bg-gray-100">
-                            <Bell className="h-6 w-6 text-gray-600" />
-                        </button>
-                        <button className="p-2 rounded-full hover:bg-gray-100">
-                            <ShoppingCart className="h-6 w-6 text-gray-600" />
-                        </button> */}
-                        <SecondaryButton onClick={() => navigateToAuth()} className=" px-8  border-gray-600 font-semibold text-gray-800  hover:bg-gray-100 ">
-                            Sign in &#8594;
-                        </SecondaryButton>
+                        {isLoading ? (
+                            <div className="h-10 w-24 bg-gray-200 animate-pulse rounded-full"></div>
+                        ) : user ? (
+                            <span className="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-100">
+
+                                <span className="text-sm font-medium text-gray-600">Hey👋, @{user.name}</span>
+                                <PrimaryButton onClick={() => {
+                                    window.location.href = '/';
+                                    clearTokens()
+                                }} className='bg-red-400 hover:bg-red-500' startIcon={<LogOut size={16} color='white' />}>Logout</PrimaryButton>
+                            </span>
+                        ) : (
+                            <SecondaryButton onClick={() => navigateToAuth()} className="px-8 border-gray-600 font-semibold text-gray-800 hover:bg-gray-100">
+                                Sign in &#8594;
+                            </SecondaryButton>
+                        )}
                     </div>
                 </div>
             </div>

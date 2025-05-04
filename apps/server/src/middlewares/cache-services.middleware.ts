@@ -9,12 +9,13 @@ export async function cacheMiddleware(req: Request, res: Response, next: NextFun
     try {
         const cacheKey = req.originalUrl.replace("?", ":");
         const cacheData = await redisClient.get(cacheKey);
+        console.log(cacheData)
 
         if(cacheData) {
             logger?.info("Cache Hit");
             res.status(200).json({
                 message: "Services retrieved successfully",
-                dataFromCache: JSON.parse(cacheData)
+                createResponse: JSON.parse(cacheData)
             });
             return;
         }

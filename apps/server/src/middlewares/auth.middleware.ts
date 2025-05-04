@@ -10,7 +10,7 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
     const token = authHeader.split(" ")[1];
 
     const jwtServiceInstance = new JWTService();
-    const result = await jwtServiceInstance.verifyToken(token);
+    const result = await jwtServiceInstance.verifyAccessToken(token);
 
     if (!result) {
         res.status(401).json({ message: "Unauthorized: please authenticate first." });

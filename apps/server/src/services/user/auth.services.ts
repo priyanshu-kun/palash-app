@@ -1,242 +1,349 @@
 import { prisma } from "@palash/db-client";
-import { SignInDTO, SignUpDTO, VerifyOtpDTO } from "../../@types/interfaces.js";
+import { SignInDTO, SignUpDTO, VerifyOtpDTO, RefreshTokenDTO } from "../../@types/interfaces.js";
 import Logger from "../../config/logger.config.js";
 import { generateOtp } from "../../utils/generate-otp.js";
 import { deleteOtp, getOtpData, storeSignUpOtp, storeSignInOtp } from "../../utils/redis.utils.js";
 import { sendMail } from "../../adapters/mailer.adapter.js";
 import JWTService from "./jwt/jwt.service.js";
+import { ValidationError } from "../../utils/errors.js";
 
 const loggerInstance = new Logger();
 const logger = loggerInstance.getLogger();
 
 class AuthServices {
     static async signUp(user: SignUpDTO) {
-        try {
-            const { name, username, phoneOrEmail, dob } = user;
 
-            const isUserExists = await prisma.user.findFirst({
-                where: { OR: [{ username }, { "phone_or_email": phoneOrEmail }] },
-            });
+        const { name, username, phoneOrEmail, dob } = user;
 
-            if (isUserExists) {
-                throw new Error("Username or Phone/Email already taken.");
-            }
+        const isUserExists = await prisma.user.findFirst({
+            where: { OR: [{ username }, { "phone_or_email": phoneOrEmail }] },
+        });
 
-            const otp: string = generateOtp();
-
-            const tempUser = {
-                otp,
-                name,
-                username,
-                phoneOrEmail,
-                dob
-            }
-
-            await storeSignUpOtp(tempUser);
-
-            await sendMail({phoneOrEmail, otp});
-
-            return { message: "OTP sent for signin.", otp: otp };
+        if (isUserExists) {
+            throw new ValidationError('Username or Phone/Email already taken.');
         }
-        catch (err: any) {
-            throw new Error(`${err.message}`);
+
+        const otp: string = generateOtp();
+
+        const tempUser = {
+            otp,
+            name,
+            username,
+            phoneOrEmail,
+            dob
         }
+
+        await storeSignUpOtp(tempUser);
+        await sendMail({ phoneOrEmail, otp });
+        return { message: "OTP sent for signin." };
     }
+
     static async verifySignUpOtp(data: VerifyOtpDTO) {
-        try {
+        const { phoneOrEmail, otp } = data;
 
-            const { phoneOrEmail, otp } = data;
+        const savedUser = await getOtpData(phoneOrEmail, "signup");
+        if (!savedUser) throw new ValidationError("OTP expired");
 
-            const savedUser = await getOtpData(phoneOrEmail, "signup");
-            if (!savedUser) throw new Error("OTP expired");
+        if (savedUser.otp !== otp) throw new ValidationError("Invalid Otp");
 
-            if (savedUser.otp !== otp) throw new Error("Invalid Otp");
+        await deleteOtp(phoneOrEmail, "signup");
 
-            await deleteOtp(phoneOrEmail, "signup");
+        const user = await prisma.user.create({
+            data: {
+                phone_or_email: phoneOrEmail,
+                name: savedUser.name,
+                username: savedUser.username,
+                date_of_birth: new Date(savedUser.dob)
+            },
+        });
 
-            await prisma.user.create({
-                data: {
-                    phone_or_email: phoneOrEmail,
-                    name: savedUser.name,
-                    username: savedUser.username,
-                    date_of_birth: new Date(savedUser.dob)
-                },
-            });
+        const jwtServiceInstance = new JWTService();
+        const { accessToken, refreshToken } = await jwtServiceInstance.generateTokenPair(user.id, user.phone_or_email, 'USER');
 
+        // Store refresh token in database
+        await prisma.refreshToken.create({
+            data: {
+                token: refreshToken,
+                user_id: user.id,
+                expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+            }
+        });
 
-            const jwtServiceInstance = new JWTService();
-            const token = await jwtServiceInstance.generateToken(phoneOrEmail, 'USER');
-
-            return { message: "Signup successful.", token };
-        }
-        catch (err: any) {
-            throw new Error(`${err.message}`);
-        }
+        return {
+            message: "Signup successful.",
+            accessToken,
+            refreshToken,
+            user: user
+        };
     }
 
     static async signIn(data: SignInDTO) {
-        try {
-            const { phoneOrEmail } = data;
+        const { phoneOrEmail } = data;
 
-            const user = await prisma.user.findUnique({ where: { phone_or_email: phoneOrEmail } });
-            if (!user) throw new Error("User not found. Please sign up.");
+        const user = await prisma.user.findUnique({ where: { phone_or_email: phoneOrEmail } });
+        if (!user) throw new ValidationError("User not found. Please sign up.");
 
-            const otp: string = generateOtp();
+        const otp: string = generateOtp();
 
-            await sendMail({ phoneOrEmail, otp});
+        await sendMail({ phoneOrEmail, otp });
 
-            await storeSignInOtp({otp, phoneOrEmail});
+        await storeSignInOtp({ otp, phoneOrEmail });
 
-            return { message: "OTP sent for signin.", otp };
+        return { message: "OTP sent for signin." };
+    }
+
+    static async verifySignInOtp(data: VerifyOtpDTO) {
+        const { phoneOrEmail, otp } = data;
+
+        const savedUser = await getOtpData(phoneOrEmail, "signin");
+        if (!savedUser) throw new ValidationError("OTP expired");
+
+        if (savedUser.otp !== otp) throw new ValidationError("Invalid Otp");
+
+        await deleteOtp(phoneOrEmail, "signin");
+
+        const user = await prisma.user.findUnique({ where: { phone_or_email: phoneOrEmail } });
+        if (!user) throw new ValidationError("User not found. Please sign up.");
+
+        // Invalidate any existing refresh tokens for this user
+        await prisma.refreshToken.updateMany({
+            where: { user_id: user.id, is_revoked: false },
+            data: { is_revoked: true }
+        });
+
+        const jwtServiceInstance = new JWTService();
+        const { accessToken, refreshToken } = await jwtServiceInstance.generateTokenPair(user.id, phoneOrEmail, user.role);
+
+        // Store refresh token in database
+        await prisma.refreshToken.create({
+            data: {
+                token: refreshToken,
+                user_id: user.id,
+                expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+            }
+        });
+
+        return {
+            message: "Login successful.",
+            accessToken,
+            refreshToken,
+            user: user
+        };
+    }
+
+    static async refreshToken(data: RefreshTokenDTO) {
+        const { refreshToken } = data;
+
+        // Verify the refresh token exists and is valid
+        const storedToken = await prisma.refreshToken.findFirst({
+            where: {
+                token: refreshToken,
+                is_revoked: false,
+                expires_at: { gt: new Date() }
+            },
+            include: { user: true }
+        });
+
+        if (!storedToken) {
+            throw new ValidationError("Invalid or expired refresh token");
         }
-        catch (err: any) {
+
+        const user = storedToken.user;
+
+        // Generate new token pair
+        const jwtServiceInstance = new JWTService();
+        const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
+            await jwtServiceInstance.generateTokenPair(user.id, user.phone_or_email, user.role);
+
+        // Revoke the old refresh token
+        await prisma.refreshToken.update({
+            where: { id: storedToken.id },
+            data: { is_revoked: true }
+        });
+
+        // Store the new refresh token
+        await prisma.refreshToken.create({
+            data: {
+                token: newRefreshToken,
+                user_id: user.id,
+                expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+            }
+        });
+
+        return {
+            message: "Token refreshed successfully",
+            accessToken: newAccessToken,
+            refreshToken: newRefreshToken
+        };
+    }
+
+    static async logout(userId: string, refreshToken: string) {
+        try {
+            // Revoke the refresh token
+            await prisma.refreshToken.updateMany({
+                where: {
+                    user_id: userId,
+                    token: refreshToken,
+                    is_revoked: false
+                },
+                data: { is_revoked: true }
+            });
+
+            return { message: "Logged out successfully" };
+        } catch (err: any) {
             throw new Error(`${err.message}`);
         }
     }
 
-    static async verifySignInOtp(data: VerifyOtpDTO) {
+    static async logoutAll(userId: string) {
         try {
+            // Revoke all refresh tokens for this user
+            await prisma.refreshToken.updateMany({
+                where: {
+                    user_id: userId,
+                    is_revoked: false
+                },
+                data: { is_revoked: true }
+            });
 
-            const { phoneOrEmail, otp } = data;
-
-            const savedUser = await getOtpData(phoneOrEmail, "signin");
-            if (!savedUser) throw new Error("OTP expired");
-
-            if (savedUser.otp !== otp) throw new Error("Invalid Otp");
-
-            await deleteOtp(phoneOrEmail, "signin");
-
-            const user = await prisma.user.findUnique({ where: { phone_or_email: phoneOrEmail } });
-            if (!user) throw new Error("User not found. Please sign up.");
-
-            const jwtServiceInstance = new JWTService();
-            const token = await jwtServiceInstance.generateToken(phoneOrEmail, user.role);
-
-            return { message: "Signup successful.", token };
-        }
-        catch (err: any) {
+            return { message: "Logged out from all devices successfully" };
+        } catch (err: any) {
             throw new Error(`${err.message}`);
         }
     }
 
     static async createNewAdmin(user: SignUpDTO) {
-        try {
-            const { name, username, phoneOrEmail, dob } = user;
+        const { name, username, phoneOrEmail, dob } = user;
 
-            const isUserExists = await prisma.user.findFirst({
-                where: { OR: [{ username }, { "phone_or_email": phoneOrEmail }] },
-            });
+        const isUserExists = await prisma.user.findFirst({
+            where: { OR: [{ username }, { "phone_or_email": phoneOrEmail }] },
+        });
 
-            if (isUserExists) {
-                throw new Error("Username or Phone/Email already taken.");
-            }
-
-            const otp: string = generateOtp();
-
-            const tempUser = {
-                otp,
-                name,
-                username,
-                phoneOrEmail,
-                dob,
-                role: 'ADMIN'
-            }
-
-            await storeSignUpOtp(tempUser);
-
-            await sendMail({phoneOrEmail, otp});
-
-            return { message: "OTP sent for admin registration.", otp: otp };
+        if (isUserExists) {
+            throw new ValidationError("Username or Phone/Email already taken.");
         }
-        catch (err: any) {
-            throw new Error(`${err.message}`);
+
+        const otp: string = generateOtp();
+
+        const tempUser = {
+            otp,
+            name,
+            username,
+            phoneOrEmail,
+            dob,
+            role: 'ADMIN'
         }
+
+        await storeSignUpOtp(tempUser);
+
+        await sendMail({ phoneOrEmail, otp });
+
+        return { message: "OTP sent for admin registration." };
     }
 
     static async verifyAdminSignUpOtp(data: VerifyOtpDTO) {
-        try {
-            const { phoneOrEmail, otp } = data;
+        const { phoneOrEmail, otp } = data;
 
-            const savedUser = await getOtpData(phoneOrEmail, "signup");
-            if (!savedUser) throw new Error("OTP expired");
+        const savedUser = await getOtpData(phoneOrEmail, "signup");
+        if (!savedUser) throw new ValidationError("OTP expired");
 
-            if (savedUser.otp !== otp) throw new Error("Invalid OTP");
+        if (savedUser.otp !== otp) throw new ValidationError("Invalid OTP");
 
-            await deleteOtp(phoneOrEmail, "signup");
+        await deleteOtp(phoneOrEmail, "signup");
 
-            await prisma.user.create({
-                data: {
-                    phone_or_email: phoneOrEmail,
-                    name: savedUser.name,
-                    username: savedUser.username,
-                    date_of_birth: new Date(savedUser.dob),
-                    role: 'ADMIN'
-                },
-            });
+        const user = await prisma.user.create({
+            data: {
+                phone_or_email: phoneOrEmail,
+                name: savedUser.name,
+                username: savedUser.username,
+                date_of_birth: new Date(savedUser.dob),
+                role: 'ADMIN'
+            },
+        });
 
-            const jwtServiceInstance = new JWTService();
-            const token = await jwtServiceInstance.generateToken(phoneOrEmail, 'ADMIN');
+        const jwtServiceInstance = new JWTService();
+        const { accessToken, refreshToken } = await jwtServiceInstance.generateTokenPair(user.id, phoneOrEmail, 'ADMIN');
 
-            return { message: "Admin registration successful.", token };
-        }
-        catch (err: any) {
-            throw new Error(`${err.message}`);
-        }
+        // Store refresh token in database
+        await prisma.refreshToken.create({
+            data: {
+                token: refreshToken,
+                user_id: user.id,
+                expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+            }
+        });
+
+        return {
+            message: "Admin registration successful.",
+            accessToken,
+            refreshToken,
+            user: user
+        };
     }
 
     static async adminSignIn(data: SignInDTO) {
-        try {
-            const { phoneOrEmail } = data;
+        const { phoneOrEmail } = data;
 
-            const user = await prisma.user.findUnique({ 
-                where: { 
-                    phone_or_email: phoneOrEmail,
-                    role: 'ADMIN'
-                } 
-            });
-            
-            if (!user) throw new Error("Admin not found. Please register as admin.");
+        const user = await prisma.user.findUnique({
+            where: {
+                phone_or_email: phoneOrEmail,
+                role: 'ADMIN'
+            }
+        });
 
-            const otp: string = generateOtp();
+        if (!user) throw new ValidationError("Admin not found. Please register as admin.");
 
-            await sendMail({ phoneOrEmail, otp});
-            await storeSignInOtp({otp, phoneOrEmail});
+        const otp: string = generateOtp();
 
-            return { message: "OTP sent for admin login.", otp };
-        }
-        catch (err: any) {
-            throw new Error(`${err.message}`);
-        }
+        await sendMail({ phoneOrEmail, otp });
+        await storeSignInOtp({ otp, phoneOrEmail });
+
+        return { message: "OTP sent for admin login." };
     }
 
     static async verifyAdminSignInOtp(data: VerifyOtpDTO) {
-        try {
-            const { phoneOrEmail, otp } = data;
+        const { phoneOrEmail, otp } = data;
 
-            const savedUser = await getOtpData(phoneOrEmail, "signin");
-            if (!savedUser) throw new Error("OTP expired");
+        const savedUser = await getOtpData(phoneOrEmail, "signin");
+        if (!savedUser) throw new ValidationError("OTP expired");
 
-            if (savedUser.otp !== otp) throw new Error("Invalid OTP");
+        if (savedUser.otp !== otp) throw new ValidationError("Invalid OTP");
 
-            await deleteOtp(phoneOrEmail, "signin");
+        await deleteOtp(phoneOrEmail, "signin");
 
-            const user = await prisma.user.findUnique({ 
-                where: { 
-                    phone_or_email: phoneOrEmail,
-                    role: 'ADMIN'
-                } 
-            });
-            
-            if (!user) throw new Error("Admin not found. Please register as admin.");
+        const user = await prisma.user.findUnique({
+            where: {
+                phone_or_email: phoneOrEmail,
+                role: 'ADMIN'
+            }
+        });
 
-            const jwtServiceInstance = new JWTService();
-            const token = await jwtServiceInstance.generateToken(phoneOrEmail, 'ADMIN');
+        if (!user) throw new ValidationError("Admin not found. Please register as admin.");
 
-            return { message: "Admin login successful.", token };
-        }
-        catch (err: any) {
-            throw new Error(`${err.message}`);
-        }
+        // Invalidate any existing refresh tokens for this admin
+        await prisma.refreshToken.updateMany({
+            where: { user_id: user.id, is_revoked: false },
+            data: { is_revoked: true }
+        });
+
+        const jwtServiceInstance = new JWTService();
+        const { accessToken, refreshToken } = await jwtServiceInstance.generateTokenPair(user.id, phoneOrEmail, 'ADMIN');
+
+        // Store refresh token in database
+        await prisma.refreshToken.create({
+            data: {
+                token: refreshToken,
+                user_id: user.id,
+                expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+            }
+        });
+
+        return {
+            message: "Admin login successful.",
+            accessToken,
+            refreshToken,
+            user: user
+        };
     }
 }
 

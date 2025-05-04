@@ -3,10 +3,10 @@ import { UserData } from "../../@types/types.js";
 
 
 class ProfileServices {
-    async fetchProfile(userId: string): Promise<any> {
+    async fetchProfile(user: any): Promise<any> {
         return prisma.user.findUnique({
             where: {
-                id: userId
+                id: user.userId
             }
         })
     }

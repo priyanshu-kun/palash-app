@@ -1,3 +1,4 @@
+"use client"
 // pages/about.tsx
 import React from 'react';
 import Image from 'next/image';
@@ -5,18 +6,15 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
+import { useAuth } from '../hooks/useAuth';
 
 const AboutPage: React.FC = () => {
+  const { user, loading } = useAuth();
   return (
     <>
-      <Head>
-        <title>About Us | Harmony Wellness Center</title>
-        <meta name="description" content="Learn about our holistic approach to wellness and meet our team of dedicated professionals." />
-      </Head>
-
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Hero Section */}
-        <Navbar />
+        <Navbar user={user} isLoading={loading} />
         <div className="relative h-96 rounded-xl overflow-hidden mb-16 mt-20">
           <Image 
             src="https://images.pexels.com/photos/6628529/pexels-photo-6628529.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 

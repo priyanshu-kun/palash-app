@@ -6,6 +6,6 @@ import { authMiddleware } from "../../middlewares/auth.middleware.js";
 const router = Router();
 
 router.get('/fetch-services-by-serviceId/:serviceId',  ServiceListingController.fetchServiceByServiceID);
-router.get('/fetch-services', cacheMiddleware,  ServiceListingController.listServices);
+router.get('/fetch-services',  ServiceListingController.listServices);
 
 export default router;

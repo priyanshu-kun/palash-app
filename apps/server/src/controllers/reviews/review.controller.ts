@@ -107,7 +107,7 @@ class ReviewController {
 
         res.json({
             status: 'success',
-            data: result
+            message: 'Review deleted successfully'
         });
     });
 }
