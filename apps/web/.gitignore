@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Temporary download files
+*.crdownload
+*.part
+*.tmp
+*.temp
+Unconfirmed*
