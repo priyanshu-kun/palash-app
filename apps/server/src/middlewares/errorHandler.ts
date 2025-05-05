@@ -62,12 +62,12 @@ export const errorHandler = (
 // Catch unhandled rejections and exceptions
 export const setupUnhandledErrorHandlers = () => {
   process.on('unhandledRejection', (reason: Error) => {
-    logger?.error('Unhandled Rejection:', reason);
+    console.error('Unhandled Rejection:', reason);
     throw reason;
   });
 
   process.on('uncaughtException', (error: Error) => {
-    logger?.error('Uncaught Exception:', error);
+    console.error('Uncaught Exception:', error);
     
     // Give the server 1 second to process existing requests before shutting down
     setTimeout(() => {

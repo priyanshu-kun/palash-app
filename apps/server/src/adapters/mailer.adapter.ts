@@ -1,84 +1,19 @@
 import { transporter } from "../config/mail.config.js";
+import { generateInvoicePDF } from "../utils/invoice-generator.js";
 import type { CreateBookingInput } from "../@types/interfaces.js";
-import { Buffer } from 'buffer';
-import PDFDocument from 'pdfkit';
-
-// Remove the dynamic import initialization
-// let PDFDocument: any;
-
-// Initialize PDFKit
-// const initializePDFKit = async () => {
-//   PDFDocument = (await import('pdfkit')).default;
-// };
-
-// Initialize PDFKit when this module loads
-// await initializePDFKit();
 
 interface BookingConfirmationMailData {
   phoneOrEmail: string;
-  booking: CreateBookingInput & {
-    service: any;
-    user: any;
-  };
+  booking: CreateBookingInput;
+  service: any;
+  user: any;
+  payment: any;
 }
-
-// function generateInvoicePDF(booking: any): Promise<Buffer> {
-//   return new Promise((resolve) => {
-//     const doc = new PDFDocument();
-//     const chunks: Buffer[] = [];
-
-//     doc.on('data', (chunk: Buffer) => chunks.push(chunk));
-//     doc.on('end', () => resolve(Buffer.concat(chunks)));
-
-//     // Add header
-//     doc.fontSize(20)
-//        .text('Palash Wellness', { align: 'center' })
-//        .moveDown();
-
-//     // Add invoice details
-//     doc.fontSize(12)
-//        .text(`Invoice Date: ${new Date().toLocaleDateString()}`)
-//        .text(`Booking ID: ${booking.id}`)
-//        .moveDown();
-
-//     // Add customer details
-//     doc.text(`Customer Name: ${booking.user.name}`)
-//        .text(`Email/Phone: ${booking.user.email || booking.user.phone}`)
-//        .moveDown();
-
-//     // Add service details
-//     doc.fontSize(14)
-//        .text('Service Details', { underline: true })
-//        .moveDown()
-//        .fontSize(12)
-//        .text(`Service: ${booking.service.name}`)
-//        .text(`Date: ${booking.date.toLocaleDateString()}`)
-//        .text(`Time: ${booking.time_slot}`)
-//        .text(`Duration: ${booking.service.duration} minutes`)
-//        .moveDown();
-
-//     // Add payment details
-//     doc.fontSize(14)
-//        .text('Payment Details', { underline: true })
-//        .moveDown()
-//        .fontSize(10)
-//        .text(`Subtotal: ${booking.service.currency || '₹'}${booking.service.price}`)
-//        .text(`Discount: ${booking.service.discountPrice ? `${booking.service.currency || '₹'}${booking.service.discountPrice}` : 'N/A'}`)
-//        .text(`Total Amount: ${booking.service.currency || '₹'}${booking.total_amount}`)
-//        .moveDown();
-
-//     // Add footer
-//     doc.fontSize(8)
-//        .text('Thank you for choosing Palash Wellness!', { align: 'center' })
-//        .text('For any queries, please contact us at support@palashwellness.com', { align: 'center' });
-
-//     doc.end();
-//   });
-// }
 
 export async function sendBookingConfirmationAndInvoice(mailObj: any) {
     const { phoneOrEmail, booking } = mailObj;
-    console.log("====== booking =======: ", phoneOrEmail);
+
+    console.log(" ===================: BOOKING =================", booking);
 
     const emailTemplate = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background: #ffffff;">
@@ -94,9 +29,9 @@ export async function sendBookingConfirmationAndInvoice(mailObj: any) {
                 <div style="background: #ffffff; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #eee;">
                     <h3 style="color: #517d64; margin-top: 0;">Service Details</h3>
                     <p style="margin: 5px 0;"><strong>Service:</strong> ${booking.service.name}</p>
-                    <p style="margin: 5px 0;"><strong>Date:</strong> ${booking.date.toLocaleDateString()}</p>
+                    <p style="margin: 5px 0;"><strong>Date:</strong> ${new Date(booking.date).toLocaleDateString()}</p>
                     <p style="margin: 5px 0;"><strong>Time:</strong> ${booking.time_slot}</p>
-                    <p style="margin: 5px 0;"><strong>Duration:</strong> ${booking.service.duration} minutes</p>
+                    <p style="margin: 5px 0;"><strong>Duration:</strong> ${formatDuration(booking.service.duration)}</p>
                     <p style="margin: 5px 0;"><strong>Location:</strong> ${booking.service.isOnline ? 'Online Session' : 'In-Person'}</p>
                 </div>
 
@@ -112,7 +47,7 @@ export async function sendBookingConfirmationAndInvoice(mailObj: any) {
 
                 <div style="background: #ffffff; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #eee;">
                     <h3 style="color: #517d64; margin-top: 0;">Payment Details</h3>
-                    <p style="margin: 5px 0;"><strong>Amount:</strong> ${booking.service.currency || '₹'}${booking.total_amount}</p>
+                    <p style="margin: 5px 0;"><strong>Amount:</strong> ${booking.service.currency || 'INR'} ${booking.total_amount}</p>
                     <p style="margin: 5px 0;"><strong>Status:</strong> <span style="color: #28a745;">Paid</span></p>
                 </div>
 
@@ -135,21 +70,47 @@ export async function sendBookingConfirmationAndInvoice(mailObj: any) {
         </div>
     `;
 
-    // const pdfBuffer = await generateInvoicePDF(booking);
+    try {
+        // Generate the PDF invoice
+        // const pdfBuffer = await generateInvoicePDF(booking);
 
-    await transporter.sendMail({
-        from: `"Palash Wellness" <priyanshu-kun101@outlook.com>`,
-        to: phoneOrEmail,
-        subject: "Booking Confirmation - Palash Wellness",
-        html: emailTemplate,
-        attachments: [
-            {
-                filename: `invoice-${booking.id}.pdf`,
-                // content: pdfBuffer,
-                contentType: 'application/pdf'
-            }
-        ]
-    });
+        // console.log("======================== PDF ===============================: ", pdfBuffer)
+
+        // Send email with PDF attachment
+        await transporter.sendMail({
+            from: `"Palash Wellness" <priyanshu-kun101@outlook.com>`,
+            to: phoneOrEmail,
+            subject: "Booking Confirmation - Palash Wellness",
+            html: emailTemplate,
+            attachments: [
+                {
+                    filename: `invoice-${booking.id}.pdf`,
+                    contentType: 'application/pdf'
+                }
+            ]
+        });
+        
+        console.log("Email sent successfully with invoice attachment");
+    } catch (error) {
+        console.error("Error sending email with invoice:", error);
+        throw error;
+    }
+}
+
+// Helper function to format duration in minutes to a readable format
+function formatDuration(minutes: number): string {
+  if (minutes < 60) {
+    return `${minutes} minutes`;
+  }
+  
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+  
+  if (remainingMinutes === 0) {
+    return `${hours} hour${hours > 1 ? 's' : ''}`;
+  }
+  
+  return `${hours} hour${hours > 1 ? 's' : ''} ${remainingMinutes} minute${remainingMinutes > 1 ? 's' : ''}`;
 }
 
 export async function sendMail(mailObj: {phoneOrEmail: string; otp: string;}) {

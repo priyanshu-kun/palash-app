@@ -160,9 +160,13 @@ export const fetchServiceAvailability = async (serviceId: string) => {
 };
 
 
-export const createService = async (service: Service) => {
+export const createService = async (service: any) => {
   try {
-    const response = await api.post('/admin/services/create-service', service);
+    const response = await api.post('/admin/services/create-service', service, {
+      headers: {
+        "Content-Type": 'multipart/form-data'
+      }
+    });
     return response.data;
   } catch (error) {
     console.error('Error creating service:', error);

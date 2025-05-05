@@ -43,10 +43,18 @@ class AdminServiceManagementController {
         pricingType = 'FIXED'
       }: RequestBody_Create = req.body;
 
-      if (!name || !description || !price || !category || !featured || !duration) {
+
+      console.info(req.body)
+      console.log("====================== REQ BODY============================: ", req.body)
+      console.log("================== Req FIle ====================: ", req.files)
+
+
+      if (!name || !description || !price || !category || !duration) {
         res.status(400).json({ message: "Missing required fields" });
         return;
       }
+
+
 
       const media = req.files ? (req.files as Express.Multer.File[]).map(file => `/uploads/${name}/${file.filename}`) : [];
 
@@ -59,7 +67,7 @@ class AdminServiceManagementController {
           shortDescription,
           media,
           category,
-          tags,
+          tags: typeof tags === 'string' ? JSON.parse(tags) : tags,
           currency,
           price: parseFloat(price).toFixed(4),
           pricingType,
@@ -67,9 +75,9 @@ class AdminServiceManagementController {
           sessionType,
           maxParticipants: Number(maxParticipants),
           difficultyLevel,
-          prerequisites,
-          equipmentRequired,
-          benefitsAndOutcomes,
+          prerequisites: typeof prerequisites === 'string' ? JSON.parse(prerequisites) : prerequisites,
+          equipmentRequired: typeof equipmentRequired === 'string' ? JSON.parse(equipmentRequired) : equipmentRequired,
+          benefitsAndOutcomes: typeof benefitsAndOutcomes === 'string' ? JSON.parse(benefitsAndOutcomes) : benefitsAndOutcomes,
           instructorName,
           instructorBio,
           cancellationPolicy,
@@ -278,7 +286,7 @@ class AdminServiceManagementController {
           description,
           shortDescription,
           category,
-          tags,
+          tags: typeof tags === 'string' ? JSON.parse(tags) : tags,
           price: price ? parseFloat(price).toFixed(4) : undefined,
           pricingType,
           duration: Number(duration),
@@ -389,7 +397,7 @@ class AdminServiceManagementController {
 
         res.json({ message: "Service and related data deleted successfully" });
       } catch (error) {
-        logger?.error("Error in cascade deletion:", error);
+        console.error("Error in cascade deletion:", error);
         throw error;
       }
     } catch (err) {

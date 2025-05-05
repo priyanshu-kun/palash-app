@@ -56,6 +56,8 @@ export default function Page() {
     getBookings().then((data) => {
       setBookings(data);
       setBookingsLoading(false);
+    }).catch(err => {
+      setBookingsLoading(false);
     });
   }, []);
 

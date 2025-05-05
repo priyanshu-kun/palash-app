@@ -20,11 +20,13 @@ export function FileUploader({
   maxFiles = 5,
   maxSize = 5 * 1024 * 1024, // 5MB
   accept = {
-    "image/*": [".png", ".jpg", ".jpeg", ".webp"],
+    "image/*": [".png", ".jpg", ".jpeg"],
   },
 }: FileUploaderProps) {
   const [files, setFiles] = useState<File[]>(value || [])
   const [error, setError] = useState<string | null>(null)
+
+  console.log("FILES: ", files)
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {

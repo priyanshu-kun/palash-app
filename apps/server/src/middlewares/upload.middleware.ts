@@ -27,7 +27,7 @@ const storage = multer.diskStorage({
       if(imageFiles.length >= MAX_FOLDER_PER_UPLOAD) {
         return cb(new Error("Maximum of 30 images allowed per service"), "");
       }
-      logger?.info(`Saving file to: ${serviceStorePath}`)
+      console.info(`Saving file to: ${serviceStorePath}`)
       cb(null, serviceStorePath); 
     }
     catch(error) {

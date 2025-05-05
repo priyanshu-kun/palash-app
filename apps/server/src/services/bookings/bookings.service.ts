@@ -6,95 +6,90 @@ import { sendBookingConfirmationAndInvoice } from "../../adapters/mailer.adapter
 
 class BookingService {
     async createBooking(bookingData: CreateBookingInput): Promise<any> {
-        try {
-            return await withTransaction(async (tx: any) => {
-                const { serviceId, userId, date, timeSlot, paymentId, email }: CreateBookingInput = bookingData;
+        return await withTransaction(async (tx: any) => {
+            const { serviceId, userId, date, timeSlot, paymentId, email }: CreateBookingInput = bookingData;
 
-                const service = await tx.service.findUnique({
-                    where: {
-                        id: serviceId
-                    }
-                })
-
-                if (!service) {
-                    throw new ValidationError('Service not found');
+            const service = await tx.service.findUnique({
+                where: {
+                    id: serviceId
                 }
-
-                const user = await tx.user.findUnique({
-                    where: {
-                        id: userId
-                    }
-                })  
-
-                if (!user) {
-                    throw new ValidationError('User not found');
-                }
-
-                const isAlreadyBooked = await tx.booking.findFirst({
-                    where: {
-                        service_id: serviceId,
-                        user_id: userId,
-                    }
-                })  
-
-                if (isAlreadyBooked) {
-                    throw new ValidationError('You have already booked this service');
-                }
-
-                const booking = await tx.booking.create({
-                    data: {
-                        user_id: userId,
-                        service_id: serviceId,
-                        total_amount: service.price,
-                        date: new Date(date),
-                        time_slot: timeSlot,
-                        payment_status: 'PAID',
-                        status: 'CONFIRMED', 
-                        payment_intent_id: paymentId
-                    },
-                });
-
-                const payment = await tx.payment.findFirst({
-                    where: {
-                        payment_id: paymentId,
-                        user_id: userId,
-                    }
-                })
-
-                if (!payment) {
-                    throw new ValidationError('Payment not found');
-                }
-
-                await tx.payment.update({
-                    where: {
-                        id: payment.id
-                    },
-                    data: {
-                        booking_id: booking.id
-                    }
-                })
-                // >> Send confirmation email
-                await sendBookingConfirmationAndInvoice({
-                    phoneOrEmail: email,
-                    booking: {...booking, service: service, user: user, time_slot: timeSlot, date: new Date(date)}
-                }); 
-
-                await NotificationService.getInstance().createNotification({
-                    userId: userId,
-                    type: NotificationType.BOOKING_CREATED,
-                    title: "Booking Created",
-                    message: "A new booking has been created",
-                    data: { bookingId: booking.id }
-                });
-
-                return booking;
-
             })
-        }
-        catch (err: any) {
-            console.log(err);
-            throw new Error(err);
-        }
+
+            if (!service) {
+                throw new ValidationError('Service not found');
+            }
+
+            const user = await tx.user.findUnique({
+                where: {
+                    id: userId
+                }
+            })
+
+            if (!user) {
+                throw new ValidationError('User not found');
+            }
+
+            const isAlreadyBooked = await tx.booking.findFirst({
+                where: {
+                    service_id: serviceId,
+                    user_id: userId,
+                }
+            })
+
+            if (isAlreadyBooked) {
+                throw new ValidationError('You have already booked this service');
+            }
+
+            const booking = await tx.booking.create({
+                data: {
+                    user_id: userId,
+                    service_id: serviceId,
+                    total_amount: service.price,
+                    date: new Date(date),
+                    time_slot: timeSlot,
+                    payment_status: 'PAID',
+                    status: 'CONFIRMED',
+                    payment_intent_id: paymentId
+                },
+            });
+
+            const payment = await tx.payment.findFirst({
+                where: {
+                    payment_id: paymentId,
+                    user_id: userId,
+                }
+            })
+
+            if (!payment) {
+                throw new ValidationError('Payment not found');
+            }
+
+            await tx.payment.update({
+                where: {
+                    id: payment.id
+                },
+                data: {
+                    booking_id: booking.id
+                }
+            })
+            // >> Send confirmation email
+            await sendBookingConfirmationAndInvoice({
+                phoneOrEmail: email,
+                booking: { ...booking, service: service, user: user, payment: payment, time_slot: timeSlot, date: new Date(date) }
+            });
+
+            await NotificationService.getInstance().createNotification({
+                userId: userId,
+                type: NotificationType.BOOKING_CREATED,
+                title: "Booking Created",
+                message: "A new booking has been created",
+                data: { bookingId: booking.id }
+            });
+
+            return booking;
+
+        })
+
     }
 
     async fetchBookings(): Promise<any> {
@@ -128,7 +123,7 @@ class BookingService {
         }
     }
 
-    async fetchAvailableDates(data: {serviceId: string; startDate: string; endDate: string;}): Promise<any> {
+    async fetchAvailableDates(data: { serviceId: string; startDate: string; endDate: string; }): Promise<any> {
         try {
             const { serviceId, startDate, endDate } = data;
 

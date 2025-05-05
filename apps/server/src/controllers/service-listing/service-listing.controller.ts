@@ -41,7 +41,7 @@ class ServiceListingController {
             const pageNumber = parseInt(page as string, 10);
             const limitNumber = parseInt(limit as string, 10);
 
-            logger?.debug(`${pageNumber}, ${limitNumber}`)
+            console.debug(`${pageNumber}, ${limitNumber}`)
 
             if (isNaN(pageNumber) || pageNumber < 1 || isNaN(limitNumber) || limitNumber < 1) {
                 res.status(400).json({ message: "Invalid pagination parameters" });

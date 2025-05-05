@@ -3,6 +3,7 @@ import { createHmac } from "crypto";
 import { ICreateCustomerParams, IOrderParams, IPaymentConfig, IPaymentDetails, IVerifyPaymentParams } from "../../@types/interfaces.js";
 import { prisma } from "@palash/db-client";
 import { v4 as uuidv4 } from 'uuid';
+import { ValidationError } from "../../utils/errors.js";
 
 class PaymentGateway {
   private razorpay: Razorpay;
@@ -21,48 +22,54 @@ class PaymentGateway {
     console.info('Payment gateway initialized');
   }
   async createOrder(order: IOrderParams): Promise<any> {
-    try {
-      const { userId, serviceId } = order;
-      
-      const service = await prisma.service.findUnique({
-        where: { id: serviceId }
-      });
+    const { userId, serviceId } = order;
 
-      
-      if (!service) {
-        throw new Error(`Service with ID ${serviceId} not found`);
+    const service = await prisma.service.findUnique({
+      where: { id: serviceId }
+    });
+
+
+    const isAlreadyBooked = await prisma.booking.findFirst({
+      where: {
+        service_id: serviceId,
+        user_id: userId,
       }
-      
-      const user = await prisma.user.findUnique({
-        where: { id: userId }
-      });
+    })
 
-      
-      if (!user) {
-        throw new Error(`User with ID ${userId} not found`);
+    if (isAlreadyBooked) {
+      throw new ValidationError('You have already booked this service');
+    }
+
+
+    if (!service) {
+      throw new ValidationError(`Service with ID ${serviceId} not found`);
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId }
+    });
+
+
+    if (!user) {
+      throw new ValidationError(`User with ID ${userId} not found`);
+    }
+
+    const receiptId = `receipt_${uuidv4().replace(/-/g, '')}`;
+
+    return await this.razorpay.orders.create({
+      amount: service.price * 100,
+      currency: 'INR',
+      receipt: receiptId,
+      notes: {
+        title: service.name,
+        description: service.description.slice(0, 250),
+        access: service.access || "QUARTERLY",
+        category: service.category,
+        price: service.price.toString(),
+        userId: user.id,
+        serviceId: service.id
       }
-      
-      const receiptId = `receipt_${uuidv4().replace(/-/g, '')}`;
-
-      return await this.razorpay.orders.create({
-        amount: service.price * 100,
-        currency: 'INR',
-        receipt: receiptId,
-        notes: {
-          title: service.name,
-          description: service.description.slice(0, 250),
-          access: service.access || "QUARTERLY",
-          category: service.category,
-          price: service.price.toString(),
-          userId: user.id,
-          serviceId: service.id
-        }
-      });
-    }
-    catch (err: any) {
-      // Consider more specific error handling
-      throw new Error(`Failed to create order: ${err}`);
-    }
+    });
   }
   async verifyPaymentSignature(params: IVerifyPaymentParams): Promise<boolean> {
     try {
@@ -116,7 +123,7 @@ class PaymentGateway {
         notes: params.notes
       })
     }
-    catch(err: any) {
+    catch (err: any) {
       throw new Error(`Razorpay customer created: ${err.message}`);
     }
   }
@@ -124,19 +131,19 @@ class PaymentGateway {
     try {
       return await this.razorpay.payments.fetch(paymentId);
     }
-    catch(err: any) {
+    catch (err: any) {
       throw new Error(`Failed to get payment details: ${err.message}`);
     }
   }
   async processRefund(paymentId: string, amount: string): Promise<any> {
     const refundOption: any = {}
     try {
-      if(amount) {
+      if (amount) {
         refundOption.amount = parseInt(amount) * 100;
       }
       return await this.razorpay.payments.refund(paymentId, refundOption);
     }
-    catch(err: any) {
+    catch (err: any) {
       throw new Error(`Failed to process refund: ${err.message}`);
     }
   }

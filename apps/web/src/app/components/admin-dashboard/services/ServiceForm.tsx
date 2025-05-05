@@ -159,40 +159,82 @@ export function ServiceForm({ initialData }: { initialData?: any }) {
     },
   })
 
-  // Set up field arrays for lists
-  const {
-    fields: prerequisiteFields,
-    append: appendPrerequisite,
-    remove: removePrerequisite,
-  } = useFieldArray({
-    control: form.control,
-    name: "prerequisites",
-  })
-
-  const {
-    fields: equipmentFields,
-    append: appendEquipment,
-    remove: removeEquipment,
-  } = useFieldArray({
-    control: form.control,
-    name: "equipmentRequired",
-  })
-
-  const {
-    fields: benefitFields,
-    append: appendBenefit,
-    remove: removeBenefit,
-  } = useFieldArray({
-    control: form.control,
-    name: "benefitsAndOutcomes",
-  })
 
   // Handle form submission
   const onSubmit: SubmitHandler<ServiceFormValues> = async (data) => {
     setIsSubmitting(true)
     try {
-      // Here you would normally send the data to your API
-      await createService(data as Service)
+      const formData = new FormData();
+      
+      // Add basic info
+      formData.append("name", data.name);
+      formData.append("description", data.description);
+      if (data.shortDescription) formData.append("shortDescription", data.shortDescription);
+      
+      // Add categorization
+      formData.append("category", data.category);
+      if (data.tags && data.tags.length > 0) {
+        formData.append("tags", JSON.stringify(data.tags));
+      }
+      
+      // Add pricing
+      formData.append("price", data.price);
+      formData.append("currency", data.currency);
+      formData.append("pricingType", data.pricingType);
+      if (data.discountPrice) formData.append("discountPrice", data.discountPrice);
+      
+      // Add scheduling
+      formData.append("duration", data.duration.toString());
+      formData.append("sessionType", data.sessionType);
+      if (data.maxParticipants) formData.append("maxParticipants", data.maxParticipants.toString());
+      
+      // Add details
+      formData.append("difficultyLevel", data.difficultyLevel);
+      if (data.prerequisites && data.prerequisites.length > 0) {
+        formData.append("prerequisites", JSON.stringify(data.prerequisites));
+      }
+      if (data.equipmentRequired && data.equipmentRequired.length > 0) {
+        formData.append("equipmentRequired", JSON.stringify(data.equipmentRequired));
+      }
+      if (data.benefitsAndOutcomes && data.benefitsAndOutcomes.length > 0) {
+        formData.append("benefitsAndOutcomes", JSON.stringify(data.benefitsAndOutcomes));
+      }
+      if (data.instructorName) formData.append("instructorName", data.instructorName);
+      if (data.instructorBio) formData.append("instructorBio", data.instructorBio);
+      if (data.cancellationPolicy) formData.append("cancellationPolicy", data.cancellationPolicy);
+      
+      // Add settings
+      formData.append("featured", data.featured.toString());
+      formData.append("isActive", data.isActive.toString());
+      formData.append("isOnline", data.isOnline.toString());
+      formData.append("isRecurring", data.isRecurring.toString());
+      
+      // Add location or virtual meeting details
+      if (data.isOnline && data.virtualMeetingDetails) {
+        formData.append("virtualMeetingDetails", JSON.stringify({
+          platform: data.virtualMeetingDetails.platform,
+          joinLink: data.virtualMeetingDetails.joinLink,
+          password: data.virtualMeetingDetails.password
+        }));
+      } else if (data.location) {
+        formData.append("location", JSON.stringify({
+          address: data.location.address,
+          city: data.location.city,
+          state: data.location.state,
+          country: data.location.country,
+          postalCode: data.location.postalCode,
+          coordinates: data.location.coordinates
+        }));
+      }
+      
+      // Add media files
+      if (data.media && data.media.length > 0) {
+        data.media.forEach((file: File) => {
+          formData.append("media", file);
+        });
+      }
+
+      await createService(formData)
 
       toast({
         variant: "default",
@@ -201,7 +243,7 @@ export function ServiceForm({ initialData }: { initialData?: any }) {
       })
 
       // Redirect to services list
-      router.push("/admin-dashboard/services")
+      // router.push("/admin-dashboard/services")
     } catch (error) {
       console.error("Error submitting form:", error)
       toast({
@@ -272,12 +314,14 @@ export function ServiceForm({ initialData }: { initialData?: any }) {
   const categories = [
     "Yoga",
     "Meditation",
-    "Breathing",
-    "Massage",
-    "Healing",
-    "Fitness",
-    "Nutrition",
-    "Coaching",
+    "Ayurveda",
+    "Bridal Package",
+    "Naturopathy",
+    "Reiki",
+    "Sound",
+    "Acupressure",
+    "Food",
+    "Hammam",
     "Other",
   ]
 

@@ -22,7 +22,7 @@ export class WebSocketServer {
         if (server) {
             this.initializeWithServer(server);
         } else {
-            logger?.warn('[websocket]: Created without server instance - will queue messages until server is available');
+            console.warn('[websocket]: Created without server instance - will queue messages until server is available');
         }
     }
 
@@ -44,14 +44,14 @@ export class WebSocketServer {
             
             // Process any pending messages
             if (this.pendingMessages.length > 0) {
-                logger?.info(`[websocket]: Processing ${this.pendingMessages.length} pending messages`);
+                console.info(`[websocket]: Processing ${this.pendingMessages.length} pending messages`);
                 this.pendingMessages.forEach(msg => {
                     this.sendToUser(msg.userId, msg.data);
                 });
                 this.pendingMessages = [];
             }
         } catch (error) {
-            logger?.error('[websocket]: Failed to initialize with server:', error);
+            console.error('[websocket]: Failed to initialize with server:', error);
             console.error('[websocket]: Failed to initialize with server:', error);
         }
     }
@@ -70,7 +70,7 @@ export class WebSocketServer {
         this.wss.on('connection', (ws: WebSocket) => {
             const client = ws as WebSocketClient;
             client.isAlive = true;
-            logger?.info(`[websocket]: New client connected`);
+            console.info(`[websocket]: New client connected`);
 
             client.on('pong', () => {
                 client.isAlive = true;
@@ -83,7 +83,7 @@ export class WebSocketServer {
                         this.handleAuth(client, data.userId);
                     }
                 } catch (error) {
-                    logger?.error('[websocket]: Error processing WebSocket message:', error);
+                    console.error('[websocket]: Error processing WebSocket message:', error);
                 }
             });
 
@@ -92,12 +92,12 @@ export class WebSocketServer {
             });
 
             client.on('error', (error) => {
-                logger?.error(`[websocket]: Client error: ${error}`);
+                console.error(`[websocket]: Client error: ${error}`);
             });
         });
 
         this.wss.on('error', (error) => {
-            logger?.error(`[websocket]: Server error: ${error}`);
+            console.error(`[websocket]: Server error: ${error}`);
         });
 
         // Heartbeat to keep connections alive
@@ -107,7 +107,7 @@ export class WebSocketServer {
             this.wss.clients.forEach((client: WebSocket) => {
                 const ws = client as WebSocketClient;
                 if (!ws.isAlive) {
-                    logger?.debug(`[websocket]: Terminating inactive connection`);
+                    console.debug(`[websocket]: Terminating inactive connection`);
                     return ws.terminate();
                 }
                 ws.isAlive = false;
@@ -115,7 +115,7 @@ export class WebSocketServer {
             });
         }, 30000);
 
-        logger?.info(`[websocket]: WebSocket initialization complete`);
+        console.info(`[websocket]: WebSocket initialization complete`);
         if (this.initializedCallback) {
             this.initializedCallback();
         }
@@ -127,7 +127,7 @@ export class WebSocketServer {
             this.clients.set(userId, []);
         }
         this.clients.get(userId)?.push(ws);
-        logger?.info(`[websocket]: Client authenticated: ${userId}`);
+        console.info(`[websocket]: Client authenticated: ${userId}`);
     }
 
     private handleDisconnect(ws: WebSocketClient) {
@@ -143,14 +143,14 @@ export class WebSocketServer {
                 }
             }
         }
-        logger?.info(`[websocket]: Client disconnected: ${ws.userId || 'unknown'}`);
+        console.info(`[websocket]: Client disconnected: ${ws.userId || 'unknown'}`);
     }
 
     public sendToUser(userId: string, data: any) {
         // If not initialized yet, queue the message
         if (!this.isInitialized || !this.wss) {
             this.pendingMessages.push({userId, data});
-            logger?.info(`[websocket]: Queued message for user ${userId} - WebSocket not initialized yet`);
+            console.info(`[websocket]: Queued message for user ${userId} - WebSocket not initialized yet`);
             return;
         }
 
@@ -167,18 +167,18 @@ export class WebSocketServer {
             });
             
             if (sentToAtLeastOne) {
-                logger?.info(`[websocket]: Message sent to user ${userId}`);
+                console.info(`[websocket]: Message sent to user ${userId}`);
             } else {
-                logger?.info(`[websocket]: User ${userId} is not connected with an active socket`);
+                console.info(`[websocket]: User ${userId} is not connected with an active socket`);
             }
         } else {
-            logger?.info(`[websocket]: No active connections for user ${userId}`);
+            console.info(`[websocket]: No active connections for user ${userId}`);
         }
     }
 
     public broadcast(data: any, excludeUserId?: string) {
         if (!this.isInitialized || !this.wss) {
-            logger?.warn('[websocket]: Cannot broadcast - WebSocket not initialized');
+            console.warn('[websocket]: Cannot broadcast - WebSocket not initialized');
             return;
         }
         

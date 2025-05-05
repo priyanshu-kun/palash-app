@@ -1,5 +1,0 @@
-{"level":"info","message":"[websocket]: WebSocket initialization complete","timestamp":"2025-05-01T19:24:10.537Z"}
-{"level":"info","message":"[websocket]: WebSocket server instance created","timestamp":"2025-05-01T19:24:10.538Z"}
-{"level":"info","message":"[websocket]: WebSocket server initialized successfully","timestamp":"2025-05-01T19:24:10.538Z"}
-{"level":"info","message":"[server]: Server is running at http://localhost:8080","timestamp":"2025-05-01T19:24:10.593Z"}
-{"level":"info","message":"[websocket]: WebSocket server is accepting connections at ws://localhost:8080","timestamp":"2025-05-01T19:24:10.594Z"}

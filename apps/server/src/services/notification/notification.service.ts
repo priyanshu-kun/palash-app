@@ -15,7 +15,7 @@ class NotificationService {
             console.log("WebSocketServer initialized in NotificationService");
         } catch (error) {
             console.error("Failed to initialize WebSocketServer:", error);
-            logger?.error("Failed to initialize WebSocketServer:", error);
+            console.error("Failed to initialize WebSocketServer:", error);
             // Continue without WebSocket - fallback to database-only notifications
         }
     }
@@ -67,7 +67,7 @@ class NotificationService {
                     console.log("Real-time notification sent to user:", userId);
                 } catch (wsError) {
                     console.error("Error sending real-time notification:", wsError);
-                    logger?.error("Error sending real-time notification:", wsError);
+                    console.error("Error sending real-time notification:", wsError);
                     // Continue even if WebSocket fails - notification is already in DB
                 }
             } else {
@@ -77,7 +77,7 @@ class NotificationService {
             return notification;
         } catch (error) {
             console.error("Error creating notification:", error);
-            logger?.error('Error creating notification:', error);
+            console.error('Error creating notification:', error);
             throw error;
         }
     }
@@ -116,7 +116,7 @@ class NotificationService {
                 }
             };
         } catch (error) {
-            logger?.error('Error fetching user notifications:', error);
+            console.error('Error fetching user notifications:', error);
             throw error;
         }
     }
@@ -135,7 +135,7 @@ class NotificationService {
 
             return notification;
         } catch (error) {
-            logger?.error('Error marking notification as read:', error);
+            console.error('Error marking notification as read:', error);
             throw error;
         }
     }
@@ -154,7 +154,7 @@ class NotificationService {
 
             return { message: 'All notifications marked as read' };
         } catch (error) {
-            logger?.error('Error marking all notifications as read:', error);
+            console.error('Error marking all notifications as read:', error);
             throw error;
         }
     }
@@ -170,7 +170,7 @@ class NotificationService {
 
             return { message: 'Notification deleted successfully' };
         } catch (error) {
-            logger?.error('Error deleting notification:', error);
+            console.error('Error deleting notification:', error);
             throw error;
         }
     }
@@ -186,7 +186,7 @@ class NotificationService {
 
             return count;
         } catch (error) {
-            logger?.error('Error getting unread notification count:', error);
+            console.error('Error getting unread notification count:', error);
             throw error;
         }
     }
@@ -305,14 +305,14 @@ class NotificationService {
                     console.log("Broadcast notification sent to all connected users");
                 } catch (wsError) {
                     console.error("Error broadcasting notification:", wsError);
-                    logger?.error("Error broadcasting notification:", wsError);
+                    console.error("Error broadcasting notification:", wsError);
                 }
             }
 
             return { message: `Announcement broadcast to ${users.length} users`, count: users.length };
         } catch (error) {
             console.error("Error broadcasting announcement:", error);
-            logger?.error('Error broadcasting announcement:', error);
+            console.error('Error broadcasting announcement:', error);
             throw error;
         }
     }

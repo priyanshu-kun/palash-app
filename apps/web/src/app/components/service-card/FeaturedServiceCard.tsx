@@ -99,6 +99,11 @@ export function FeaturedServiceCard({ service, index }: FeaturedServiceCardProps
               orderId: razorpay_order_id,
               paymentId: razorpay_payment_id,
               signature: razorpay_signature,
+              userId: user.id,
+              serviceId: service.id,
+              date: selectedDate.toISOString(),
+              timeSlot: selectedTimeSlot,
+              email: email,
             });
 
             const bookingData: BookingData = {
@@ -169,7 +174,7 @@ export function FeaturedServiceCard({ service, index }: FeaturedServiceCardProps
         {/* Background Image with Gradient Overlay */}
         <div className="absolute inset-0">
           <Image
-            src={service.media?.[0] ? `http://localhost:8080${service.media[0]}` : "/placeholder.jpg"}
+            src={service.media?.[0] ? `${process.env.NEXT_PUBLIC_API_URL}${service.media[0]}` : "/placeholder.jpg"}
             alt={service.name}
             fill
             className="object-cover"
@@ -261,7 +266,7 @@ export function FeaturedServiceCard({ service, index }: FeaturedServiceCardProps
               <>
                 <div className="absolute inset-0 bg-gradient-to-t from-[#012b2b]/60 to-transparent z-10" />
                 <Image
-                  src={service.media?.[0] ? `http://localhost:8080${service.media[0]}` : "/placeholder.jpg"}
+                  src={service.media?.[0] ? `${process.env.NEXT_PUBLIC_API_URL}${service.media[0]}` : "/placeholder.jpg"}
                   alt={service.name}
                   fill
                   className="object-cover"

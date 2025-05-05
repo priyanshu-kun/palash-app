@@ -1,10 +1,10 @@
 import axios from "axios";
 import { getAccessToken } from "@/app/utils/save-token";
   
-const BASE_URL = 'http://localhost:8080/api/v1';
+export const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
 
 export const api = axios.create({
-    baseURL: BASE_URL,
+    baseURL: `${BASE_URL}/api/v1`,
     headers: {
         'Content-Type': "application/json",
         'Accept': 'application/json'

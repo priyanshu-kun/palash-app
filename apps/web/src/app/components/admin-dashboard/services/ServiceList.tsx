@@ -90,7 +90,7 @@ export function ServiceList() {
 
 const getImageUrl = (service: Service) => {
   return services?.createResponse.services[0].media && services?.createResponse.services[0].media.length > 0
-    ? `http://localhost:8080${services?.createResponse.services[0].media[0]}`
+    ? `${process.env.NEXT_PUBLIC_API_URL}${services?.createResponse.services[0].media[0]}`
     : "/placeholder.svg?height=400&width=600"
 }
 
@@ -145,7 +145,7 @@ return (
             <>
               <div className="absolute inset-0 bg-gradient-to-t from-[#012b2b]/30 to-transparent z-10" />
               <Image
-                src={`http://localhost:8080${service.media[0]}`}
+                src={`${process.env.NEXT_PUBLIC_API_URL}${service.media[0]}`}
                 alt={service.name}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"

@@ -12,7 +12,7 @@ export async function cacheMiddleware(req: Request, res: Response, next: NextFun
         console.log(cacheData)
 
         if(cacheData) {
-            logger?.info("Cache Hit");
+            console.info("Cache Hit");
             res.status(200).json({
                 message: "Services retrieved successfully",
                 createResponse: JSON.parse(cacheData)
@@ -20,15 +20,15 @@ export async function cacheMiddleware(req: Request, res: Response, next: NextFun
             return;
         }
 
-        logger?.info("Cache Miss");
+        console.info("Cache Miss");
         next();
     }
     catch(err) {
         if(err instanceof Error) {
-            logger?.error(err.message);
+            console.error(err.message);
         }
         else {
-            logger?.error("Unknown error occur while reading cache");
+            console.error("Unknown error occur while reading cache");
         }
         next(err);
     }

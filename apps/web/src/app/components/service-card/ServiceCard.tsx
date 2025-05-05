@@ -19,6 +19,7 @@ import { SecondaryButton } from "../ui/buttons/SecondaryButton"
 import { BookingData } from "@/app/@types/interface"
 import { Input } from "../ui/input/input"
 import { getReviews } from "@/app/api/review"
+import { formatTime } from "@/app/utils/format-time"
 interface Coordinates {
   latitude: number
   longitude: number
@@ -149,8 +150,6 @@ export function ServiceCard({ service }: ServiceCardProps) {
     fetchReviews();
   }, [service.id]);   
 
-  console.log("======= REviews ===============: ", reviews)
-
 
   const renderCurrencySymbol = (currency: string | null) => {
     if (currency === null) return "₹"
@@ -210,26 +209,16 @@ export function ServiceCard({ service }: ServiceCardProps) {
     );
   };
 
-  const formatDuration = (minutes: number) => {
-    const hours = Math.floor(minutes / 60)
-    const mins = minutes % 60
-
-    if (hours > 0 && mins > 0) {
-      return `${hours}h ${mins}m`
-    } else if (hours > 0) {
-      return `${hours} hour${hours > 1 ? "s" : ""}`
-    } else {
-      return `${mins} minute${mins > 1 ? "s" : ""}`
-    }
-  }
+ 
 
   const imageUrl =
     service.media && service.media.length > 0
-      ? `http://localhost:8080${service.media[currentImageIndex]}`
+      ? `${process.env.NEXT_PUBLIC_API_URL}${service.media[currentImageIndex]}`
       : "/placeholder.svg?height=400&width=600"
 
   const handlePayment = async () => {
     try {
+
 
       if (!user) {
         toast({
@@ -262,6 +251,8 @@ export function ServiceCard({ service }: ServiceCardProps) {
         userId: user.id,
         serviceId: service.id,
       });
+
+      setShowBooking(false);
 
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
@@ -303,11 +294,11 @@ export function ServiceCard({ service }: ServiceCardProps) {
             });
 
             setShowBooking(false);
-          } catch (error) {
-            console.error("Payment verification failed:", error);
+          } catch (error: any) {
+            console.error("Payment verification failed:", error.response.data.message);
             toast({
               title: "Payment Verification Failed",
-              description: "Please contact support if amount was deducted",
+              description: error.response.data.message,
               variant: "destructive"
             });
           }
@@ -324,11 +315,11 @@ export function ServiceCard({ service }: ServiceCardProps) {
 
       const razorpay = new window.Razorpay(options);
       razorpay.open();
-    } catch (error) {
+    } catch (error: any) {
       console.error("Payment initiation failed:", error);
       toast({
         title: "Payment Failed",
-        description: "Unable to initiate payment. Please try again.",
+        description: error.response.data.message,
         variant: "destructive"
       });
     } finally {
@@ -404,7 +395,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
               {service.difficultyLevel.charAt(0) + service.difficultyLevel.slice(1).toLowerCase()}
             </Badge>
             <Badge variant="outline" className="bg-green-100 text-green-800 hover:bg-green-300/80">
-              {formatDuration(service.duration)}
+              {formatTime(service.duration)}
             </Badge>
             <Badge variant="outline" className="bg-green-100 text-green-800 hover:bg-green-300/80">
               {service.sessionType.charAt(0) + service.sessionType.slice(1).toLowerCase()}
@@ -506,7 +497,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
                 <div className="grid grid-cols-2 gap-6 mb-12">
                   <div className="flex items-center gap-2 text-[#517d64]">
                     <Clock className="w-5 h-5" />
-                    <span>{formatDuration(service.duration)}</span>
+                    <span>{formatTime(service.duration)}</span>
                   </div>
                   <div className="flex items-center gap-2 text-[#517d64]">
                     <Award className="w-5 h-5" />
@@ -752,7 +743,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
 
             <div className="flex items-center justify-between py-3 border-b border-[#517d64]/20">
               <span className="text-[#517d64]">Duration</span>
-              <span className="font-medium">{formatDuration(service.duration)}</span>
+              <span className="font-medium">{formatTime(service.duration)}</span>
             </div>
 
             <div className="flex items-center justify-between py-3 border-b border-[#517d64]/20">
