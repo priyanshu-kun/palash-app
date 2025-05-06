@@ -57,13 +57,13 @@ class PaymentGateway {
     const receiptId = `receipt_${uuidv4().replace(/-/g, '')}`;
 
     return await this.razorpay.orders.create({
-      amount: service.price * 100,
-      currency: 'INR',
-      receipt: receiptId,
+      amount: Number(service.price) * 100,
+      currency: "INR",
+      receipt: `receipt_${Date.now()}`,
       notes: {
         title: service.name,
         description: service.description.slice(0, 250),
-        access: service.access || "QUARTERLY",
+        access: "QUARTERLY",
         category: service.category,
         price: service.price.toString(),
         userId: user.id,

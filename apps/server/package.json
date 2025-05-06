@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon",
-    "build": "tsx",
-    "start": "node build/server.js"
+    "build": "cd ../../packages/db-client && npm run db:generate && npm run build && cd ../../apps/server && tsc",
+    "start": "npm run build && node ./dist/server.js"
   },
   "keywords": [],
   "author": "",

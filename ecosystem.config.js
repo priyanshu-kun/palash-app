@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'palash-api',
       cwd: './apps/server',
-      script: 'build/server.js',
+      script: 'dist/server.js',
       instances: 'max',
       exec_mode: 'cluster',
       env: {

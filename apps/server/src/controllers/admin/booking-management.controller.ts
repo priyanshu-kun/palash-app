@@ -14,8 +14,8 @@ class BookingManagementController {
                         // Create or update availability
                         const availability = await tx.availability.upsert({
                             where: {
-                                serviceId_date: {
-                                    serviceId,
+                                service_id_date: {
+                                    service_id: serviceId,
                                     date: new Date(date),
                                 },
                             },
@@ -73,7 +73,7 @@ class BookingManagementController {
 
             const availability = await prisma.availability.upsert({
                 where: {
-                    serviceId_date: {
+                    service_id_date: {
                         service_id: serviceId,
                         date: new Date(date),
                     },

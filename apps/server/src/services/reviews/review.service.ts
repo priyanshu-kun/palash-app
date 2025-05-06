@@ -284,7 +284,7 @@ class ReviewService {
 
             // Update service average rating
             const serviceReviews = await prisma.review.findMany({
-                where: { service_id: review.serviceId }
+                where: { service_id: review.service_id }
             });
 
             if (serviceReviews.length > 0) {

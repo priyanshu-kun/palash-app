@@ -14,11 +14,14 @@ class ServiceListingController {
         try {
             const { serviceId } = req.params;
 
-            const whereCondition = serviceId ? { id: serviceId } : {};
+            if (!serviceId) {
+                res.status(400).json({ message: "Service ID is required" });
+                return;
+            }
 
             const [service] = await Promise.all([
                 prisma.service.findUnique({
-                    where: whereCondition,
+                    where: { id: serviceId },
                 })
             ]);
 

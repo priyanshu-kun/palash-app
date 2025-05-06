@@ -58,7 +58,11 @@ class AuthServices {
         });
 
         const jwtServiceInstance = new JWTService();
-        const { accessToken, refreshToken } = await jwtServiceInstance.generateTokenPair(user.id, user.phone_or_email, 'USER');
+        const { accessToken, refreshToken } = await jwtServiceInstance.generateTokenPair(
+            user.id, 
+            user.phone_or_email || '', 
+            'USER'
+        );
 
         // Store refresh token in database
         await prisma.refreshToken.create({
@@ -112,7 +116,11 @@ class AuthServices {
         });
 
         const jwtServiceInstance = new JWTService();
-        const { accessToken, refreshToken } = await jwtServiceInstance.generateTokenPair(user.id, phoneOrEmail, user.role);
+        const { accessToken, refreshToken } = await jwtServiceInstance.generateTokenPair(
+            user.id, 
+            user.phone_or_email || '', 
+            user.role
+        );
 
         // Store refresh token in database
         await prisma.refreshToken.create({
@@ -153,7 +161,7 @@ class AuthServices {
         // Generate new token pair
         const jwtServiceInstance = new JWTService();
         const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
-            await jwtServiceInstance.generateTokenPair(user.id, user.phone_or_email, user.role);
+            await jwtServiceInstance.generateTokenPair(user.id, user.phone_or_email || '', user.role);
 
         // Revoke the old refresh token
         await prisma.refreshToken.update({
