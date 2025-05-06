@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 1
+    },
+    "auditLog": "/home/ubuntu/palash-app/apps/server/src/logs/.96947272ff8e15a62bfaa5592e45a21b0a7c85a1-audit.json",
+    "files": [
+        {
+            "date": 1746511627218,
+            "name": "/home/ubuntu/palash-app/apps/server/src/logs/info-2025-05-06.log",
+            "hash": "a35705ed992f0d4cffb22202284a1321e1fdbbcda15516932557b6241d02f0a8"
+        }
+    ],
+    "hashType": "sha256"
+}

@@ -336,7 +336,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\priya\\OneDrive\\Desktop\\palash_wellness_app\\packages\\db-client\\generated\\client",
+      "value": "/home/ubuntu/palash-app/packages/db-client/generated/client",
       "fromEnvVar": null
     },
     "config": {
@@ -345,12 +345,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "debian-openssl-3.0.x",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\priya\\OneDrive\\Desktop\\palash_wellness_app\\packages\\db-client\\prisma\\schema.prisma",
+    "sourceFilePath": "/home/ubuntu/palash-app/packages/db-client/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
