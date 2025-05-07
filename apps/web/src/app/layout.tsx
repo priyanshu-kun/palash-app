@@ -7,6 +7,8 @@ import "./globals.css"
 import { Provider } from "react-redux"
 import { store } from "./store"
 import { Toaster } from "@/app/components/ui/toast/toaster"
+import NextTopLoader from 'nextjs-toploader';
+
 // import LoadingScreen from "./Loading"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -24,6 +26,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-[#f0f4f1]">
       <body className={inter.className}>
+        <NextTopLoader 
+        showSpinner
+        color="#014040"
+        height={4}
+         />
         <Provider store={store}>  
           {children}
         </Provider>

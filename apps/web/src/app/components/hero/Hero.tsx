@@ -20,9 +20,9 @@ function Hero() {
       <DesignElements text='Healthy Body' className='absolute bottom-[36%] left-[40%]' />
       <DesignElements text='Healthy Mind' className='absolute bottom-[36%] left-[15%]' />
       <VideoElement className='absolute top-[20%] left-[3%]' />
-      <div className='absolute  h-40  bottom-6 left-0 text-white  flex flex-col justify-between text-[65px] ml-6 font-bold'>
-        <span>A Journey to</span>
-        <span>Mental Wellness</span>
+      <div className='absolute  bottom-0  left-0 text-white  flex flex-col justify-between text-[65px] font-bold'>
+        <span className='w-fit px-4 py-2 rounded-tr-2xl bg-[#7DB9B9]'>A Journey to</span>
+        <span className=' px-4 py-2 rounded-tr-2xl bg-[#7DB9B9]'>Mental Wellness</span>
       </div>
 
       <div className="bg-white/30 border-2 border-white/20 backdrop-blur-md p-6 rounded-2xl shadow-lg w-[350px] absolute right-12 top-1/2 transform -translate-y-1/2">
