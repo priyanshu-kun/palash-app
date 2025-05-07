@@ -1,10 +1,6 @@
 import app from "./app.js";
-import Logger from "./config/logger.config.js";
 import { createServer } from "http";
 import { WebSocketServer } from "./adapters/websocket.adapter.js";
-
-const loggerInstance = new Logger();
-const logger = loggerInstance.getLogger();
 
 const port = process.env.PORT || 8080;
 

@@ -1,9 +1,5 @@
 import { prisma, NotificationType, NotificationStatus } from "@palash/db-client";
 import { WebSocketServer } from "../../adapters/websocket.adapter.js";
-import Logger from "../../config/logger.config.js";
-
-const loggerInstance = new Logger();
-const logger = loggerInstance.getLogger();
 
 class NotificationService {
     private static instance: NotificationService;

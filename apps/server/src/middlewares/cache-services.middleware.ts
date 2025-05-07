@@ -1,9 +1,5 @@
 import {Request, Response, NextFunction} from "express";
 import {redisClient} from "../adapters/redis.adapter.js";
-import Logger from "../config/logger.config.js";
-
-const loggerInstance = new Logger();
-const logger = loggerInstance.getLogger();
 
 export async function cacheMiddleware(req: Request, res: Response, next: NextFunction) {
     try {

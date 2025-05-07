@@ -3,7 +3,6 @@ import fs from "fs";
 import path from "path";
 import { NotificationType, prisma } from "@palash/db-client";
 import { RequestBody_Create, RequestBody_Update } from "../../@types/interfaces.js";
-import Logger from "../../config/logger.config.js";
 import { __dirname } from "../../utils/__dirname-handler.js";
 import winston from "winston";
 import { deleteServicesRedisKeys } from "../../utils/delete-all-redis-keys.js";
@@ -11,9 +10,6 @@ import NotificationService from "../../services/notification/notification.servic
 import { PricingType, SessionType, DiffcultyType } from '@palash/db-client';
 import { Prisma } from '@prisma/client';
 
-
-const loggerInstance = new Logger();
-const logger: winston.Logger | undefined = loggerInstance.getLogger();
 
 
 class AdminServiceManagementController {

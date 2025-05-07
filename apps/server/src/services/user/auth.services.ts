@@ -1,14 +1,11 @@
 import { prisma } from "@palash/db-client";
 import { SignInDTO, SignUpDTO, VerifyOtpDTO, RefreshTokenDTO } from "../../@types/interfaces.js";
-import Logger from "../../config/logger.config.js";
 import { generateOtp } from "../../utils/generate-otp.js";
 import { deleteOtp, getOtpData, storeSignUpOtp, storeSignInOtp } from "../../utils/redis.utils.js";
 import { sendMail } from "../../adapters/mailer.adapter.js";
 import JWTService from "./jwt/jwt.service.js";
 import { ValidationError } from "../../utils/errors.js";
 
-const loggerInstance = new Logger();
-const logger = loggerInstance.getLogger();
 
 class AuthServices {
     static async signUp(user: SignUpDTO) {
@@ -66,6 +63,8 @@ class AuthServices {
                 user.phone_or_email || '',
                 'USER'
             );
+
+            console.log("========== AFTER JWT ===============: ", accessToken)
 
             // Store refresh token in database within the same transaction
             await tx.refreshToken.create({

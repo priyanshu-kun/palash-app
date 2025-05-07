@@ -1,8 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { AppError } from '../utils/errors.js';
-import Logger from '../config/logger.config.js';
-
-const logger = new Logger().getLogger();
 
 interface ErrorResponse {
   status: string;

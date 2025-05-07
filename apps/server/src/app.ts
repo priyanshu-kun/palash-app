@@ -4,7 +4,6 @@ import morgan from "morgan";
 import helmet from "helmet";
 import dotenv from "dotenv";
 import winston from "winston"
-import Logger from "./config/logger.config.js";
 import router from "./api/routes.js";
 import { checkDatabaseConnection } from "@palash/db-client";
 import "./adapters/redis.adapter.js";
@@ -20,8 +19,6 @@ setupUnhandledErrorHandlers();
 checkDatabaseConnection();
 
 const app: Express = express();
-const loggerInstance = new Logger();
-const logger: winston.Logger | undefined = loggerInstance.getLogger();
 
 
 // Pre-route middlewares
