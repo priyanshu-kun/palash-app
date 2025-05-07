@@ -63,6 +63,11 @@ function VerifyContent() {
         dispatch(verifySignInOTPFailure("OTP must contain only numbers"));
         return;
       }
+        toast({
+          title: "OTP Sent",
+          description: "Please check your inbox or spam folder.",
+          variant: "default"
+        })
       dispatch(verifySignInOTPStart());
       const response = await verifyOTP({type, otp, phoneOrEmail});
       dispatch(verifySignInOTPSuccess({accessToken: response.accessToken, refreshToken: response.refreshToken, user: response.user}));
@@ -74,6 +79,7 @@ function VerifyContent() {
         description: err.message,
         variant: "destructive"
       })
+      router.push('/sign-in')
       dispatch(verifySignInOTPFailure(err.message));
     }
   }
