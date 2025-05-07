@@ -115,12 +115,20 @@ class AuthServices {
             data: { is_revoked: true }
         });
 
+        console.log("ITS working here")
+
         const jwtServiceInstance = new JWTService();
+
+        console.log("After jwt service ITS working here")
+
         const { accessToken, refreshToken } = await jwtServiceInstance.generateTokenPair(
             user.id, 
             user.phone_or_email || '', 
-            user.role
+            user.role || 'USER'
         );
+
+
+        console.log("After jwt service ITS working here", accessToken)
 
         // Store refresh token in database
         await prisma.refreshToken.create({
@@ -130,6 +138,9 @@ class AuthServices {
                 expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
             }
         });
+
+
+        console.log("After creating refresh tokn,  service ITS working here", accessToken)
 
         return {
             message: "Login successful.",
