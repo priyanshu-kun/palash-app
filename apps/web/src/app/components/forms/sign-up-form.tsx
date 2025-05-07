@@ -103,6 +103,11 @@ export function SignUpForm() {
       console.log(formData);
       dispatch(signUpStart())
       await signUpUser(formData);
+      toast({
+        title: "OTP Sent",
+        description: "Please check your inbox or spam folder.",
+        variant: "default"
+      })
       dispatch(signUpSuccess(formData.emailOrPhone))
       router.push("/verify?type=signup")
     }

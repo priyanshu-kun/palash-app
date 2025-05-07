@@ -53,6 +53,11 @@ export function SignInForm() {
 
       dispatch(signInStart())
       await signInUser(email)
+      toast({
+        title: "OTP Sent",
+        description: "Please check your inbox or spam folder.",
+        variant: "default"
+      })
       dispatch(signInSuccess(email))
       router.push("/verify?type=signin")
     }

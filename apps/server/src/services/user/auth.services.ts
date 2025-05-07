@@ -64,8 +64,6 @@ class AuthServices {
                 'USER'
             );
 
-            console.log("========== AFTER JWT ===============: ", accessToken)
-
             // Store refresh token in database within the same transaction
             await tx.refreshToken.create({
                 data: {
@@ -117,11 +115,9 @@ class AuthServices {
                 data: { is_revoked: true }
             });
 
-            console.log("ITS working here")
 
             const jwtServiceInstance = new JWTService();
 
-            console.log("After jwt service ITS working here")
 
             const { accessToken, refreshToken } = await jwtServiceInstance.generateTokenPair(
                 user.id,
@@ -130,7 +126,6 @@ class AuthServices {
             );
 
 
-            console.log("After jwt service ITS working here", accessToken)
 
             // Store refresh token in database
             await tx.refreshToken.create({
@@ -141,8 +136,6 @@ class AuthServices {
                 }
             });
 
-
-            console.log("After creating refresh tokn,  service ITS working here", accessToken)
 
             return {
                 message: "Login successful.",
