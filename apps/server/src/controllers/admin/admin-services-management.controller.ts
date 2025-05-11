@@ -41,12 +41,6 @@ class AdminServiceManagementController {
         pricingType = 'FIXED'
       }: RequestBody_Create = req.body;
 
-
-      console.info(req.body)
-      console.log("====================== REQ BODY============================: ", req.body)
-      console.log("================== Req FIle ====================: ", req.files)
-
-
       if (!name || !description || !price || !category || !duration) {
         res.status(400).json({ message: "Missing required fields" });
         return;

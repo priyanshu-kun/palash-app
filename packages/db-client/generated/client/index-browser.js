@@ -125,6 +125,8 @@ exports.Prisma.UserScalarFieldEnum = {
   username: 'username',
   date_of_birth: 'date_of_birth',
   role: 'role',
+  is_verified: 'is_verified',
+  is_agreed_to_terms: 'is_agreed_to_terms',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -250,6 +252,9 @@ exports.Prisma.PaymentScalarFieldEnum = {
   signature: 'signature',
   date: 'date',
   time_slot: 'time_slot',
+  amount: 'amount',
+  currency: 'currency',
+  status: 'status',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };

@@ -147,6 +147,8 @@ export interface SignUpDTO {
    name: string;
    username: string;
    phoneOrEmail: string;
+   is_agreed_to_terms: boolean;
+   is_verified: boolean;
    dob: string;
 }
 
@@ -212,6 +214,9 @@ export interface IVerifyPaymentParams {
     date: Date;
     timeSlot: string;  
     email: string;
+    amount: string;
+    currency: string;
+    status: string;
 }
 
 export interface ICreateCustomerParams {

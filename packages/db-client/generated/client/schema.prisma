@@ -22,6 +22,8 @@ model User {
   username              String?        @unique
   date_of_birth         DateTime
   role                  Role           @default(USER)
+  is_verified           Boolean        @default(false)
+  is_agreed_to_terms    Boolean        @default(false)
   reviews               Review[]
   bookings              Booking[]
   payments              Payment[]
@@ -241,7 +243,7 @@ model Notification {
 }
 
 model Payment {
-  id         String   @id @default(uuid())
+  id         String         @id @default(uuid())
   booking_id String?
   service_id String
   user_id    String
@@ -249,11 +251,14 @@ model Payment {
   order_id   String
   payment_id String
   signature  String
-  date       DateTime @db.Date
+  date       DateTime       @db.Date
   time_slot  String
-  user       User     @relation(fields: [user_id], references: [id])
-  service    Service  @relation(fields: [service_id], references: [id])
-  booking    Booking? @relation(fields: [booking_id], references: [id])
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  amount     Decimal?       @db.Decimal(10, 2)
+  currency   String?
+  status     PaymentStatus? @default(PENDING)
+  user       User           @relation(fields: [user_id], references: [id])
+  service    Service        @relation(fields: [service_id], references: [id])
+  booking    Booking?       @relation(fields: [booking_id], references: [id])
+  created_at DateTime       @default(now())
+  updated_at DateTime       @updatedAt
 }

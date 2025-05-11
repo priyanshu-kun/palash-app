@@ -2028,6 +2028,8 @@ export namespace Prisma {
     username: string | null
     date_of_birth: Date | null
     role: $Enums.Role | null
+    is_verified: boolean | null
+    is_agreed_to_terms: boolean | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -2040,6 +2042,8 @@ export namespace Prisma {
     username: string | null
     date_of_birth: Date | null
     role: $Enums.Role | null
+    is_verified: boolean | null
+    is_agreed_to_terms: boolean | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -2052,6 +2056,8 @@ export namespace Prisma {
     username: number
     date_of_birth: number
     role: number
+    is_verified: number
+    is_agreed_to_terms: number
     created_at: number
     updated_at: number
     _all: number
@@ -2066,6 +2072,8 @@ export namespace Prisma {
     username?: true
     date_of_birth?: true
     role?: true
+    is_verified?: true
+    is_agreed_to_terms?: true
     created_at?: true
     updated_at?: true
   }
@@ -2078,6 +2086,8 @@ export namespace Prisma {
     username?: true
     date_of_birth?: true
     role?: true
+    is_verified?: true
+    is_agreed_to_terms?: true
     created_at?: true
     updated_at?: true
   }
@@ -2090,6 +2100,8 @@ export namespace Prisma {
     username?: true
     date_of_birth?: true
     role?: true
+    is_verified?: true
+    is_agreed_to_terms?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -2175,6 +2187,8 @@ export namespace Prisma {
     username: string | null
     date_of_birth: Date
     role: $Enums.Role
+    is_verified: boolean
+    is_agreed_to_terms: boolean
     created_at: Date
     updated_at: Date
     _count: UserCountAggregateOutputType | null
@@ -2204,6 +2218,8 @@ export namespace Prisma {
     username?: boolean
     date_of_birth?: boolean
     role?: boolean
+    is_verified?: boolean
+    is_agreed_to_terms?: boolean
     created_at?: boolean
     updated_at?: boolean
     reviews?: boolean | User$reviewsArgs<ExtArgs>
@@ -2223,6 +2239,8 @@ export namespace Prisma {
     username?: boolean
     date_of_birth?: boolean
     role?: boolean
+    is_verified?: boolean
+    is_agreed_to_terms?: boolean
     created_at?: boolean
     updated_at?: boolean
   }, ExtArgs["result"]["user"]>
@@ -2235,6 +2253,8 @@ export namespace Prisma {
     username?: boolean
     date_of_birth?: boolean
     role?: boolean
+    is_verified?: boolean
+    is_agreed_to_terms?: boolean
     created_at?: boolean
     updated_at?: boolean
   }, ExtArgs["result"]["user"]>
@@ -2247,11 +2267,13 @@ export namespace Prisma {
     username?: boolean
     date_of_birth?: boolean
     role?: boolean
+    is_verified?: boolean
+    is_agreed_to_terms?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "phone_or_email" | "avatar" | "name" | "username" | "date_of_birth" | "role" | "created_at" | "updated_at", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "phone_or_email" | "avatar" | "name" | "username" | "date_of_birth" | "role" | "is_verified" | "is_agreed_to_terms" | "created_at" | "updated_at", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reviews?: boolean | User$reviewsArgs<ExtArgs>
     bookings?: boolean | User$bookingsArgs<ExtArgs>
@@ -2282,6 +2304,8 @@ export namespace Prisma {
       username: string | null
       date_of_birth: Date
       role: $Enums.Role
+      is_verified: boolean
+      is_agreed_to_terms: boolean
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["user"]>
@@ -2720,6 +2744,8 @@ export namespace Prisma {
     readonly username: FieldRef<"User", 'String'>
     readonly date_of_birth: FieldRef<"User", 'DateTime'>
     readonly role: FieldRef<"User", 'Role'>
+    readonly is_verified: FieldRef<"User", 'Boolean'>
+    readonly is_agreed_to_terms: FieldRef<"User", 'Boolean'>
     readonly created_at: FieldRef<"User", 'DateTime'>
     readonly updated_at: FieldRef<"User", 'DateTime'>
   }
@@ -12648,8 +12674,18 @@ export namespace Prisma {
 
   export type AggregatePayment = {
     _count: PaymentCountAggregateOutputType | null
+    _avg: PaymentAvgAggregateOutputType | null
+    _sum: PaymentSumAggregateOutputType | null
     _min: PaymentMinAggregateOutputType | null
     _max: PaymentMaxAggregateOutputType | null
+  }
+
+  export type PaymentAvgAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type PaymentSumAggregateOutputType = {
+    amount: Decimal | null
   }
 
   export type PaymentMinAggregateOutputType = {
@@ -12663,6 +12699,9 @@ export namespace Prisma {
     signature: string | null
     date: Date | null
     time_slot: string | null
+    amount: Decimal | null
+    currency: string | null
+    status: $Enums.PaymentStatus | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -12678,6 +12717,9 @@ export namespace Prisma {
     signature: string | null
     date: Date | null
     time_slot: string | null
+    amount: Decimal | null
+    currency: string | null
+    status: $Enums.PaymentStatus | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -12693,11 +12735,22 @@ export namespace Prisma {
     signature: number
     date: number
     time_slot: number
+    amount: number
+    currency: number
+    status: number
     created_at: number
     updated_at: number
     _all: number
   }
 
+
+  export type PaymentAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type PaymentSumAggregateInputType = {
+    amount?: true
+  }
 
   export type PaymentMinAggregateInputType = {
     id?: true
@@ -12710,6 +12763,9 @@ export namespace Prisma {
     signature?: true
     date?: true
     time_slot?: true
+    amount?: true
+    currency?: true
+    status?: true
     created_at?: true
     updated_at?: true
   }
@@ -12725,6 +12781,9 @@ export namespace Prisma {
     signature?: true
     date?: true
     time_slot?: true
+    amount?: true
+    currency?: true
+    status?: true
     created_at?: true
     updated_at?: true
   }
@@ -12740,6 +12799,9 @@ export namespace Prisma {
     signature?: true
     date?: true
     time_slot?: true
+    amount?: true
+    currency?: true
+    status?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -12783,6 +12845,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: PaymentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PaymentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: PaymentMinAggregateInputType
@@ -12813,6 +12887,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: PaymentCountAggregateInputType | true
+    _avg?: PaymentAvgAggregateInputType
+    _sum?: PaymentSumAggregateInputType
     _min?: PaymentMinAggregateInputType
     _max?: PaymentMaxAggregateInputType
   }
@@ -12828,9 +12904,14 @@ export namespace Prisma {
     signature: string
     date: Date
     time_slot: string
+    amount: Decimal | null
+    currency: string | null
+    status: $Enums.PaymentStatus | null
     created_at: Date
     updated_at: Date
     _count: PaymentCountAggregateOutputType | null
+    _avg: PaymentAvgAggregateOutputType | null
+    _sum: PaymentSumAggregateOutputType | null
     _min: PaymentMinAggregateOutputType | null
     _max: PaymentMaxAggregateOutputType | null
   }
@@ -12860,6 +12941,9 @@ export namespace Prisma {
     signature?: boolean
     date?: boolean
     time_slot?: boolean
+    amount?: boolean
+    currency?: boolean
+    status?: boolean
     created_at?: boolean
     updated_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -12878,6 +12962,9 @@ export namespace Prisma {
     signature?: boolean
     date?: boolean
     time_slot?: boolean
+    amount?: boolean
+    currency?: boolean
+    status?: boolean
     created_at?: boolean
     updated_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -12896,6 +12983,9 @@ export namespace Prisma {
     signature?: boolean
     date?: boolean
     time_slot?: boolean
+    amount?: boolean
+    currency?: boolean
+    status?: boolean
     created_at?: boolean
     updated_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -12914,11 +13004,14 @@ export namespace Prisma {
     signature?: boolean
     date?: boolean
     time_slot?: boolean
+    amount?: boolean
+    currency?: boolean
+    status?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "booking_id" | "service_id" | "user_id" | "email" | "order_id" | "payment_id" | "signature" | "date" | "time_slot" | "created_at" | "updated_at", ExtArgs["result"]["payment"]>
+  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "booking_id" | "service_id" | "user_id" | "email" | "order_id" | "payment_id" | "signature" | "date" | "time_slot" | "amount" | "currency" | "status" | "created_at" | "updated_at", ExtArgs["result"]["payment"]>
   export type PaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
@@ -12953,6 +13046,9 @@ export namespace Prisma {
       signature: string
       date: Date
       time_slot: string
+      amount: Prisma.Decimal | null
+      currency: string | null
+      status: $Enums.PaymentStatus | null
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["payment"]>
@@ -13391,6 +13487,9 @@ export namespace Prisma {
     readonly signature: FieldRef<"Payment", 'String'>
     readonly date: FieldRef<"Payment", 'DateTime'>
     readonly time_slot: FieldRef<"Payment", 'String'>
+    readonly amount: FieldRef<"Payment", 'Decimal'>
+    readonly currency: FieldRef<"Payment", 'String'>
+    readonly status: FieldRef<"Payment", 'PaymentStatus'>
     readonly created_at: FieldRef<"Payment", 'DateTime'>
     readonly updated_at: FieldRef<"Payment", 'DateTime'>
   }
@@ -13848,6 +13947,8 @@ export namespace Prisma {
     username: 'username',
     date_of_birth: 'date_of_birth',
     role: 'role',
+    is_verified: 'is_verified',
+    is_agreed_to_terms: 'is_agreed_to_terms',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -14000,6 +14101,9 @@ export namespace Prisma {
     signature: 'signature',
     date: 'date',
     time_slot: 'time_slot',
+    amount: 'amount',
+    currency: 'currency',
+    status: 'status',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -14096,6 +14200,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'BookingStatus'
    */
   export type EnumBookingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BookingStatus'>
@@ -14148,13 +14259,6 @@ export namespace Prisma {
    * Reference to a field of type 'TimeSlotStatus[]'
    */
   export type ListEnumTimeSlotStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TimeSlotStatus[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -14284,6 +14388,8 @@ export namespace Prisma {
     username?: StringNullableFilter<"User"> | string | null
     date_of_birth?: DateTimeFilter<"User"> | Date | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
+    is_verified?: BoolFilter<"User"> | boolean
+    is_agreed_to_terms?: BoolFilter<"User"> | boolean
     created_at?: DateTimeFilter<"User"> | Date | string
     updated_at?: DateTimeFilter<"User"> | Date | string
     reviews?: ReviewListRelationFilter
@@ -14302,6 +14408,8 @@ export namespace Prisma {
     username?: SortOrderInput | SortOrder
     date_of_birth?: SortOrder
     role?: SortOrder
+    is_verified?: SortOrder
+    is_agreed_to_terms?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     reviews?: ReviewOrderByRelationAggregateInput
@@ -14323,6 +14431,8 @@ export namespace Prisma {
     name?: StringFilter<"User"> | string
     date_of_birth?: DateTimeFilter<"User"> | Date | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
+    is_verified?: BoolFilter<"User"> | boolean
+    is_agreed_to_terms?: BoolFilter<"User"> | boolean
     created_at?: DateTimeFilter<"User"> | Date | string
     updated_at?: DateTimeFilter<"User"> | Date | string
     reviews?: ReviewListRelationFilter
@@ -14341,6 +14451,8 @@ export namespace Prisma {
     username?: SortOrderInput | SortOrder
     date_of_birth?: SortOrder
     role?: SortOrder
+    is_verified?: SortOrder
+    is_agreed_to_terms?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -14359,6 +14471,8 @@ export namespace Prisma {
     username?: StringNullableWithAggregatesFilter<"User"> | string | null
     date_of_birth?: DateTimeWithAggregatesFilter<"User"> | Date | string
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
+    is_verified?: BoolWithAggregatesFilter<"User"> | boolean
+    is_agreed_to_terms?: BoolWithAggregatesFilter<"User"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -15084,6 +15198,9 @@ export namespace Prisma {
     signature?: StringFilter<"Payment"> | string
     date?: DateTimeFilter<"Payment"> | Date | string
     time_slot?: StringFilter<"Payment"> | string
+    amount?: DecimalNullableFilter<"Payment"> | Decimal | DecimalJsLike | number | string | null
+    currency?: StringNullableFilter<"Payment"> | string | null
+    status?: EnumPaymentStatusNullableFilter<"Payment"> | $Enums.PaymentStatus | null
     created_at?: DateTimeFilter<"Payment"> | Date | string
     updated_at?: DateTimeFilter<"Payment"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -15102,6 +15219,9 @@ export namespace Prisma {
     signature?: SortOrder
     date?: SortOrder
     time_slot?: SortOrder
+    amount?: SortOrderInput | SortOrder
+    currency?: SortOrderInput | SortOrder
+    status?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -15123,6 +15243,9 @@ export namespace Prisma {
     signature?: StringFilter<"Payment"> | string
     date?: DateTimeFilter<"Payment"> | Date | string
     time_slot?: StringFilter<"Payment"> | string
+    amount?: DecimalNullableFilter<"Payment"> | Decimal | DecimalJsLike | number | string | null
+    currency?: StringNullableFilter<"Payment"> | string | null
+    status?: EnumPaymentStatusNullableFilter<"Payment"> | $Enums.PaymentStatus | null
     created_at?: DateTimeFilter<"Payment"> | Date | string
     updated_at?: DateTimeFilter<"Payment"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -15141,11 +15264,16 @@ export namespace Prisma {
     signature?: SortOrder
     date?: SortOrder
     time_slot?: SortOrder
+    amount?: SortOrderInput | SortOrder
+    currency?: SortOrderInput | SortOrder
+    status?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: PaymentCountOrderByAggregateInput
+    _avg?: PaymentAvgOrderByAggregateInput
     _max?: PaymentMaxOrderByAggregateInput
     _min?: PaymentMinOrderByAggregateInput
+    _sum?: PaymentSumOrderByAggregateInput
   }
 
   export type PaymentScalarWhereWithAggregatesInput = {
@@ -15162,6 +15290,9 @@ export namespace Prisma {
     signature?: StringWithAggregatesFilter<"Payment"> | string
     date?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
     time_slot?: StringWithAggregatesFilter<"Payment"> | string
+    amount?: DecimalNullableWithAggregatesFilter<"Payment"> | Decimal | DecimalJsLike | number | string | null
+    currency?: StringNullableWithAggregatesFilter<"Payment"> | string | null
+    status?: EnumPaymentStatusNullableWithAggregatesFilter<"Payment"> | $Enums.PaymentStatus | null
     created_at?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
   }
@@ -15174,6 +15305,8 @@ export namespace Prisma {
     username?: string | null
     date_of_birth: Date | string
     role?: $Enums.Role
+    is_verified?: boolean
+    is_agreed_to_terms?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     reviews?: ReviewCreateNestedManyWithoutUserInput
@@ -15192,6 +15325,8 @@ export namespace Prisma {
     username?: string | null
     date_of_birth: Date | string
     role?: $Enums.Role
+    is_verified?: boolean
+    is_agreed_to_terms?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
@@ -15210,6 +15345,8 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    is_agreed_to_terms?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUpdateManyWithoutUserNestedInput
@@ -15228,6 +15365,8 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    is_agreed_to_terms?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -15246,6 +15385,8 @@ export namespace Prisma {
     username?: string | null
     date_of_birth: Date | string
     role?: $Enums.Role
+    is_verified?: boolean
+    is_agreed_to_terms?: boolean
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -15258,6 +15399,8 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    is_agreed_to_terms?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15270,6 +15413,8 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    is_agreed_to_terms?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16070,6 +16215,9 @@ export namespace Prisma {
     signature: string
     date: Date | string
     time_slot: string
+    amount?: Decimal | DecimalJsLike | number | string | null
+    currency?: string | null
+    status?: $Enums.PaymentStatus | null
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutPaymentsInput
@@ -16088,6 +16236,9 @@ export namespace Prisma {
     signature: string
     date: Date | string
     time_slot: string
+    amount?: Decimal | DecimalJsLike | number | string | null
+    currency?: string | null
+    status?: $Enums.PaymentStatus | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -16100,6 +16251,9 @@ export namespace Prisma {
     signature?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time_slot?: StringFieldUpdateOperationsInput | string
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPaymentsNestedInput
@@ -16118,6 +16272,9 @@ export namespace Prisma {
     signature?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time_slot?: StringFieldUpdateOperationsInput | string
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16133,6 +16290,9 @@ export namespace Prisma {
     signature: string
     date: Date | string
     time_slot: string
+    amount?: Decimal | DecimalJsLike | number | string | null
+    currency?: string | null
+    status?: $Enums.PaymentStatus | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -16145,6 +16305,9 @@ export namespace Prisma {
     signature?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time_slot?: StringFieldUpdateOperationsInput | string
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16160,6 +16323,9 @@ export namespace Prisma {
     signature?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time_slot?: StringFieldUpdateOperationsInput | string
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16210,6 +16376,11 @@ export namespace Prisma {
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
     notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type ReviewListRelationFilter = {
@@ -16275,6 +16446,8 @@ export namespace Prisma {
     username?: SortOrder
     date_of_birth?: SortOrder
     role?: SortOrder
+    is_verified?: SortOrder
+    is_agreed_to_terms?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -16287,6 +16460,8 @@ export namespace Prisma {
     username?: SortOrder
     date_of_birth?: SortOrder
     role?: SortOrder
+    is_verified?: SortOrder
+    is_agreed_to_terms?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -16299,6 +16474,8 @@ export namespace Prisma {
     username?: SortOrder
     date_of_birth?: SortOrder
     role?: SortOrder
+    is_verified?: SortOrder
+    is_agreed_to_terms?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -16361,6 +16538,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRoleFilter<$PrismaModel>
     _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type EnumBookingStatusFilter<$PrismaModel = never> = {
@@ -16581,11 +16766,6 @@ export namespace Prisma {
     _max?: NestedEnumTimeSlotStatusFilter<$PrismaModel>
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type TimeSlotListRelationFilter = {
     every?: TimeSlotWhereInput
     some?: TimeSlotWhereInput
@@ -16626,14 +16806,6 @@ export namespace Prisma {
     is_bookable?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type StringNullableListFilter<$PrismaModel = never> = {
@@ -17107,6 +17279,24 @@ export namespace Prisma {
     _max?: NestedEnumNotificationStatusFilter<$PrismaModel>
   }
 
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type EnumPaymentStatusNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPaymentStatusNullableFilter<$PrismaModel> | $Enums.PaymentStatus | null
+  }
+
   export type BookingNullableScalarRelationFilter = {
     is?: BookingWhereInput | null
     isNot?: BookingWhereInput | null
@@ -17123,8 +17313,15 @@ export namespace Prisma {
     signature?: SortOrder
     date?: SortOrder
     time_slot?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    status?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type PaymentAvgOrderByAggregateInput = {
+    amount?: SortOrder
   }
 
   export type PaymentMaxOrderByAggregateInput = {
@@ -17138,6 +17335,9 @@ export namespace Prisma {
     signature?: SortOrder
     date?: SortOrder
     time_slot?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    status?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -17153,8 +17353,41 @@ export namespace Prisma {
     signature?: SortOrder
     date?: SortOrder
     time_slot?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    status?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type PaymentSumOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type EnumPaymentStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPaymentStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.PaymentStatus | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumPaymentStatusNullableFilter<$PrismaModel>
+    _max?: NestedEnumPaymentStatusNullableFilter<$PrismaModel>
   }
 
   export type ReviewCreateNestedManyWithoutUserInput = {
@@ -17255,6 +17488,10 @@ export namespace Prisma {
 
   export type EnumRoleFieldUpdateOperationsInput = {
     set?: $Enums.Role
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type ReviewUpdateManyWithoutUserNestedInput = {
@@ -17593,10 +17830,6 @@ export namespace Prisma {
     connectOrCreate?: TimeSlotCreateOrConnectWithoutAvailabilityInput | TimeSlotCreateOrConnectWithoutAvailabilityInput[]
     createMany?: TimeSlotCreateManyAvailabilityInputEnvelope
     connect?: TimeSlotWhereUniqueInput | TimeSlotWhereUniqueInput[]
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type ServiceUpdateOneRequiredWithoutAvailabilityNestedInput = {
@@ -17986,6 +18219,18 @@ export namespace Prisma {
     connect?: BookingWhereUniqueInput
   }
 
+  export type NullableDecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string | null
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type NullableEnumPaymentStatusFieldUpdateOperationsInput = {
+    set?: $Enums.PaymentStatus | null
+  }
+
   export type UserUpdateOneRequiredWithoutPaymentsNestedInput = {
     create?: XOR<UserCreateWithoutPaymentsInput, UserUncheckedCreateWithoutPaymentsInput>
     connectOrCreate?: UserCreateOrConnectWithoutPaymentsInput
@@ -18056,6 +18301,11 @@ export namespace Prisma {
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
     notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -18138,6 +18388,14 @@ export namespace Prisma {
     _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedEnumBookingStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.BookingStatus | EnumBookingStatusFieldRefInput<$PrismaModel>
     in?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel>
@@ -18214,19 +18472,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumTimeSlotStatusFilter<$PrismaModel>
     _max?: NestedEnumTimeSlotStatusFilter<$PrismaModel>
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedFloatNullableFilter<$PrismaModel = never> = {
@@ -18420,6 +18665,50 @@ export namespace Prisma {
     _max?: NestedEnumNotificationStatusFilter<$PrismaModel>
   }
 
+  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type NestedEnumPaymentStatusNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPaymentStatusNullableFilter<$PrismaModel> | $Enums.PaymentStatus | null
+  }
+
+  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPaymentStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPaymentStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.PaymentStatus | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumPaymentStatusNullableFilter<$PrismaModel>
+    _max?: NestedEnumPaymentStatusNullableFilter<$PrismaModel>
+  }
+
   export type ReviewCreateWithoutUserInput = {
     id?: string
     rating: number
@@ -18500,6 +18789,9 @@ export namespace Prisma {
     signature: string
     date: Date | string
     time_slot: string
+    amount?: Decimal | DecimalJsLike | number | string | null
+    currency?: string | null
+    status?: $Enums.PaymentStatus | null
     created_at?: Date | string
     updated_at?: Date | string
     service: ServiceCreateNestedOneWithoutPaymentsInput
@@ -18516,6 +18808,9 @@ export namespace Prisma {
     signature: string
     date: Date | string
     time_slot: string
+    amount?: Decimal | DecimalJsLike | number | string | null
+    currency?: string | null
+    status?: $Enums.PaymentStatus | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -18720,6 +19015,9 @@ export namespace Prisma {
     signature?: StringFilter<"Payment"> | string
     date?: DateTimeFilter<"Payment"> | Date | string
     time_slot?: StringFilter<"Payment"> | string
+    amount?: DecimalNullableFilter<"Payment"> | Decimal | DecimalJsLike | number | string | null
+    currency?: StringNullableFilter<"Payment"> | string | null
+    status?: EnumPaymentStatusNullableFilter<"Payment"> | $Enums.PaymentStatus | null
     created_at?: DateTimeFilter<"Payment"> | Date | string
     updated_at?: DateTimeFilter<"Payment"> | Date | string
   }
@@ -18809,6 +19107,8 @@ export namespace Prisma {
     username?: string | null
     date_of_birth: Date | string
     role?: $Enums.Role
+    is_verified?: boolean
+    is_agreed_to_terms?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     reviews?: ReviewCreateNestedManyWithoutUserInput
@@ -18826,6 +19126,8 @@ export namespace Prisma {
     username?: string | null
     date_of_birth: Date | string
     role?: $Enums.Role
+    is_verified?: boolean
+    is_agreed_to_terms?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
@@ -18929,6 +19231,9 @@ export namespace Prisma {
     signature: string
     date: Date | string
     time_slot: string
+    amount?: Decimal | DecimalJsLike | number | string | null
+    currency?: string | null
+    status?: $Enums.PaymentStatus | null
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutPaymentsInput
@@ -18945,6 +19250,9 @@ export namespace Prisma {
     signature: string
     date: Date | string
     time_slot: string
+    amount?: Decimal | DecimalJsLike | number | string | null
+    currency?: string | null
+    status?: $Enums.PaymentStatus | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -18995,6 +19303,8 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    is_agreed_to_terms?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUpdateManyWithoutUserNestedInput
@@ -19012,6 +19322,8 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    is_agreed_to_terms?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -19612,6 +19924,9 @@ export namespace Prisma {
     signature: string
     date: Date | string
     time_slot: string
+    amount?: Decimal | DecimalJsLike | number | string | null
+    currency?: string | null
+    status?: $Enums.PaymentStatus | null
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutPaymentsInput
@@ -19628,6 +19943,9 @@ export namespace Prisma {
     signature: string
     date: Date | string
     time_slot: string
+    amount?: Decimal | DecimalJsLike | number | string | null
+    currency?: string | null
+    status?: $Enums.PaymentStatus | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -19726,6 +20044,8 @@ export namespace Prisma {
     username?: string | null
     date_of_birth: Date | string
     role?: $Enums.Role
+    is_verified?: boolean
+    is_agreed_to_terms?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     bookings?: BookingCreateNestedManyWithoutUserInput
@@ -19743,6 +20063,8 @@ export namespace Prisma {
     username?: string | null
     date_of_birth: Date | string
     role?: $Enums.Role
+    is_verified?: boolean
+    is_agreed_to_terms?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     bookings?: BookingUncheckedCreateNestedManyWithoutUserInput
@@ -19857,6 +20179,8 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    is_agreed_to_terms?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     bookings?: BookingUpdateManyWithoutUserNestedInput
@@ -19874,6 +20198,8 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    is_agreed_to_terms?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     bookings?: BookingUncheckedUpdateManyWithoutUserNestedInput
@@ -19978,6 +20304,8 @@ export namespace Prisma {
     username?: string | null
     date_of_birth: Date | string
     role?: $Enums.Role
+    is_verified?: boolean
+    is_agreed_to_terms?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     reviews?: ReviewCreateNestedManyWithoutUserInput
@@ -19995,6 +20323,8 @@ export namespace Prisma {
     username?: string | null
     date_of_birth: Date | string
     role?: $Enums.Role
+    is_verified?: boolean
+    is_agreed_to_terms?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
@@ -20028,6 +20358,8 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    is_agreed_to_terms?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUpdateManyWithoutUserNestedInput
@@ -20045,6 +20377,8 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    is_agreed_to_terms?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -20062,6 +20396,8 @@ export namespace Prisma {
     username?: string | null
     date_of_birth: Date | string
     role?: $Enums.Role
+    is_verified?: boolean
+    is_agreed_to_terms?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     reviews?: ReviewCreateNestedManyWithoutUserInput
@@ -20079,6 +20415,8 @@ export namespace Prisma {
     username?: string | null
     date_of_birth: Date | string
     role?: $Enums.Role
+    is_verified?: boolean
+    is_agreed_to_terms?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
@@ -20101,6 +20439,8 @@ export namespace Prisma {
     username?: string | null
     date_of_birth: Date | string
     role?: $Enums.Role
+    is_verified?: boolean
+    is_agreed_to_terms?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     reviews?: ReviewCreateNestedManyWithoutUserInput
@@ -20118,6 +20458,8 @@ export namespace Prisma {
     username?: string | null
     date_of_birth: Date | string
     role?: $Enums.Role
+    is_verified?: boolean
+    is_agreed_to_terms?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
@@ -20151,6 +20493,8 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    is_agreed_to_terms?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUpdateManyWithoutUserNestedInput
@@ -20168,6 +20512,8 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    is_agreed_to_terms?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -20196,6 +20542,8 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    is_agreed_to_terms?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUpdateManyWithoutUserNestedInput
@@ -20213,6 +20561,8 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    is_agreed_to_terms?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -20230,6 +20580,8 @@ export namespace Prisma {
     username?: string | null
     date_of_birth: Date | string
     role?: $Enums.Role
+    is_verified?: boolean
+    is_agreed_to_terms?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     reviews?: ReviewCreateNestedManyWithoutUserInput
@@ -20247,6 +20599,8 @@ export namespace Prisma {
     username?: string | null
     date_of_birth: Date | string
     role?: $Enums.Role
+    is_verified?: boolean
+    is_agreed_to_terms?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
@@ -20398,6 +20752,8 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    is_agreed_to_terms?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUpdateManyWithoutUserNestedInput
@@ -20415,6 +20771,8 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    is_agreed_to_terms?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -20588,6 +20946,9 @@ export namespace Prisma {
     signature: string
     date: Date | string
     time_slot: string
+    amount?: Decimal | DecimalJsLike | number | string | null
+    currency?: string | null
+    status?: $Enums.PaymentStatus | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -20709,6 +21070,9 @@ export namespace Prisma {
     signature?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time_slot?: StringFieldUpdateOperationsInput | string
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     service?: ServiceUpdateOneRequiredWithoutPaymentsNestedInput
@@ -20725,6 +21089,9 @@ export namespace Prisma {
     signature?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time_slot?: StringFieldUpdateOperationsInput | string
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20739,6 +21106,9 @@ export namespace Prisma {
     signature?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time_slot?: StringFieldUpdateOperationsInput | string
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20852,6 +21222,9 @@ export namespace Prisma {
     signature: string
     date: Date | string
     time_slot: string
+    amount?: Decimal | DecimalJsLike | number | string | null
+    currency?: string | null
+    status?: $Enums.PaymentStatus | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -20864,6 +21237,9 @@ export namespace Prisma {
     signature?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time_slot?: StringFieldUpdateOperationsInput | string
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPaymentsNestedInput
@@ -20880,6 +21256,9 @@ export namespace Prisma {
     signature?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time_slot?: StringFieldUpdateOperationsInput | string
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20894,6 +21273,9 @@ export namespace Prisma {
     signature?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time_slot?: StringFieldUpdateOperationsInput | string
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20976,6 +21358,9 @@ export namespace Prisma {
     signature: string
     date: Date | string
     time_slot: string
+    amount?: Decimal | DecimalJsLike | number | string | null
+    currency?: string | null
+    status?: $Enums.PaymentStatus | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -21090,6 +21475,9 @@ export namespace Prisma {
     signature?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time_slot?: StringFieldUpdateOperationsInput | string
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPaymentsNestedInput
@@ -21106,6 +21494,9 @@ export namespace Prisma {
     signature?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time_slot?: StringFieldUpdateOperationsInput | string
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -21120,6 +21511,9 @@ export namespace Prisma {
     signature?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     time_slot?: StringFieldUpdateOperationsInput | string
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }

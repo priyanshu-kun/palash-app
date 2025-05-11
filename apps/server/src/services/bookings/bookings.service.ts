@@ -115,6 +115,11 @@ class BookingService {
             return await prisma.booking.findUnique({
                 where: {
                     id: bookingId
+                },
+                include: {
+                    user: true,
+                    service: true,
+                    payments: true
                 }
             })
         }
@@ -159,7 +164,10 @@ class BookingService {
     async fetchBookingsByUserId(userId: string): Promise<any> {
         try {
             return await prisma.booking.findMany({
-                where: { user_id: userId }
+                where: { user_id: userId },
+                include: {
+                    service: true
+                }
             });
         }
         catch (err: any) {

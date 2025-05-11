@@ -27,7 +27,8 @@ class AuthServices {
             name,
             username,
             phoneOrEmail,
-            dob
+            dob,
+            is_agreed_to_terms: user.is_agreed_to_terms,
         }
 
         await storeSignUpOtp(tempUser);
@@ -53,7 +54,9 @@ class AuthServices {
                     phone_or_email: phoneOrEmail,
                     name: savedUser.name,
                     username: savedUser.username,
-                    date_of_birth: new Date(savedUser.dob)
+                    date_of_birth: new Date(savedUser.dob),
+                    is_agreed_to_terms: Boolean(savedUser.is_agreed_to_terms) || true,
+                    is_verified: Boolean(true)
                 },
             });
 
@@ -274,6 +277,8 @@ class AuthServices {
                     name: savedUser.name,
                     username: savedUser.username,
                     date_of_birth: new Date(savedUser.dob),
+                    is_agreed_to_terms: Boolean(savedUser.is_agreed_to_terms) || true,
+                    is_verified: Boolean(true),
                     role: 'ADMIN'
                 },
             });
