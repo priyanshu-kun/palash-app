@@ -7,6 +7,8 @@ import { ValidationError, UnauthorizedError } from "../../utils/errors.js";
 class AuthController {
     signUp = asyncHandler(async (req: Request, res: Response) => {
         const user: SignUpDTO = req.body;
+
+        console.log("====== User ======: ", user)
         if (!user.name || !user.username || !user.phoneOrEmail || !user.dob || !user.is_agreed_to_terms) {
             throw new ValidationError('Name, username, phone/email and date of birth are required');
         }
