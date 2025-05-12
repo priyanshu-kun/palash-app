@@ -164,9 +164,7 @@ export interface VerifyOtpDTO {
 }
 
 export interface JWTKeysConfig {
-   privateKeyFile: string;
-   privateKeyPassphrase: string;
-   publicKeyFile: string;
+   secretKey: string;
    accessTokenExpiry: string;
    refreshTokenExpiry: string;
 }
