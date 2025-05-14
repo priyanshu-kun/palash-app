@@ -23,18 +23,21 @@ const app: Express = express();
 
 // Pre-route middlewares
 app.use(cors({
-  origin: ['http://localhost:3000'],
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
-  optionsSuccessStatus: 200
+  origin: '*',                // Allow requests from any origin
+  credentials: true,          // Allow credentials (cookies, authorization headers, etc.)
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],  // Allow all common HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With', 'Origin', 'Access-Control-Request-Method', 'Access-Control-Request-Headers'],  // Allow more headers
+  exposedHeaders: ['Content-Length', 'X-Total-Count'],  // Expose these headers to the client
+  optionsSuccessStatus: 200,  // Success status for OPTIONS requests
+  preflightContinue: false,   // Don't pass OPTIONS to next handler
+  maxAge: 86400               // Cache preflight response for 24 hours
 }));
 
 
 app.use(helmet());
 app.use(morgan('dev'));
 app.use(express.json());
-app.use("/uploads", express.static(path.join(path.join(__dirname, '../'), "uploads")));
+app.use("/api/v1/uploads", express.static(path.join(path.join(__dirname, '../'), "uploads")));
 app.use(express.urlencoded({ extended: true }));
 dotenv.config();
 
