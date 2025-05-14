@@ -17,7 +17,7 @@ class AuthServices {
         });
 
         if (isUserExists) {
-            throw new ValidationError('Username or Phone/Email already taken.');
+            throw new ValidationError('Username or Email already taken. Please try again with different username or email.');
         }
 
         const otp: string = generateOtp();
@@ -40,9 +40,9 @@ class AuthServices {
         const { phoneOrEmail, otp } = data;
 
         const savedUser = await getOtpData(phoneOrEmail, "signup");
-        if (!savedUser) throw new ValidationError("OTP expired");
+        if (!savedUser) throw new ValidationError("OTP expired. Please request a new OTP.");
 
-        if (savedUser.otp !== otp) throw new ValidationError("Invalid Otp");
+        if (savedUser.otp !== otp) throw new ValidationError("Invalid Otp. Please try again.");
 
         await deleteOtp(phoneOrEmail, "signup");
 
@@ -88,7 +88,7 @@ class AuthServices {
         const { phoneOrEmail } = data;
 
         const user = await prisma.user.findUnique({ where: { phone_or_email: phoneOrEmail } });
-        if (!user) throw new ValidationError("User not found. Please sign up.");
+        if (!user) throw new ValidationError("User not found. Please create an account.");
 
         const otp: string = generateOtp();
 
@@ -103,14 +103,14 @@ class AuthServices {
         const { phoneOrEmail, otp } = data;
         return await prisma.$transaction(async (tx) => {
             const savedUser = await getOtpData(phoneOrEmail, "signin");
-            if (!savedUser) throw new ValidationError("OTP expired");
+            if (!savedUser) throw new ValidationError("OTP expired. Please request a new OTP.");
 
-            if (savedUser.otp !== otp) throw new ValidationError("Invalid Otp");
+            if (savedUser.otp !== otp) throw new ValidationError("Invalid Otp. Please try again.");
 
             await deleteOtp(phoneOrEmail, "signin");
 
             const user = await tx.user.findUnique({ where: { phone_or_email: phoneOrEmail } });
-            if (!user) throw new ValidationError("User not found. Please sign up.");
+            if (!user) throw new ValidationError("User not found. Please create an account.");
 
             // Invalidate any existing refresh tokens for this user
             await tx.refreshToken.updateMany({
@@ -164,7 +164,7 @@ class AuthServices {
         });
 
         if (!storedToken) {
-            throw new ValidationError("Invalid or expired refresh token");
+            throw new ValidationError("Invalid or expired refresh token. Please login again.");
         }
 
         const user = storedToken.user;
@@ -239,7 +239,7 @@ class AuthServices {
         });
 
         if (isUserExists) {
-            throw new ValidationError("Username or Phone/Email already taken.");
+            throw new ValidationError("Username or Email already taken. Please try again with different username or email.");
         }
 
         const otp: string = generateOtp();
@@ -265,9 +265,9 @@ class AuthServices {
 
         return await prisma.$transaction(async (tx) => {
             const savedUser = await getOtpData(phoneOrEmail, "signup");
-            if (!savedUser) throw new ValidationError("OTP expired");
+            if (!savedUser) throw new ValidationError("OTP expired. Please request a new OTP.");
 
-            if (savedUser.otp !== otp) throw new ValidationError("Invalid OTP");
+            if (savedUser.otp !== otp) throw new ValidationError("Invalid Otp. Please try again.");
 
             await deleteOtp(phoneOrEmail, "signup");
 
@@ -330,9 +330,9 @@ class AuthServices {
 
         return await prisma.$transaction(async (tx) => {
             const savedUser = await getOtpData(phoneOrEmail, "signin");
-            if (!savedUser) throw new ValidationError("OTP expired");
+            if (!savedUser) throw new ValidationError("OTP expired. Please request a new OTP.");
 
-            if (savedUser.otp !== otp) throw new ValidationError("Invalid OTP");
+            if (savedUser.otp !== otp) throw new ValidationError("Invalid Otp. Please try again.");
 
             await deleteOtp(phoneOrEmail, "signin");
 
