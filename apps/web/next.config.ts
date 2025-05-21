@@ -21,7 +21,18 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
         pathname: '/**'
-      }
+      },
+      {
+        protocol: "https",
+        hostname: "images.pexels.com",
+        pathname: '/**'
+      },
+      {
+        protocol: "https",
+        hostname: "palash.club",
+        pathname: '/**'
+      },
+
     ],
   },
   typescript: {
