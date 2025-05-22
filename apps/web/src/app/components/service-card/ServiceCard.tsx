@@ -213,8 +213,10 @@ export function ServiceCard({ service }: ServiceCardProps) {
 
   const imageUrl =
     service.media && service.media.length > 0
-      ? `${process.env.NEXT_PUBLIC_API_URL}${service.media[currentImageIndex]}`
+      ? `${process.env.NEXT_PUBLIC_API_URL}/api/v1${service.media[currentImageIndex]}`
       : "/placeholder.svg?height=400&width=600"
+    
+  console.log("imageUrl: ", imageUrl);
 
   const handlePayment = async () => {
     try {

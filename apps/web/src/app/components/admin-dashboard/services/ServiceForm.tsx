@@ -243,7 +243,7 @@ export function ServiceForm({ initialData }: { initialData?: any }) {
       })
 
       // Redirect to services list
-      // router.push("/admin-dashboard/services")
+      router.push("/admin-dashboard/services")
     } catch (error) {
       console.error("Error submitting form:", error)
       toast({

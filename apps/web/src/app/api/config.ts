@@ -3,6 +3,8 @@ import { getAccessToken } from "@/app/utils/save-token";
   
 export const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
 
+console.log("BASE_URL: ", BASE_URL);
+
 export const api = axios.create({
     baseURL: `${BASE_URL}/api/v1`,
     headers: {

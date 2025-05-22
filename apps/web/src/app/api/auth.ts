@@ -36,12 +36,13 @@ export const signInUser = async (phoneOrEmail: string): Promise<any> => {
 
 export const signUpUser = async (payload: any): Promise<any> => {
     try {
-        const {name, username, emailOrPhone, dob} = payload;
+        const {name, username, emailOrPhone, dob, is_agreed_to_terms} = payload;
         const response = await api.post('/users/auth/sign-up', { 
             name, 
             username, 
             phoneOrEmail: emailOrPhone, 
-            dob 
+            dob,
+            is_agreed_to_terms
         });
         return response.data;
     } catch(err: any) {
