@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1= title
+  p Please Welcome to #{title} - #{subject}
+  if parseInt(num, 10) === 10
+    h1 Number is 10 #{typeof num}
+  else
+    h1 Number is not 10 #{typeof num}
