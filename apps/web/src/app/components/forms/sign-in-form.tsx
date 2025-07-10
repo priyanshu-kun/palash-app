@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { PrimaryButton, SecondaryButton } from "@/app/components/ui/buttons/index";
@@ -18,16 +18,20 @@ import { Loader2 } from "lucide-react";
 import { useToast } from "@/app/components/ui/toast/use-toast";
 import { ToastProvider } from "@/app/components/ui/toast/toast";
 
+
 export function SignInForm() {
   const [email, setEmail] = useState("")
+  const [shouldThrowError, setShouldThrowError] = useState(false)
   const router = useRouter()
   const dispatch = useDispatch()
   const {isLoading, error} = useSelector((state: any) => state.authReducer);
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    // Test error boundary
     try {
-      e.preventDefault()
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const phoneRegex = /^[6-9]\d{9}$/;
       const isEmail = emailRegex.test(email);
@@ -64,10 +68,10 @@ export function SignInForm() {
     catch(err: any) {
       toast({
         title: "Error",
-        description: err.response.data.message,
+        description: err.response?.data?.message || "An error occurred",
         variant: "destructive"
       })
-      dispatch(signInFailure(err.response.data.message))
+      dispatch(signInFailure(err.response?.data?.message || "An error occurred"))
     }
   }
 
@@ -79,34 +83,34 @@ export function SignInForm() {
   } 
 
   return (
-    <div className="space-y-6">
-      <ToastProvider />
-      {/* <div className="space-y-2 text-center">
+      <div className="space-y-6">
+        <ToastProvider />
+        {/* <div className="space-y-2 text-center">
         <h1 className="text-2xl font-semibold tracking-tight text-primary_button">Sign In</h1>
       </div> */}
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="phoneOrEmail">Enter your phone or email</Label>
-          <Input
-            id="phoneOrEmail"
-            type="text"
-            placeholder="eg. johndoe@gmail.com or (+91)"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <PrimaryButton type="submit" isLoading={isLoading} loadingText="Submitting..." disabled={email === ""} className="w-full bg-teal-900 py-6 text-white hover:bg-teal-800">
-         Submit 
-        </PrimaryButton>
-        <SecondaryButton className="w-full py-6" onClick={() => router.push("/")} type="button">Back to Site</SecondaryButton>
-        <p className="text-sm text-muted-foreground text-center">
-          Don&apos;t have an account?{" "}
-          <Link href="/sign-up" className="text-orange-500 hover:underline">
-            Create now
-          </Link>
-        </p>
-      </form>
-    </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="phoneOrEmail">Enter your phone or email</Label>
+            <Input
+              id="phoneOrEmail"
+              type="text"
+              placeholder="eg. johndoe@gmail.com or (+91)"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <PrimaryButton type="submit" isLoading={isLoading} loadingText="Submitting..." disabled={email === ""} className="w-full bg-teal-900 py-6 text-white hover:bg-teal-800">
+           Submit 
+          </PrimaryButton>
+          <SecondaryButton className="w-full py-6" onClick={() => router.push("/")} type="button">Back to Site</SecondaryButton>
+          <p className="text-sm text-muted-foreground text-center">
+            Don&apos;t have an account?{" "}
+            <Link href="/sign-up" className="text-orange-500 hover:underline">
+              Create now
+            </Link>
+          </p>
+        </form>
+      </div>
   )
 }

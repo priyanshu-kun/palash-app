@@ -59,6 +59,12 @@ const Navbar: React.FC<NavbarProps> = ({ user, isLoading }) => {
 
                         {/* Navigation Links */}
                         <div className="hidden md:flex text-sm font-semibold items-center space-x-8">
+                            <Link 
+                                href="/" 
+                                className={`text-gray-500 hover:text-gray-900 ${pathname === '/' ? 'text-gray-900 font-bold border-b-2 border-[#012b2b] underline' : ''}`}
+                            >
+                                Home
+                            </Link>
                             {
                                 user?.role === 'ADMIN' && (
                                     <Link 
@@ -77,12 +83,10 @@ const Navbar: React.FC<NavbarProps> = ({ user, isLoading }) => {
                             </Link>
                             
                             <Link 
-                                href="https://palash-app-forum.vercel.app/" 
-                                target='__blank' 
-                                className="text-gray-500 flex items-center gap-2 hover:text-gray-900"
+                                href="/pricing" 
+                                className={`text-gray-500 hover:text-gray-900 ${pathname === '/pricing' ? 'text-gray-900 font-bold border-b-2 border-[#012b2b] underline' : ''}`}
                             >
-                               <span>Community Forum</span>
-                                <ExternalLink size={16} />
+                                Pricing
                             </Link>
                             <Link 
                                 href="/about" 

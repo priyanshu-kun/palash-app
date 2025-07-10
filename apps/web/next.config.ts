@@ -3,6 +3,14 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   devIndicators: false,
+   experimental: {
+    turbo: {
+      rules: {
+        // Configure which files should be treated as assets
+        '*.mp4': ['asset'],
+      },
+    },
+  },
   images: {
     unoptimized: false,
     remotePatterns: [

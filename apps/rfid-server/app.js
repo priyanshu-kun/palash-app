@@ -1,17 +1,24 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+import { fileURLToPath } from 'url';
+import createError from 'http-errors';
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
 
-var indexRouter = require('./routes/index');
-const { initNFC } = require('./utils/nfc');
+import logger from 'morgan';
+
+import indexRouter from './routes/index.js';
+import { initNFC } from './utils/nfc.js';
+
+const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+const __dirname = path.dirname(__filename); // get the name of the directory
 
 var app = express();
 
 
-initNFC((card) => {
+initNFC((card, reader, error) => {
   console.log('card', card);
+  console.log('reader', reader);
+  console.log('error', error);
 });
 
 // view engine setup
@@ -42,4 +49,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+export default app;
