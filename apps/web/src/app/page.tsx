@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Hero from "@/app/components/hero/Hero";
 import Booking from "@/app/components/booking-section/Booking";
 import WellnessServices from "@/app/components/wellness-services/WellnessServices";
+import DailyWellnessTips from "@/app/components/daily-wellness-tips/DailyWellnessTips";
 import Community from "@/app/components/community/Community";
 import HowItsWork from "@/app/components/how-its-work/HowItsWork";
 import TestimonialCarousel from "@/app/components/testimonial-carousel/TestimonialCarousel";
@@ -40,7 +41,8 @@ export default function Page() {
         <Hero />
         <Booking />
         <WellnessServices />
-        <Community />
+        <DailyWellnessTips />
+        {/* <Community /> */}
         <HowItsWork />
         <TestimonialCarousel />
         <CallToAction />

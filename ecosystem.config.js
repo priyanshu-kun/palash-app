@@ -12,17 +12,6 @@ module.exports = {
       }
     },
     {
-      name: 'palash-rfid-api',
-      cwd: './apps/rfid-server',
-      script: 'bin/www',
-      instances: 'max',
-      exec_mode: 'cluster',
-      env: {
-        NODE_ENV: 'production',
-        PORT: 5000
-      }
-    },
-    {
       name: 'palash-web',
       cwd: './apps/web',
       script: 'node_modules/next/dist/bin/next',
