@@ -1,11 +1,8 @@
 import { Request, Response, NextFunction } from "express"
 import { prisma } from "@palash/db-client";
 import winston from "winston";
-import Logger from "../../config/logger.config.js";
 import { redisClient } from "../../adapters/redis.adapter.js";
 
-const loggerInstance = new Logger();
-const logger: winston.Logger | undefined = loggerInstance.getLogger();
 
 const EXPIRATION_TIME = 3 * 24 * 60 * 60;
 
@@ -14,11 +11,14 @@ class ServiceListingController {
         try {
             const { serviceId } = req.params;
 
-            const whereCondition = serviceId ? { id: serviceId } : {};
+            if (!serviceId) {
+                res.status(400).json({ message: "Service ID is required" });
+                return;
+            }
 
             const [service] = await Promise.all([
                 prisma.service.findUnique({
-                    where: whereCondition,
+                    where: { id: serviceId },
                 })
             ]);
 

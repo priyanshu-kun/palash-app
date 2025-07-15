@@ -51,16 +51,16 @@ class PaymentGatewayController {
     });
 
     fetchPaymentDetails = asyncHandler(async (req: Request, res: Response) => {
-        const { paymentId } = req.body;
+        const { userId } = req.params;
         
-        if (!paymentId) {
+        if (!userId) {
             throw new ValidationError('Payment ID is required');
         }
 
-        const details = await this.paymentGatewayInstance.getPaymentDetails(paymentId);
+        const details = await this.paymentGatewayInstance.getPaymentDetails(userId);
         
         if (!details) {
-            throw new NotFoundError(`Payment details not found for ID ${paymentId}`);
+            throw new NotFoundError(`Payment details not found for ID ${userId}`);
         }
 
         return res.json(details);

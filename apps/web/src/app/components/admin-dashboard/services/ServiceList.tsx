@@ -145,7 +145,7 @@ return (
             <>
               <div className="absolute inset-0 bg-gradient-to-t from-[#012b2b]/30 to-transparent z-10" />
               <Image
-                src={`${process.env.NEXT_PUBLIC_API_URL}${service.media[0]}`}
+                src={`${process.env.NEXT_PUBLIC_API_URL}/api/v1${service.media[0]}`}
                 alt={service.name}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"

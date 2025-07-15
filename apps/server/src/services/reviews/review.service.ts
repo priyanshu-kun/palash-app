@@ -10,7 +10,7 @@ class ReviewService {
         serviceId: string;
         rating: number;
         comment: string;
-        bookingId?: string;
+        bookingId: string;
     }) {
         try {
             // Validate rating range
@@ -22,6 +22,7 @@ class ReviewService {
             const service = await prisma.service.findUnique({
                 where: { id: data.serviceId }
             });
+
 
             if (!service) {
                 throw new NotFoundError('Service not found');
@@ -266,6 +267,7 @@ class ReviewService {
      */
     async deleteReview(reviewId: string, userId: string) {
         try {
+            // Find review that belongs to the user
             const review = await prisma.review.findFirst({
                 where: {
                     id: reviewId,
@@ -284,7 +286,7 @@ class ReviewService {
 
             // Update service average rating
             const serviceReviews = await prisma.review.findMany({
-                where: { service_id: review.serviceId }
+                where: { service_id: review.service_id }
             });
 
             if (serviceReviews.length > 0) {

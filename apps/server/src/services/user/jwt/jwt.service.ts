@@ -1,40 +1,43 @@
-import fs from "fs";
-import jwt, {SignOptions, VerifyErrors, VerifyOptions, PrivateKey, JwtPayload} from 'jsonwebtoken';
+import jwt, {SignOptions, VerifyErrors, VerifyOptions, JwtPayload} from 'jsonwebtoken';
 import { jwtKeysConfig } from "../../../config/jwt/index.js";
 
 class JWTService {
-    private readonly privateKey: Buffer;
-    private readonly privateKeySecret: PrivateKey;
+    private readonly secretKey: string;
     private readonly accessTokenSignOptions: SignOptions;
     private readonly refreshTokenSignOptions: SignOptions;
-    private readonly publicKey: Buffer;
     private readonly verifyOptions: VerifyOptions;
 
     constructor() {
-       this.privateKey = fs.readFileSync(jwtKeysConfig.privateKeyFile); 
-       this.privateKeySecret = {
-        key: this.privateKey,
-        passphrase: jwtKeysConfig.privateKeyPassphrase
-       };
-       this.accessTokenSignOptions = {
-        algorithm: 'RS256',
-        expiresIn: '7d'
-       };
-       this.refreshTokenSignOptions = {
-        algorithm: 'RS256',
-        expiresIn: '14d'
-       };
-       this.publicKey = fs.readFileSync(jwtKeysConfig.publicKeyFile);       
-       this.verifyOptions = {
-        algorithms: ["RS256"]
-       };
+        try {
+            this.secretKey = jwtKeysConfig.secretKey;
+            
+            if (!this.secretKey) {
+                throw new Error('JWT secret key is not configured');
+            }
+
+            this.accessTokenSignOptions = {
+                algorithm: 'HS256',
+                expiresIn: '7d'
+            };
+
+            this.refreshTokenSignOptions = {
+                algorithm: 'HS256',
+                expiresIn: '14d'
+            };
+
+            this.verifyOptions = {
+                algorithms: ["HS256"]
+            };
+        } catch (error) {
+            console.error('Error initializing JWT service:', error);
+            throw error;
+        }
     }
 
     async generateToken(phoneOrEmail: string, role: 'USER' | 'ADMIN'): Promise<{ token: string | undefined, expireAt: Date }> {
         return new Promise((resolve, reject) => {
-            jwt.sign({phoneOrEmail, role}, this.privateKeySecret, this.accessTokenSignOptions, (err: Error | null, encoded: string | undefined) => {
+            jwt.sign({phoneOrEmail, role}, this.secretKey, this.accessTokenSignOptions, (err: Error | null, encoded: string | undefined) => {
                 if(err === null && encoded !== undefined) {
-                    // Calculate expiry time based on the access token expiry setting
                     const expirySeconds = this.getExpirySeconds(this.accessTokenSignOptions.expiresIn);
                     const expireAt = new Date();
                     expireAt.setSeconds(expireAt.getSeconds() + expirySeconds);
@@ -63,7 +66,7 @@ class JWTService {
         return new Promise((resolve, reject) => {
             jwt.sign(
                 { userId, phoneOrEmail, role, tokenType: 'access' },
-                this.privateKeySecret,
+                this.secretKey,
                 this.accessTokenSignOptions,
                 (err: Error | null, encoded: string | undefined) => {
                     if(err === null && encoded !== undefined) {
@@ -84,7 +87,7 @@ class JWTService {
         return new Promise((resolve, reject) => {
             jwt.sign(
                 { userId, phoneOrEmail, role, tokenType: 'refresh' },
-                this.privateKeySecret,
+                this.secretKey,
                 this.refreshTokenSignOptions,
                 (err: Error | null, encoded: string | undefined) => {
                     if(err === null && encoded !== undefined) {
@@ -103,7 +106,7 @@ class JWTService {
 
     async verifyToken(token: string): Promise<JwtPayload & {userId?: string, phoneOrEmail: string | undefined; role: 'USER' | 'ADMIN'; tokenType?: string;} | null> {
         return new Promise((resolve, reject) => {
-            jwt.verify(token, this.publicKey, this.verifyOptions, (err: VerifyErrors | null, decoded: string | JwtPayload | undefined) => {
+            jwt.verify(token, this.secretKey, this.verifyOptions, (err: VerifyErrors | null, decoded: string | JwtPayload | undefined) => {
                 if(err === null && decoded !== undefined) {
                     const d = decoded as JwtPayload & {
                         userId?: string;

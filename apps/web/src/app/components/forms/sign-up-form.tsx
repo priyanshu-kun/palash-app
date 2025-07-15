@@ -16,7 +16,7 @@ import { LoadingScreen } from "@/app/components/ui/loader/loading";
 import { Loader2 } from "lucide-react";
 import { useToast } from "@/app/components/ui/toast/use-toast";
 import { ToastProvider } from "@/app/components/ui/toast/toast";
-
+import { Checkbox } from "@/app/components/ui/checkbox/checkbox";
 export function SignUpForm() {
   const router = useRouter()
   const {isLoading, error} = useSelector((state: any) => state.authReducer);  
@@ -28,6 +28,7 @@ export function SignUpForm() {
     username: "",
     emailOrPhone: "",
     dob: "",
+    is_agreed_to_terms: false,
   } 
   const [formData, setFormData] = useState(initialState)
 
@@ -49,6 +50,14 @@ export function SignUpForm() {
           variant: "destructive"
         })
         return;
+      }
+
+      if(!formData.is_agreed_to_terms) {
+        toast({
+          title: "Invalid Input",
+          description: "Please agree to the terms and conditions",
+          variant: "destructive"
+        })
       }
 
       if (!emailRegex.test(formData.emailOrPhone) && !phoneRegex.test(formData.emailOrPhone)) {
@@ -103,6 +112,11 @@ export function SignUpForm() {
       console.log(formData);
       dispatch(signUpStart())
       await signUpUser(formData);
+      toast({
+        title: "OTP Sent",
+        description: "Please check your inbox or spam folder.",
+        variant: "default"
+      })
       dispatch(signUpSuccess(formData.emailOrPhone))
       router.push("/verify?type=signup")
     }
@@ -172,6 +186,17 @@ export function SignUpForm() {
             onChange={handleChange}
             value={formData.dob}
           />
+        </div>
+        <div className="mt-2 flex items-center gap-2 pl-4">
+          <Checkbox 
+            id="is_agreed_to_terms" 
+            name="is_agreed_to_terms" 
+            required 
+            checked={formData.is_agreed_to_terms}
+            onCheckedChange={(checked) => setFormData({ ...formData, is_agreed_to_terms: Boolean(checked) })}
+            className="w-4 h-4"
+          />
+          <Label htmlFor="is_agreed_to_terms"><Link href="/terms-and-conditions" className="text-orange-500 hover:underline">I agree to the <span className="text-orange-500">Terms & Conditions</span></Link></Label>
         </div>
         <PrimaryButton 
           type="submit" 

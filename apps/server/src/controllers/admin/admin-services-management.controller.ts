@@ -3,15 +3,13 @@ import fs from "fs";
 import path from "path";
 import { NotificationType, prisma } from "@palash/db-client";
 import { RequestBody_Create, RequestBody_Update } from "../../@types/interfaces.js";
-import Logger from "../../config/logger.config.js";
 import { __dirname } from "../../utils/__dirname-handler.js";
 import winston from "winston";
 import { deleteServicesRedisKeys } from "../../utils/delete-all-redis-keys.js";
 import NotificationService from "../../services/notification/notification.service.js";
+import { PricingType, SessionType, DiffcultyType } from '@palash/db-client';
+import { Prisma } from '@prisma/client';
 
-
-const loggerInstance = new Logger();
-const logger: winston.Logger | undefined = loggerInstance.getLogger();
 
 
 class AdminServiceManagementController {
@@ -43,12 +41,6 @@ class AdminServiceManagementController {
         pricingType = 'FIXED'
       }: RequestBody_Create = req.body;
 
-
-      console.info(req.body)
-      console.log("====================== REQ BODY============================: ", req.body)
-      console.log("================== Req FIle ====================: ", req.files)
-
-
       if (!name || !description || !price || !category || !duration) {
         res.status(400).json({ message: "Missing required fields" });
         return;
@@ -70,11 +62,11 @@ class AdminServiceManagementController {
           tags: typeof tags === 'string' ? JSON.parse(tags) : tags,
           currency,
           price: parseFloat(price).toFixed(4),
-          pricingType,
+          pricingType: pricingType ? (pricingType.toUpperCase() as PricingType) : undefined,
           duration: Number(duration),
-          sessionType,
+          sessionType: sessionType ? (sessionType.toUpperCase() as SessionType) : undefined,
           maxParticipants: Number(maxParticipants),
-          difficultyLevel,
+          difficultyLevel: difficultyLevel ? (difficultyLevel.toUpperCase() as DiffcultyType) : undefined,
           prerequisites: typeof prerequisites === 'string' ? JSON.parse(prerequisites) : prerequisites,
           equipmentRequired: typeof equipmentRequired === 'string' ? JSON.parse(equipmentRequired) : equipmentRequired,
           benefitsAndOutcomes: typeof benefitsAndOutcomes === 'string' ? JSON.parse(benefitsAndOutcomes) : benefitsAndOutcomes,
@@ -181,7 +173,7 @@ class AdminServiceManagementController {
       const service = await prisma.service.findUnique({ where: { id: serviceId } });
 
       if (!service) {
-        res.status(404).json({ error: "Service not found" });
+        throw new Error('Service not found');
       }
 
       const serviceFolder = path.join(__dirname, "../uploads", service.name);
@@ -288,11 +280,11 @@ class AdminServiceManagementController {
           category,
           tags: typeof tags === 'string' ? JSON.parse(tags) : tags,
           price: price ? parseFloat(price).toFixed(4) : undefined,
-          pricingType,
+          pricingType: pricingType ? (pricingType.toUpperCase() as PricingType) : undefined,
           duration: Number(duration),
-          sessionType,
+          sessionType: sessionType ? (sessionType.toUpperCase() as SessionType) : undefined,
           maxParticipants,
-          difficultyLevel,
+          difficultyLevel: difficultyLevel ? (difficultyLevel.toUpperCase() as DiffcultyType) : undefined,
           prerequisites,
           equipmentRequired,
           benefitsAndOutcomes,

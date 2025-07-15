@@ -1,4 +1,3 @@
-import { loggers } from "winston";
 import { redisClient } from "../adapters/redis.adapter.js";
 
 export async function deleteServicesRedisKeys() {

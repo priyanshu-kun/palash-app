@@ -6,6 +6,9 @@ import { PrimaryButton, SecondaryButton } from "../ui/buttons";
 import Link from "next/link";
 
 export default function WellnessHero() {
+  // useEffect(() => {
+  //   throw new Error("Test error");
+  // }, []);
   return (
     <div className="min-h-screen  p-6 mt-28 md:p-12">
       <div className="mx-auto max-w-7xl grid gap-8 lg:grid-cols-2 items-center">

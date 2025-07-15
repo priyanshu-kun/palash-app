@@ -27,10 +27,10 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
     };
 
     return (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center ">
             <div
                 className={cn(
-                    'animate-spin rounded-full border-2 border-current border-t-transparent',
+                    'animate-spin rounded-full border-2 border-solid border-black border-t-transparent',
                     sizeClasses[size],
                     colorClasses[color],
                     className
@@ -58,7 +58,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({
         <div
             className={cn(
                 'flex flex-col items-center justify-center gap-4',
-                fullScreen ? 'fixed inset-0 bg-white/80 backdrop-blur-sm z-50' : 'p-4'
+                fullScreen ? 'fixed inset-0 bg-white/70 z-[1000] backdrop-blur-lg ' : 'p-4'
             )}
         >
             <LoadingSpinner {...spinnerProps} />

@@ -18,7 +18,7 @@ const AboutPage: React.FC = () => {
         <div className="relative h-96 rounded-xl overflow-hidden mb-16 mt-20">
           <Image 
             src="https://images.pexels.com/photos/6628529/pexels-photo-6628529.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
-            alt="Harmony Wellness Center" 
+            alt="The Palash Club - Journey to Wellness" 
             layout="fill"
             objectFit="cover"
             priority
@@ -26,10 +26,10 @@ const AboutPage: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-[#012b2b]/70 to-[#517d64]/70 flex items-center">
             <div className="container mx-auto px-6">
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                Our Story
+                Journey to Wellness
               </h1>
               <p className="text-xl text-white max-w-2xl">
-                Guiding you on your journey to holistic wellness since 2010.
+                Ancient Ayurvedic wisdom meets modern wellness at The Palash Club
               </p>
             </div>
           </div>
@@ -38,93 +38,92 @@ const AboutPage: React.FC = () => {
         {/* Mission Section */}
         <section className="mb-20">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Mission</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Philosophy</h2>
             <p className="text-lg text-gray-700 mb-8">
-              At Harmony Wellness Center, we believe in a holistic approach to health and wellbeing. 
-              Our mission is to empower individuals to achieve balance in mind, body, and spirit through 
-              personalized wellness solutions and expert guidance.
+              Ayurveda not only focuses on disease, but also maintains that all life must be supported by energy in balance. 
+              When there is minimal stress and the flow of energy within a person is balanced, the body's natural defense 
+              systems will be strong and can more easily defend against disease. The basic principle of Ayurveda is to 
+              prevent mankind from illness.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="bg-amber-50 p-6 rounded-lg">
+                <h3 className="font-semibold text-xl mb-3 text-amber-700">Holistic Wellness</h3>
+                <p className="text-gray-700">
+                  We bring not only Ayurveda but 4 more parallel medicines into daily life to balance energy and keep your body healthy.
+                </p>
+              </div>
+              <div className="bg-green-50 p-6 rounded-lg">
+                <h3 className="font-semibold text-xl mb-3 text-green-700">Five Elements</h3>
+                <p className="text-gray-700">
+                  Perfect blend of ancient wisdom with modern amenities under the five Tatva: water, earth, air, space, and fire.
+                </p>
+              </div>
               <div className="bg-blue-50 p-6 rounded-lg">
-                <h3 className="font-semibold text-xl mb-3 text-blue-700">Holistic Care</h3>
+                <h3 className="font-semibold text-xl mb-3 text-blue-700">Family Wellness</h3>
                 <p className="text-gray-700">
-                  We address all aspects of your wellness, creating integrated plans that nurture your complete health.
-                </p>
-              </div>
-              <div className="bg-purple-50 p-6 rounded-lg">
-                <h3 className="font-semibold text-xl mb-3 text-purple-700">Expert Guidance</h3>
-                <p className="text-gray-700">
-                  Our certified practitioners bring decades of experience to help you on your wellness journey.
-                </p>
-              </div>
-              <div className="bg-teal-50 p-6 rounded-lg">
-                <h3 className="font-semibold text-xl mb-3 text-teal-700">Community Focus</h3>
-                <p className="text-gray-700">
-                  We believe wellness thrives in community, offering group programs and events to foster connection.
+                  A place where your enjoyment leads you towards health - enjoy activities individually or with family and friends.
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Our Story Section */}
+        {/* Director's Message Section */}
         <section className="my-32">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Journey</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">Director's Message</h2>
               <p className="text-lg text-gray-700 mb-4">
-                Founded in 2010 by Dr. Sarah Chen, Harmony Wellness Center began as a small practice 
-                focused on integrative medicine. Dr. Chen's vision was to create a space where conventional 
-                medical wisdom could blend seamlessly with complementary therapies.
+                "Ayurveda, the science of life, it is not just the subject we study, it is a science of healthier 
+                and harmonious world. Our Amrutwel Ayurveda Research Centre through the Palash club, We are giving 
+                every individual healthy and stress-free life."
               </p>
               <p className="text-lg text-gray-700 mb-4">
-                Over the years, we've grown into a comprehensive wellness center, bringing together experts 
-                across multiple disciplines – from nutrition and fitness to mental health and traditional 
-                healing practices.
+                "Here you can come with the family to de-stress from all the diseases and tension. We are committed 
+                to offer you healthy organic food with naturopathy, acupressure, Reiki, sound therapy, and Ayurveda 
+                with luxury."
               </p>
-              <p className="text-lg text-gray-700">
-                Today, we're proud to serve thousands of clients annually, guiding each person on their 
-                unique path to wellness with compassion, expertise, and an unwavering commitment to holistic care.
+              <p className="text-lg text-gray-700 mb-4">
+                "You can feel the divine energy in the Palash club. Ayurveda always has side benefits, not side-effects. 
+                Come to the side of Ayurveda, come close to healthy life."
               </p>
+              <p className="text-lg font-semibold text-gray-900">- Dr. Komal Kashikar</p>
             </div>
             <div className='p-3 rounded-xl border border-solid border-gray-200'>
-
-            <div className="relative h-[600px] rounded-xl overflow-hidden">
-              <Image 
-                src="https://images.pexels.com/photos/8872793/pexels-photo-8872793.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
-                alt="Dr. Sarah Chen, Founder" 
-                layout="fill" 
-                objectFit="cover" 
-                objectPosition='center'
-              />
-            </div>
+              <div className="relative h-[600px] rounded-xl overflow-hidden">
+                <Image 
+                  src="https://images.pexels.com/photos/8872793/pexels-photo-8872793.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+                  alt="Dr. Komal Kashikar, Director" 
+                  layout="fill" 
+                  objectFit="cover" 
+                  objectPosition='center'
+                />
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Team Section */}
+        {/* Wellness Therapies Section */}
         <section className="mb-20">
-          <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">Our Team</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">Our Wellness Approaches</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {teamMembers.map((member) => (
-              <div key={member.id} className="bg-white rounded-xl shadow-md overflow-hidden">
-                <div className="relative h-72">
+            {therapyServices.map((service) => (
+              <div key={service.id} className="bg-white rounded-xl shadow-md overflow-hidden">
+                <div className="relative h-48">
                   <Image 
-                    src={member.image} 
-                    alt={member.name} 
+                    src={service.image} 
+                    alt={service.name} 
                     layout="fill" 
                     objectFit="cover" 
-                    objectPosition='top'
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="font-bold text-xl mb-1">{member.name}</h3>
-                  <p className="text-secondary_button  mb-3">{member.role}</p>
-                  <p className="text-gray-700 mb-4">{member.bio}</p>
-                  <div className="flex space-x-3">
-                    {member.credentials.map((credential, index) => (
-                      <span key={index} className="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded">
-                        {credential}
+                  <h3 className="font-bold text-xl mb-2">{service.name}</h3>
+                  <p className="text-gray-700 mb-4">{service.description}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {service.benefits.map((benefit, index) => (
+                      <span key={index} className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">
+                        {benefit}
                       </span>
                     ))}
                   </div>
@@ -132,127 +131,155 @@ const AboutPage: React.FC = () => {
               </div>
             ))}
           </div>
-          <div className="text-center mt-10">
-            <Link href="#">
-              <span className="inline-flex items-center text-secondary_button hover:text-primary_button">
-                Meet our full team
-                <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </span>
-            </Link>
-          </div>
         </section>
 
-        {/* Values */}
+        {/* Core Values */}
         <section className="mb-20">
-          <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">Our Values</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">Our Core Values</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10">
             <div className="flex">
-              <div className="flex-shrink-0 h-12 w-12 flex items-center justify-center rounded-md bg-blue-100 text-blue-600">
+              <div className="flex-shrink-0 h-12 w-12 flex items-center justify-center rounded-md bg-amber-100 text-amber-600">
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
               </div>
               <div className="ml-4">
-                <h3 className="text-lg font-medium text-gray-900">Compassionate Care</h3>
+                <h3 className="text-lg font-medium text-gray-900">Ancient Wisdom</h3>
                 <p className="mt-2 text-gray-700">
-                  We treat each client with empathy and understanding, recognizing their unique journey.
+                  Combining traditional Ayurvedic principles with complementary healing practices for holistic wellness.
+                </p>
+              </div>
+            </div>
+            <div className="flex">
+              <div className="flex-shrink-0 h-12 w-12 flex items-center justify-center rounded-md bg-green-100 text-green-600">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+              <div className="ml-4">
+                <h3 className="text-lg font-medium text-gray-900">Preventive Healthcare</h3>
+                <p className="mt-2 text-gray-700">
+                  Our focus is on preventing illness by maintaining energy balance and strengthening natural defense systems.
+                </p>
+              </div>
+            </div>
+            <div className="flex">
+              <div className="flex-shrink-0 h-12 w-12 flex items-center justify-center rounded-md bg-blue-100 text-blue-600">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <div className="ml-4">
+                <h3 className="text-lg font-medium text-gray-900">Family-Centered Approach</h3>
+                <p className="mt-2 text-gray-700">
+                  Creating wellness experiences that bring families together for healing and rejuvenation.
                 </p>
               </div>
             </div>
             <div className="flex">
               <div className="flex-shrink-0 h-12 w-12 flex items-center justify-center rounded-md bg-purple-100 text-purple-600">
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
               </div>
               <div className="ml-4">
-                <h3 className="text-lg font-medium text-gray-900">Evidence-Based Approach</h3>
+                <h3 className="text-lg font-medium text-gray-900">Luxury with Purpose</h3>
                 <p className="mt-2 text-gray-700">
-                  We combine ancient wisdom with modern research for effective, proven wellness solutions.
-                </p>
-              </div>
-            </div>
-            <div className="flex">
-              <div className="flex-shrink-0 h-12 w-12 flex items-center justify-center rounded-md bg-teal-100 text-teal-600">
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                </svg>
-              </div>
-              <div className="ml-4">
-                <h3 className="text-lg font-medium text-gray-900">Accessibility</h3>
-                <p className="mt-2 text-gray-700">
-                  We believe wellness should be accessible to all, offering services on a sliding scale.
-                </p>
-              </div>
-            </div>
-            <div className="flex">
-              <div className="flex-shrink-0 h-12 w-12 flex items-center justify-center rounded-md bg-amber-100 text-amber-600">
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
-                </svg>
-              </div>
-              <div className="ml-4">
-                <h3 className="text-lg font-medium text-gray-900">Continuous Growth</h3>
-                <p className="mt-2 text-gray-700">
-                  We commit to ongoing education and evolving our practice to serve you better.
+                  Providing premium wellness experiences with organic food, modern amenities, and divine energy.
                 </p>
               </div>
             </div>
           </div>
         </section>
+
+        {/* Location & Contact */}
+        <section className="mb-20 bg-gray-50 rounded-xl p-8">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">Visit The Palash Club</h2>
+            <p className="text-lg text-gray-700 mb-6">
+              Experience the perfect blend of ancient wisdom and modern luxury in our serene wellness sanctuary.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              <div className="text-left">
+                <h3 className="font-semibold text-xl mb-3 text-gray-900">Location</h3>
+                <p className="text-gray-700">
+                  Khasra No. 107, Village Sawangi (Amgaon Deoli)<br/>
+                  Taluka Hingna, District Nagpur
+                </p>
+              </div>
+              <div className="text-left">
+                <h3 className="font-semibold text-xl mb-3 text-gray-900">Contact</h3>
+                <p className="text-gray-700">
+                  Phone: +91 9422115180<br/>
+                  Email: thepalashclub@gmail.com<br/>
+                  Website: www.palash.club.com
+                </p>
+              </div>
+            </div>
+            <div className="mt-8">
+              <Link href="/pricing">
+                <span className="inline-flex items-center bg-primary_button hover:bg-secondary_button text-white px-6 py-3 rounded-full font-semibold">
+                  Explore Membership Options
+                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </span>
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
 
-<div className='w-full mb-12'>
-            <Footer  />
-</div>
+      <div className='w-full mb-12'>
+        <Footer />
+      </div>
     </>
   );
 };
 
-// Sample data - in a real application, this would come from a CMS or API
-const teamMembers = [
+// Therapy services data based on Palash Club offerings
+const therapyServices = [
   {
     id: 1,
-    name: "Dr. Sarah Chen",
-    role: "Founder & Medical Director",
-    image: "https://images.pexels.com/photos/2361316/pexels-photo-2361316.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    bio: "With over 20 years of experience in integrative medicine, Dr. Chen brings a unique approach that bridges Eastern and Western healing traditions.",
-    credentials: ["MD", "PhD", "Certified in Integrative Medicine"]
+    name: "Ayurveda",
+    image: "https://images.pexels.com/photos/3985163/pexels-photo-3985163.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    description: "Traditional Ayurvedic treatments focusing on balancing the three doshas and promoting natural healing through herbal medicines and therapies.",
+    benefits: ["Panchakarma", "Herbal Medicine", "Dosha Balancing"]
   },
   {
     id: 2,
-    name: "Michael Rodriguez",
-    role: "Nutrition Specialist",
-    image: "https://images.pexels.com/photos/19728120/pexels-photo-19728120/free-photo-of-side-view-of-a-woman-with-her-arms-crossed.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    bio: "Michael specializes in creating customized nutrition plans that address specific health concerns while supporting overall wellness.",
-    credentials: ["RD", "CSSD", "CSOWM"]
+    name: "Naturopathy",
+    image: "https://images.pexels.com/photos/4506102/pexels-photo-4506102.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    description: "Natural healing approaches using the body's inherent ability to heal itself through nutrition, lifestyle changes, and natural remedies.",
+    benefits: ["Detoxification", "Natural Remedies", "Lifestyle Guidance"]
   },
   {
     id: 3,
-    name: "Aisha Patel",
-    role: "Yoga & Meditation Instructor",
-    image: "https://images.pexels.com/photos/24233283/pexels-photo-24233283/free-photo-of-woman-in-jacket-sitting-and-holding-ipad.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    bio: "Aisha has taught yoga and meditation for 15 years, helping clients find balance, flexibility, and inner peace through mindful practice.",
-    credentials: ["E-RYT 500", "YACEP", "Meditation Certified"]
-  }
-];
-
-const testimonials = [
-  {
-    id: 1,
-    name: "Jennifer L.",
-    service: "Holistic Nutrition Program",
-    image: "/images/testimonials/jennifer.jpg",
-    text: "The personalized nutrition plan changed my life. After years of struggling with energy issues, I finally feel like myself again!"
+    name: "Acupressure",
+    image: "https://images.pexels.com/photos/7524671/pexels-photo-7524671.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    description: "Ancient pressure point therapy that stimulates healing by applying pressure to specific points on the body to restore energy flow.",
+    benefits: ["Pain Relief", "Energy Balance", "Stress Reduction"]
   },
   {
-    id: 2,
-    name: "Marcus T.",
-    service: "Stress Management & Meditation",
-    image: "/images/testimonials/marcus.jpg",
-    text: "Aisha's meditation classes have given me tools to manage my stress in ways I never thought possible. My anxiety is down and my productivity is up."
+    id: 4,
+    name: "Reiki",
+    image: "https://images.pexels.com/photos/3985167/pexels-photo-3985167.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    description: "Energy healing technique that promotes relaxation, reduces stress, and supports emotional and physical healing through universal life energy.",
+    benefits: ["Energy Healing", "Stress Relief", "Emotional Balance"]
+  },
+  {
+    id: 5,
+    name: "Sound Therapy",
+    image: "https://images.pexels.com/photos/3544322/pexels-photo-3544322.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    description: "Therapeutic use of sound frequencies and vibrations to promote healing, relaxation, and mental clarity through various instruments and techniques.",
+    benefits: ["Deep Relaxation", "Mental Clarity", "Vibrational Healing"]
+  },
+  {
+    id: 6,
+    name: "Yoga & Meditation",
+    image: "https://images.pexels.com/photos/3822359/pexels-photo-3822359.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    description: "Ancient practices combining physical postures, breathing techniques, and meditation to achieve physical, mental, and spiritual well-being.",
+    benefits: ["Flexibility", "Mindfulness", "Spiritual Growth"]
   }
 ];
 

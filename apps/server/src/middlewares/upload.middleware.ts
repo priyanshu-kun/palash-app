@@ -3,11 +3,8 @@ import path, { dirname } from "path";
 import { Request, Response, NextFunction } from "express";
 import { existsSync, mkdirSync, readdirSync, readFileSync } from "fs";
 import { fileURLToPath } from "url";
-import Logger from "../config/logger.config.js";
 import { __dirname } from "../utils/__dirname-handler.js";
 import winston from "winston";
-const loggerInstance = new Logger();
-const logger: winston.Logger | undefined = loggerInstance.getLogger();
 
 const ALLOWED_FORMATS = ["image/jpeg", "image/png", "image/jpg"];
 const MAX_FOLDER_PER_UPLOAD = 30;

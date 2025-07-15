@@ -14,6 +14,7 @@ class ReviewController {
         const { serviceId, rating, comment, bookingId } = req.body;
         const userId = req.user?.userId; // Assuming we have user info from auth middleware
 
+
         if (!userId) {
             throw new ValidationError('User must be authenticated');
         }

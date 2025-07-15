@@ -2,11 +2,9 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { ArrowUpCircle } from "lucide-react"
-import { PrimaryButton } from "@/app/components/ui/buttons/index"
+import { ArrowUpCircle, MapPin, Phone, Mail } from "lucide-react"
 import Logo from "@/app/assets/logo.png";
 import Image from "next/image";
-// import {} from ""
 
 export default function Footer() {
   const [showBackToTop, setShowBackToTop] = useState(false)
@@ -27,103 +25,144 @@ export default function Footer() {
     })
   }
 
+  const footerLinks = {
+    services: [
+      { label: "About Us", href: "/about" },
+      { label: "Wellness Programs", href: "/services" },
+      { label: "Pricing", href: "/pricing" },
+      { label: "Testimonials", href: "/testimonials" }
+    ],
+    support: [
+      { label: "FAQ", href: "/faq" },
+      { label: "Support", href: "/support" },
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms of Service", href: "/terms" }
+    ],
+    contact: [
+      { label: "+91 98765 43210", href: "tel:+919876543210", icon: Phone },
+      { label: "contact@palash.com", href: "mailto:contact@palash.com", icon: Mail },
+      { label: "New Delhi, India", href: "#", icon: MapPin }
+    ]
+  }
+
   return (
-    <footer className="bg-[#104844] w-[96%] mx-auto rounded-xl  text-gray-300 py-12 relative">
-      <div className="container mx-auto px-4 flex items-center justify-between">
-        {/* Logo and Description */}
-        <div>
-          <div className="mb-8">
-            {/* <h2 className="text-[#FF7F50] text-2xl font-bold mb-4">PALASH</h2> */}
-            <Image src={Logo} alt="logo" className="text-2xl font-bold mb-4 w-48" />
-            <p className="text-sm max-w-md text-[#FF7F50]">
-              We are health experienced therapists that are passionate about our goal on empowering you mentally with our
-              wellness journey.
-            </p>
+    <footer className="bg-[#104844] w-[96%] sm:w-[94%] mx-auto rounded-xl text-gray-300 py-8 sm:py-12 lg:py-16 relative">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main Footer Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-12 mb-8 sm:mb-12">
+          {/* Logo and Description */}
+          <div className="lg:col-span-1">
+            <div className="mb-6">
+              <Image 
+                src={Logo} 
+                alt="Palash Logo" 
+                className="w-32 sm:w-40 lg:w-48 mb-4" 
+              />
+              <p className="text-sm sm:text-base text-[#FF7F50] leading-relaxed max-w-md">
+                Empowering your mental wellness journey with compassionate care and expert guidance.
+              </p>
+            </div>
           </div>
 
-          {/* Email Subscription */}
-          <div>
-            <div className="flex items-center max-w-md gap-2">
-              <div className="relative">
-               
-                <input
-                  type="text"
-                  className="block w-96 pl-10 pr-3 py-4 border-2  border-white/40 rounded-full bg-transparent  placeholder:text-white/40 placeholder:font-semibold text-sm   focus:border-[#FF7F50] outline-none "
-                  placeholder="Enter email address to get free session ..."
-                />
-              </div>
-              <PrimaryButton className="border-gray-600 py-6 px-8 text-gray-300">
-                Submit
-              </PrimaryButton>
+          {/* Quick Links */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-6 lg:gap-8 lg:col-span-3">
+            {/* Services Column */}
+            <div>
+              <h3 className="text-white font-semibold text-sm sm:text-base mb-3 sm:mb-4">Services</h3>
+              <ul className="space-y-2">
+                {footerLinks.services.map((link, index) => (
+                  <li key={index}>
+                    <Link 
+                      href={link.href} 
+                      className="text-xs sm:text-sm text-gray-300 hover:text-[#FF7F50] transition-colors duration-200"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-           
+
+            {/* Support Column */}
+            <div>
+              <h3 className="text-white font-semibold text-sm sm:text-base mb-3 sm:mb-4">Support</h3>
+              <ul className="space-y-2">
+                {footerLinks.support.map((link, index) => (
+                  <li key={index}>
+                    <Link 
+                      href={link.href} 
+                      className="text-xs sm:text-sm text-gray-300 hover:text-[#FF7F50] transition-colors duration-200"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Contact Column */}
+            <div className="col-span-2 sm:col-span-1">
+              <h3 className="text-white font-semibold text-sm sm:text-base mb-3 sm:mb-4">Contact</h3>
+              <ul className="space-y-3">
+                {footerLinks.contact.map((contact, index) => {
+                  const IconComponent = contact.icon;
+                  return (
+                    <li key={index}>
+                      <Link 
+                        href={contact.href} 
+                        className="flex items-center space-x-2 text-xs sm:text-sm text-gray-300 hover:text-[#FF7F50] transition-colors duration-200 group"
+                      >
+                        <IconComponent className="h-3 w-3 sm:h-4 sm:w-4 group-hover:text-[#FF7F50]" />
+                        <span>{contact.label}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
         </div>
 
-
-        {/* Footer Links */}
-        <div className="">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-20 mb-8">
-<div className="space-y-2">
-            <Link href="/about" className="block hover:text-[#FF7F50]">
-              About Us
-            </Link>
-            <Link href="/services" className="block hover:text-[#FF7F50]">
-              Services & Booking
-            </Link>
-            <Link href="/wellness" className="block hover:text-[#FF7F50]">
-              Wellness Programs
-            </Link>
-            <Link href="/testimonials" className="block hover:text-[#FF7F50]">
-              Testimonials
-            </Link>
-          </div>
-          <div className="space-y-2">
-            <Link href="/faq" className="block hover:text-[#FF7F50]">
-              FAQ
-            </Link>
-            <Link href="/price" className="block hover:text-[#FF7F50]">
-              Price List
-            </Link>
-            <Link href="/policy" className="block hover:text-[#FF7F50]">
-              User Policy
-            </Link>
-            <Link href="/support" className="block hover:text-[#FF7F50]">
-              Support
-            </Link>
-          </div>
-          <div className="space-y-2">
-            <Link href="/phone" className="block hover:text-[#FF7F50]">
-              Phone
-            </Link>
-            <Link href="/email" className="block hover:text-[#FF7F50]">
-              Email
-            </Link>
-            <Link href="/location" className="block hover:text-[#FF7F50]">
-              Location
-            </Link>
-            <Link href="/social" className="block hover:text-[#FF7F50]">
-              Social Media
-            </Link>
-          </div>
-          </div>
-          
- <div className="text-sm text-[#FF7F50]">
-              <p>Copyright © Palash The Club</p>
+        {/* Footer Bottom */}
+        <div className="border-t border-gray-600/30 pt-6 sm:pt-8">
+          <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+            {/* Copyright */}
+            <div className="text-xs sm:text-sm text-[#FF7F50] text-center sm:text-left">
+              <p>© 2024 Palash Wellness. All rights reserved.</p>
             </div>
+
+            {/* Social Links - Simple text links */}
+            <div className="flex items-center space-x-4 sm:space-x-6">
+              <Link 
+                href="#" 
+                className="text-xs sm:text-sm text-gray-300 hover:text-[#FF7F50] transition-colors duration-200"
+              >
+                Instagram
+              </Link>
+              <Link 
+                href="#" 
+                className="text-xs sm:text-sm text-gray-300 hover:text-[#FF7F50] transition-colors duration-200"
+              >
+                Facebook
+              </Link>
+              <Link 
+                href="#" 
+                className="text-xs sm:text-sm text-gray-300 hover:text-[#FF7F50] transition-colors duration-200"
+              >
+                Twitter
+              </Link>
+            </div>
+          </div>
         </div>
-
-        {/* Copyright */}
-
 
         {/* Back to Top Button */}
         {showBackToTop && (
           <button
             onClick={scrollToTop}
-            className="fixed bottom-8 right-8 bg-[#FF7F50] text-white p-2 rounded-full hover:bg-[#FF7F50]/80 transition-all"
+            className="fixed bottom-6 sm:bottom-8 right-6 sm:right-8 bg-[#FF7F50] text-white p-2 sm:p-3 rounded-full hover:bg-[#FF7F50]/80 transition-all duration-200 shadow-lg z-50"
             aria-label="Back to top"
           >
-            <ArrowUpCircle className="h-6 w-6" />
+            <ArrowUpCircle className="h-5 w-5 sm:h-6 sm:w-6" />
           </button>
         )}
       </div>

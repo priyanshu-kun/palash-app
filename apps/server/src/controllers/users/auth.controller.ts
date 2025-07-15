@@ -7,8 +7,14 @@ import { ValidationError, UnauthorizedError } from "../../utils/errors.js";
 class AuthController {
     signUp = asyncHandler(async (req: Request, res: Response) => {
         const user: SignUpDTO = req.body;
-        if (!user.name || !user.username || !user.phoneOrEmail || !user.dob) {
-            throw new ValidationError('Name, username, phone/email and date of birth are required');
+
+        if (!user.name || !user.username || !user.phoneOrEmail || !user.dob || !user.is_agreed_to_terms) {
+            throw new ValidationError('Name, username, email and date of birth are required');
+        }
+
+
+        if(!user.is_agreed_to_terms) {
+            throw new ValidationError('You must agree to the terms and conditions to create an account');
         }
         
         const result = await AuthServices.signUp(user);
@@ -20,7 +26,7 @@ class AuthController {
     verifySignUpOTP = asyncHandler(async (req: Request, res: Response) => {
         const user: VerifyOtpDTO = req.body;
         if (!user.otp || !user.phoneOrEmail) {
-            throw new ValidationError('OTP and phone/email are required');
+            throw new ValidationError('OTP and email are required');
         }
         
         const result = await AuthServices.verifySignUpOtp(user);
@@ -33,7 +39,7 @@ class AuthController {
         const user: SignInDTO = req.body;
         
         if (!user.phoneOrEmail) {
-            throw new ValidationError('Phone number or email is required');
+            throw new ValidationError('Email is required');
         }
         
         const result = await AuthServices.signIn(user);
@@ -47,7 +53,7 @@ class AuthController {
         const token: RefreshTokenDTO = req.body;
         
         if (!token.refreshToken) {
-            throw new ValidationError('Token not found');
+            throw new ValidationError('Refresh token is required');
         }
         
         const result = await AuthServices.refreshToken(token);
@@ -60,7 +66,7 @@ class AuthController {
         const user: VerifyOtpDTO = req.body;
         
         if (!user.otp || !user.phoneOrEmail) {
-            throw new ValidationError('OTP and phone/email are required');
+            throw new ValidationError('OTP and email are required');
         }
         
         const result = await AuthServices.verifySignInOtp(user);
@@ -73,7 +79,7 @@ class AuthController {
         const user: SignUpDTO = req.body;
         
         if (!user.name || !user.username || !user.phoneOrEmail || !user.dob) {
-            throw new ValidationError('Name, username, phone/email and date of birth are required');
+            throw new ValidationError('Name, username, email and date of birth are required');
         }
         
         const result = await AuthServices.createNewAdmin(user);
@@ -86,7 +92,7 @@ class AuthController {
         const user: VerifyOtpDTO = req.body;
         
         if (!user.otp || !user.phoneOrEmail) {
-            throw new ValidationError('OTP and phone/email are required');
+            throw new ValidationError('OTP and email are required');
         }
         
         const result = await AuthServices.verifyAdminSignUpOtp(user);
@@ -99,7 +105,7 @@ class AuthController {
         const user: SignInDTO = req.body;
         
         if (!user.phoneOrEmail) {
-            throw new ValidationError('Phone number or email is required');
+            throw new ValidationError('Email is required');
         }
         
         const result = await AuthServices.adminSignIn(user);
@@ -112,7 +118,7 @@ class AuthController {
         const user: VerifyOtpDTO = req.body;
         
         if (!user.otp || !user.phoneOrEmail) {
-            throw new ValidationError('OTP and phone/email are required');
+            throw new ValidationError('OTP and email are required');
         }
         
         const result = await AuthServices.verifyAdminSignInOtp(user);

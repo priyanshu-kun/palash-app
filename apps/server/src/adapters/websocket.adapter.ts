@@ -1,9 +1,5 @@
 import { WebSocket, WebSocketServer as WSServer } from 'ws';
 import { Server } from 'http';
-import Logger from '../config/logger.config.js';
-
-const loggerInstance = new Logger();
-const logger = loggerInstance.getLogger();
 
 interface WebSocketClient extends WebSocket {
     userId?: string;

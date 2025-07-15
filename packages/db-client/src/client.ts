@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import { PrismaClient } from "../generated/client";
+import { PrismaClient } from "../generated/client/index.js";
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
@@ -25,23 +25,6 @@ export const prisma =
     ],
   });
 
-
-prisma.$on("query", (e: any) => {
-  console.log("🛠 Executing Query:", e.query);
-});
-
-prisma.$on("info", (e: any) => {
-  console.log("\nℹ️ Info:", e.message);
-});
-
-prisma.$on("warn", (e: any) => {
-  console.warn("⚠️ Warning:", e.message);
-});
-
-prisma.$on("error", (e: any) => {
-  console.error("❌ Error:", e.message);
-});
-
 export async function checkDatabaseConnection() {
   try {
     await prisma.$connect();
@@ -51,6 +34,5 @@ export async function checkDatabaseConnection() {
     process.exit(1); 
   }
 }
-
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
