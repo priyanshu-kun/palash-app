@@ -41,6 +41,7 @@ class PaymentGateway {
         where: {
           service_id: serviceId,
           user_id: userId,
+          status: 'CONFIRMED'
         }
       })
 
