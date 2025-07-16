@@ -15,23 +15,24 @@ datasource db {
 }
 
 model User {
-  id                    String         @id @default(uuid())
-  phone_or_email        String?        @unique
+  id                    String           @id @default(uuid())
+  phone_or_email        String?          @unique
   avatar                String?
   name                  String
-  username              String?        @unique
+  username              String?          @unique
   date_of_birth         DateTime
-  role                  Role           @default(USER)
-  is_verified           Boolean        @default(false)
-  is_agreed_to_terms    Boolean        @default(false)
+  role                  Role             @default(USER)
+  is_verified           Boolean          @default(false)
+  is_agreed_to_terms    Boolean          @default(false)
   reviews               Review[]
   bookings              Booking[]
   payments              Payment[]
   refresh_tokens        RefreshToken[]
+  memberships           UserMembership[]
   notifications         Notification[]
-  created_notifications Notification[] @relation("NotificationCreator")
-  created_at            DateTime       @default(now())
-  updated_at            DateTime       @updatedAt
+  created_notifications Notification[]   @relation("NotificationCreator")
+  created_at            DateTime         @default(now())
+  updated_at            DateTime         @updatedAt
 }
 
 model Booking {
@@ -261,4 +262,40 @@ model Payment {
   booking    Booking?       @relation(fields: [booking_id], references: [id])
   created_at DateTime       @default(now())
   updated_at DateTime       @updatedAt
+}
+
+model MembershipPlan {
+  id                         String  @id @default(cuid())
+  name                       String  @unique
+  durationYears              Int
+  maxMembers                 Int
+  renewalPeriodYears         Int
+  discountClubActivities     Float
+  discountDining             Float
+  discountAccommodations     Float
+  discountSpaActivities      Float
+  discountMedicalWellness    Float
+  referenceBenefits          Float
+  guestDiscount              Float
+  includesYogaGuidance       Boolean
+  includesDietChartFor       Int // number of people
+  includesDoctorConsultation Boolean
+  panchkarmaWorth            Int // 0 if not included
+  cost                       Int
+
+  users     UserMembership[] // Relation
+  createdAt DateTime         @default(now())
+}
+
+model UserMembership {
+  id        String         @id @default(cuid())
+  user      User           @relation(fields: [userId], references: [id])
+  userId    String
+  plan      MembershipPlan @relation(fields: [planId], references: [id])
+  planId    String
+  startDate DateTime
+  endDate   DateTime
+  isPrimary Boolean        @default(false) // 👈 KEY FIELD
+  isActive  Boolean        @default(true)
+  createdAt DateTime       @default(now())
 }

@@ -69,7 +69,8 @@ const Navbar: React.FC<NavbarProps> = ({ user, isLoading }) => {
         { href: '/', label: 'Home', isActive: pathname === '/' },
         ...(user?.role === 'ADMIN' ? [{ href: '/admin-dashboard/services', label: 'Admin', isActive: pathname.startsWith('/admin-dashboard') }] : []),
         { href: '/services', label: 'Wellness Programs', isActive: pathname === '/services' },
-        { href: '/pricing', label: 'Pricing', isActive: pathname === '/pricing' },
+        { href: '/pricing', label: 'Buy Membership Plan', isActive: pathname === '/pricing' },
+        { href: '/bookings', label: 'My Bookings', isActive: pathname === '/bookings' },
         { href: '/about', label: 'About', isActive: pathname === '/about' }
     ];
 

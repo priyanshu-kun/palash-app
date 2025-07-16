@@ -23,16 +23,16 @@ const routes = [
     icon: CreditCard,
     href: "/admin-dashboard/services",
   },
-  {
-    label: "Analytics",
-    icon: BarChart3,
-    href: "/admin-dashboard/analytics",
-  },
-  {
-    label: "RFID",
-    icon: Settings,
-    href: "/admin-dashboard/rfid",
-  },
+  // {
+  //   label: "Analytics",
+  //   icon: BarChart3,
+  //   href: "/admin-dashboard/analytics",
+  // },
+  // {
+  //   label: "RFID",
+  //   icon: Settings,
+  //   href: "/admin-dashboard/rfid",
+  // },
 ]
 
 export function Sidebar() {

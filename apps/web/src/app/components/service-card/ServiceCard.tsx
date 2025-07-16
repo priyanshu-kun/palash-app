@@ -299,7 +299,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
           } catch (error: any) {
             console.error("Payment verification failed:", error.response.data.message);
             toast({
-              title: "Payment Verification Failed",
+              title: "Payment Verification Failed, If the amount is deducted from your account, it will be refunded within 24 hours. Please contact support if the amount is not refunded.",
               description: error.response.data.message,
               variant: "destructive"
             });
@@ -319,11 +319,11 @@ export function ServiceCard({ service }: ServiceCardProps) {
       razorpay.open();
     } catch (error: any) {
       console.error("Payment initiation failed:", error);
-      toast({
-        title: "Payment Failed",
-        description: error.response.data.message,
-        variant: "destructive"
-      });
+          toast({
+            title: "Payment Verification Failed, If the amount is deducted from your account, it will be refunded within 24 hours. Please contact support if the amount is not refunded.",
+            description: error.response.data.message,
+            variant: "destructive"
+          });
     } finally {
       setIsProcessing(false);
     }

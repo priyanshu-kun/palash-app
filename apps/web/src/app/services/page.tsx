@@ -22,6 +22,7 @@ export default function Page() {
     const fetchS = async () => {
       try {
         const serviceData = await fetchServices();
+
         toast({
           title: "Info",
           description: "Services fetched successfully"
