@@ -584,7 +584,7 @@ export function ServiceForm({ initialData }: { initialData?: any }) {
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="duration">
-                  Duration (hours) <span className="text-red-500">*</span>
+                  Duration (minutes) <span className="text-red-500">*</span>
                 </Label>
                 <Controller
                   name="duration"

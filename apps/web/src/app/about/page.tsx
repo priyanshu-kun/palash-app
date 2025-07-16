@@ -40,10 +40,7 @@ const AboutPage: React.FC = () => {
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Philosophy</h2>
             <p className="text-lg text-gray-700 mb-8">
-              Ayurveda not only focuses on disease, but also maintains that all life must be supported by energy in balance. 
-              When there is minimal stress and the flow of energy within a person is balanced, the body's natural defense 
-              systems will be strong and can more easily defend against disease. The basic principle of Ayurveda is to 
-              prevent mankind from illness.
+              Ayurveda not only focus on disease. But also, Ayurveda maintains that all life must be supported by energy in balance. When there is minimal stress and the flow of energy within a person is balanced, the body's natural defense systems will be strong and can more easily defend against disease. The basic principle of Ayurveda is to prevent mankind from the illness. Palash here follow the same concept and bring not only ayurveda but 4 more parallel medicine into day to day life of people to balance the energy everyday and keep your body balance, healthy and rejuvenate. At the Palash Club you will enjoy various activities which can be enjoy individually or with family and friend. all these activity will certainly balance your body energy to keep your immunity strong
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-amber-50 p-6 rounded-lg">
@@ -74,18 +71,16 @@ const AboutPage: React.FC = () => {
             <div>
               <h2 className="text-3xl font-bold text-gray-900 mb-6">Director's Message</h2>
               <p className="text-lg text-gray-700 mb-4">
-                "Ayurveda, the science of life, it is not just the subject we study, it is a science of healthier 
-                and harmonious world. Our Amrutwel Ayurveda Research Centre through the Palash club, We are giving 
-                every individual healthy and stress-free life."
+                "Ayurveda, the science of life, it is not just the subject we study, it is a
+science of healthier and harmonious world. Our Amrutwel Ayurveda
+research Centre through the Palash club, We are giving every individual
+healthy and stress-free life. Here you can come with the family to destress
+from all the diseases and tension. we the Palash having perfect blend of
+ancient wisdom with modern amenities, under the five Tatva (elements)
+that is water, earth, air, space, and fire."
               </p>
               <p className="text-lg text-gray-700 mb-4">
-                "Here you can come with the family to de-stress from all the diseases and tension. We are committed 
-                to offer you healthy organic food with naturopathy, acupressure, Reiki, sound therapy, and Ayurveda 
-                with luxury."
-              </p>
-              <p className="text-lg text-gray-700 mb-4">
-                "You can feel the divine energy in the Palash club. Ayurveda always has side benefits, not side-effects. 
-                Come to the side of Ayurveda, come close to healthy life."
+               "We are committed to oer you a healthy organic food with naturopathy, acupressure, Reiki, sound therapy, and Ayurveda with luxury. You can feel the divine energy in the Palash club, Ayurveda always has side benefit, not side-eect. Come in the side of Ayurveda, come close to healthy life."
               </p>
               <p className="text-lg font-semibold text-gray-900">- Dr. Komal Kashikar</p>
             </div>

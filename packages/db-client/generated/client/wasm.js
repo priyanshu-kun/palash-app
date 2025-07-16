@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.7.0
- * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
+ * Prisma Client JS version: 6.11.1
+ * Query Engine version: f40f79ec31188888a2e33acda0ecc8fd10a853a9
  */
 Prisma.prismaVersion = {
-  client: "6.7.0",
-  engine: "3cff47a7f5d65c3ea74883f1d736e41d68ce91ed"
+  client: "6.11.1",
+  engine: "f40f79ec31188888a2e33acda0ecc8fd10a853a9"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -247,6 +247,7 @@ exports.Prisma.NotificationScalarFieldEnum = {
 exports.Prisma.PaymentScalarFieldEnum = {
   id: 'id',
   booking_id: 'booking_id',
+  membership_id: 'membership_id',
   service_id: 'service_id',
   user_id: 'user_id',
   email: 'email',
@@ -258,8 +259,42 @@ exports.Prisma.PaymentScalarFieldEnum = {
   amount: 'amount',
   currency: 'currency',
   status: 'status',
+  payment_type: 'payment_type',
   created_at: 'created_at',
   updated_at: 'updated_at'
+};
+
+exports.Prisma.MembershipPlanScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  durationYears: 'durationYears',
+  maxMembers: 'maxMembers',
+  renewalPeriodYears: 'renewalPeriodYears',
+  discountClubActivities: 'discountClubActivities',
+  discountDining: 'discountDining',
+  discountAccommodations: 'discountAccommodations',
+  discountSpaActivities: 'discountSpaActivities',
+  discountMedicalWellness: 'discountMedicalWellness',
+  referenceBenefits: 'referenceBenefits',
+  guestDiscount: 'guestDiscount',
+  includesYogaGuidance: 'includesYogaGuidance',
+  includesDietChartFor: 'includesDietChartFor',
+  includesDoctorConsultation: 'includesDoctorConsultation',
+  panchkarmaWorth: 'panchkarmaWorth',
+  cost: 'cost',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.UserMembershipScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  planId: 'planId',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  isPrimary: 'isPrimary',
+  isActive: 'isActive',
+  parentMembershipId: 'parentMembershipId',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -349,6 +384,11 @@ exports.NotificationStatus = exports.$Enums.NotificationStatus = {
   ARCHIVED: 'ARCHIVED'
 };
 
+exports.PaymentType = exports.$Enums.PaymentType = {
+  SERVICE: 'SERVICE',
+  MEMBERSHIP: 'MEMBERSHIP'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Booking: 'Booking',
@@ -359,7 +399,9 @@ exports.Prisma.ModelName = {
   Review: 'Review',
   RefreshToken: 'RefreshToken',
   Notification: 'Notification',
-  Payment: 'Payment'
+  Payment: 'Payment',
+  MembershipPlan: 'MembershipPlan',
+  UserMembership: 'UserMembership'
 };
 
 /**
