@@ -34,12 +34,14 @@ class BookingService {
                     where: {
                         service_id: serviceId,
                         user_id: userId,
+                        status: 'CONFIRMED'
                     }
                 })
 
                 if (isAlreadyBooked) {
                     throw new ValidationError('You have already booked this service');
                 }
+
 
                 const booking = await tx.booking.create({
                     data: {

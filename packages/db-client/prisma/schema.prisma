@@ -54,7 +54,7 @@ model Booking {
   created_at       DateTime         @default(now())
   updated_at       DateTime         @updatedAt
 
-  @@unique([service_id, date])
+  @@unique([service_id, date, time_slot])
 }
 
 

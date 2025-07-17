@@ -17479,7 +17479,7 @@ export namespace Prisma {
 
   export type BookingWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    service_id_date?: BookingService_idDateCompoundUniqueInput
+    service_id_date_time_slot?: BookingService_idDateTime_slotCompoundUniqueInput
     AND?: BookingWhereInput | BookingWhereInput[]
     OR?: BookingWhereInput[]
     NOT?: BookingWhereInput | BookingWhereInput[]
@@ -17498,7 +17498,7 @@ export namespace Prisma {
     service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
     payments?: PaymentListRelationFilter
     invoice?: XOR<InvoiceNullableScalarRelationFilter, InvoiceWhereInput> | null
-  }, "id" | "service_id_date">
+  }, "id" | "service_id_date_time_slot">
 
   export type BookingOrderByWithAggregationInput = {
     id?: SortOrder
@@ -20036,9 +20036,10 @@ export namespace Prisma {
     isNot?: InvoiceWhereInput | null
   }
 
-  export type BookingService_idDateCompoundUniqueInput = {
+  export type BookingService_idDateTime_slotCompoundUniqueInput = {
     service_id: string
     date: Date | string
+    time_slot: string
   }
 
   export type BookingCountOrderByAggregateInput = {

@@ -18,6 +18,7 @@ class BookingController {
             throw new ValidationError('User ID, service ID, date, time slot, payment ID and email are required');
         }
 
+
         const result = await this.bookingServiceInstance.createBooking(bookingData);
 
         return res.status(201).json(result);

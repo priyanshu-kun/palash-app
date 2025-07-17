@@ -101,6 +101,10 @@ export default class MembershipController {
             const activeMembershipsList = allUserMemberships.filter(membership => membership.isActive);
             const inactiveMemberships = allUserMemberships.filter(membership => !membership.isActive);
 
+            console.log("activeMembershipsList: ", activeMembershipsList.length);
+            console.log("inactiveMemberships: ", inactiveMemberships.length);
+            console.log("allUserMemberships: ", allUserMemberships.length);
+
 
             return res.status(200).json({
                 message: "User membership fetched successfully",
@@ -685,7 +689,7 @@ export default class MembershipController {
                 const receiptId = `receipt_${uuidv4().replace(/-/g, '')}`;
 
                 const order = await this.razorpay.orders.create({
-                    amount: Number(membershipPlan.cost) * 100,
+                    amount: Number(50000) * 100,
                     currency: "INR",
                     receipt: receiptId,
                     notes: {
