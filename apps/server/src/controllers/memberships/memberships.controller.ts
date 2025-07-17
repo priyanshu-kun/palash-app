@@ -689,7 +689,7 @@ export default class MembershipController {
                 const receiptId = `receipt_${uuidv4().replace(/-/g, '')}`;
 
                 const order = await this.razorpay.orders.create({
-                    amount: Number(membershipPlan.cost) * 100,
+                    amount: Number(50000) * 100,
                     currency: "INR",
                     receipt: receiptId,
                     notes: {
